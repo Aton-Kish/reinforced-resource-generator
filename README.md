@@ -1,0 +1,1 @@
+# reinforced-resource-generator
