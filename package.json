@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "start": "react-scripts start",
+    "start": "craco start",
     "prebuild": "run-s lint",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
     "lint": "run-p lint:*",
     "lint:typecheck": "tsc",
     "lint:eslint": "eslint . --ignore-path .gitignore",
@@ -27,6 +27,7 @@
     ]
   },
   "dependencies": {
+    "@craco/craco": "^6.4.5",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -52,6 +53,8 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "windicss-webpack-plugin": "^1.7.5"
   }
 }
