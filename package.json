@@ -20,7 +20,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "run-p lint:*",
+    "lint:typecheck": "tsc",
+    "lint:eslint": "eslint . --ignore-path .gitignore",
+    "lint:prettier": "prettier . '!(*.md)' --check --ignore-path .gitignore",
+    "fix": "run-s fix:eslint fix:prettier",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "yarn lint:prettier --write"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +46,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1"
   }
 }
