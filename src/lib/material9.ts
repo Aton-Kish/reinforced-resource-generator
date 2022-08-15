@@ -14,24 +14,25 @@ export class Material9 {
   // Inner
   #inner: Jimp
 
-  constructor(image: Jimp) {
-    const w = image.getWidth()
-    const h = image.getHeight()
+  constructor(material: Jimp) {
+    if (!(material.getWidth() === 16 && material.getHeight() === 16)) {
+      throw new Error('material image size must be 16x16')
+    }
 
     // Corner
-    this.#cornerTopLeft = image.clone().crop(0, 0, 1, 1)
-    this.#cornerTopRight = image.clone().crop(w - 1, 0, 1, 1)
-    this.#cornerBottomRight = image.clone().crop(w - 1, h - 1, 1, 1)
-    this.#cornerBottomLeft = image.clone().crop(0, h - 1, 1, 1)
+    this.#cornerTopLeft = material.clone().crop(0, 0, 1, 1)
+    this.#cornerTopRight = material.clone().crop(15, 0, 1, 1)
+    this.#cornerBottomRight = material.clone().crop(15, 15, 1, 1)
+    this.#cornerBottomLeft = material.clone().crop(0, 15, 1, 1)
 
     // Side
-    this.#sideTop = image.clone().crop(1, 0, w - 2, 1)
-    this.#sideRight = image.clone().crop(w - 1, 1, 1, h - 2)
-    this.#sideBottom = image.clone().crop(1, h - 1, w - 2, 1)
-    this.#sideLeft = image.clone().crop(0, 1, 1, h - 2)
+    this.#sideTop = material.clone().crop(1, 0, 14, 1)
+    this.#sideRight = material.clone().crop(15, 1, 1, 14)
+    this.#sideBottom = material.clone().crop(1, 15, 14, 1)
+    this.#sideLeft = material.clone().crop(0, 1, 1, 14)
 
     // Inner
-    this.#inner = image.clone().crop(1, 1, w - 2, h - 2)
+    this.#inner = material.clone().crop(1, 1, 14, 14)
   }
 
   rect(width: number, height: number): Jimp {
