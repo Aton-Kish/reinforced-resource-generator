@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import Canvas from './components/Canvas'
+import Chest from './components/Chest'
 
 const App: FC = () => {
   return (
     <>
-      <Canvas />
+      <Chest />
     </>
   )
 }
