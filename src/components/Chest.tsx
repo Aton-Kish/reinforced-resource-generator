@@ -2,13 +2,6 @@ import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
 import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../assets/chest'
-import {
-  MaterialCopperTexture,
-  // MaterialDiamondTexture,
-  // MaterialGoldTexture,
-  // MaterialIronTexture,
-  // MaterialNetheriteTexture,
-} from '../assets/material'
 import { ChestGenerator, ChestType } from '../lib/chest'
 
 import type { BaseTextures } from '../lib/chest'
@@ -18,7 +11,11 @@ type Images = {
   [type in ChestType]?: string
 }
 
-const Chest: FC = () => {
+export interface ChestProps {
+  material: string
+}
+
+const Chest: FC<ChestProps> = (props) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -28,7 +25,7 @@ const Chest: FC = () => {
         [ChestType.Left]: await Jimp.read(ChestLeftTexture),
         [ChestType.Right]: await Jimp.read(ChestRightTexture),
       }
-      const material = await Jimp.read(MaterialCopperTexture)
+      const material = await Jimp.read(props.material)
 
       const chest = new ChestGenerator(base, material)
       const images: Images = {
@@ -40,7 +37,7 @@ const Chest: FC = () => {
     }
 
     generate()
-  }, [])
+  }, [props])
 
   return (
     <>

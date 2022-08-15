@@ -2,13 +2,6 @@ import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
 import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '../assets/barrel'
-import {
-  MaterialCopperTexture,
-  // MaterialDiamondTexture,
-  // MaterialGoldTexture,
-  // MaterialIronTexture,
-  // MaterialNetheriteTexture,
-} from '../assets/material'
 import { BarrelGenerator, BarrelType } from '../lib/barrel'
 
 import type { BaseTextures } from '../lib/barrel'
@@ -18,7 +11,11 @@ type Images = {
   [type in BarrelType]?: string
 }
 
-const Barrel: FC = () => {
+export interface BarrelProps {
+  material: string
+}
+
+const Barrel: FC<BarrelProps> = (props) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -29,7 +26,7 @@ const Barrel: FC = () => {
         [BarrelType.Side]: await Jimp.read(BarrelSideTexture),
         [BarrelType.Bottom]: await Jimp.read(BarrelBottomTexture),
       }
-      const material = await Jimp.read(MaterialCopperTexture)
+      const material = await Jimp.read(props.material)
 
       const chest = new BarrelGenerator(base, material)
       const images: Images = {
@@ -42,7 +39,7 @@ const Barrel: FC = () => {
     }
 
     generate()
-  }, [])
+  }, [props])
 
   return (
     <>

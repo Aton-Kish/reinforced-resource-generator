@@ -2,13 +2,6 @@ import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
 import {
-  MaterialCopperTexture,
-  // MaterialDiamondTexture,
-  // MaterialGoldTexture,
-  // MaterialIronTexture,
-  // MaterialNetheriteTexture,
-} from '../assets/material'
-import {
   ShulkerBlackTexture,
   ShulkerBlueTexture,
   ShulkerBrownTexture,
@@ -36,7 +29,11 @@ type Images = {
   [color in DyeColor]?: string
 }
 
-const Shulker: FC = () => {
+export interface ShulkerProps {
+  material: string
+}
+
+const Shulker: FC<ShulkerProps> = (props) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -60,7 +57,7 @@ const Shulker: FC = () => {
         [DyeColor.Red]: await Jimp.read(ShulkerRedTexture),
         [DyeColor.Black]: await Jimp.read(ShulkerBlackTexture),
       }
-      const material = await Jimp.read(MaterialCopperTexture)
+      const material = await Jimp.read(props.material)
 
       const shulker = new ShulkerGenerator(base, material)
       const images: Images = {
@@ -86,7 +83,7 @@ const Shulker: FC = () => {
     }
 
     generate()
-  }, [])
+  }, [props])
 
   return (
     <>
