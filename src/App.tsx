@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import Barrel from './components/Barrel'
 import Chest from './components/Chest'
 import Shulker from './components/Shulker'
 
@@ -8,6 +9,7 @@ const App: FC = () => {
     <>
       <Chest />
       <Shulker />
+      <Barrel />
     </>
   )
 }
