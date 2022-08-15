@@ -15,7 +15,7 @@ import type { BaseTextures } from '../lib/chest'
 import type { FC } from 'react'
 
 type Images = {
-  [color in ChestType]?: string
+  [type in ChestType]?: string
 }
 
 const Chest: FC = () => {

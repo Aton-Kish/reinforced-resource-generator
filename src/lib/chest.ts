@@ -15,7 +15,7 @@ export const ChestType = {
 export type ChestType = typeof ChestType[keyof typeof ChestType]
 
 export type BaseTextures = {
-  [color in ChestType]: Jimp
+  [type in ChestType]: Jimp
 }
 
 export class ChestGenerator {
