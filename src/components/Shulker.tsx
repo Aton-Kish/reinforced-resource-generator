@@ -1,11 +1,13 @@
 import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
-import CopperTexture from '../assets/material/copper.png'
-// import DiamondTexture from '../assets/material/diamond.png'
-// import GoldTexture from '../assets/material/gold.png'
-// import IronTexture from '../assets/material/iron.png'
-// import NetheriteTexture from '../assets/material/netherite.png'
+import {
+  MaterialCopperTexture,
+  // MaterialDiamondTexture,
+  // MaterialGoldTexture,
+  // MaterialIronTexture,
+  // MaterialNetheriteTexture,
+} from '../assets/material'
 import {
   ShulkerBlackTexture,
   ShulkerBlueTexture,
@@ -58,7 +60,7 @@ const Shulker: FC = () => {
         [DyeColor.Red]: await Jimp.read(ShulkerRedTexture),
         [DyeColor.Black]: await Jimp.read(ShulkerBlackTexture),
       }
-      const material = await Jimp.read(CopperTexture)
+      const material = await Jimp.read(MaterialCopperTexture)
 
       const shulker = new ShulkerGenerator(base, material)
       const images: Images = {

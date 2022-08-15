@@ -2,11 +2,13 @@ import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
 import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../assets/chest'
-import CopperTexture from '../assets/material/copper.png'
-// import DiamondTexture from '../assets/material/diamond.png'
-// import GoldTexture from '../assets/material/gold.png'
-// import IronTexture from '../assets/material/iron.png'
-// import NetheriteTexture from '../assets/material/netherite.png'
+import {
+  MaterialCopperTexture,
+  // MaterialDiamondTexture,
+  // MaterialGoldTexture,
+  // MaterialIronTexture,
+  // MaterialNetheriteTexture,
+} from '../assets/material'
 import { ChestGenerator, ChestType } from '../lib/chest'
 
 import type { BaseTextures } from '../lib/chest'
@@ -26,7 +28,7 @@ const Chest: FC = () => {
         [ChestType.Left]: await Jimp.read(ChestLeftTexture),
         [ChestType.Right]: await Jimp.read(ChestRightTexture),
       }
-      const material = await Jimp.read(CopperTexture)
+      const material = await Jimp.read(MaterialCopperTexture)
 
       const chest = new ChestGenerator(base, material)
       const images: Images = {
