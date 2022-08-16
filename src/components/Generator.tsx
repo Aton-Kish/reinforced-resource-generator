@@ -6,8 +6,8 @@ import {
   MaterialNetheriteTexture,
 } from '../assets/material'
 
-import Input from './Input'
-import Output from './Output'
+import Input from './input/Input'
+import Output from './output/Output'
 
 import type { MaterialTexture } from '../assets/material'
 import type { FC } from 'react'

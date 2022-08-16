@@ -19,11 +19,11 @@ import {
   ShulkerRedTexture,
   ShulkerWhiteTexture,
   ShulkerYellowTexture,
-} from '../assets/shulker'
-import { ShulkerGenerator, ShulkerType } from '../lib/shulker'
+} from '../../assets/shulker'
+import { ShulkerGenerator, ShulkerType } from '../../lib/shulker'
 
-import type { MaterialTexture } from '../assets/material'
-import type { BaseTextures } from '../lib/shulker'
+import type { MaterialTexture } from '../../assets/material'
+import type { BaseTextures } from '../../lib/shulker'
 import type { FC } from 'react'
 
 type Images = {

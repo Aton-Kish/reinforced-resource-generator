@@ -1,4 +1,4 @@
-import type { MaterialTexture } from '../assets/material'
+import type { MaterialTexture } from '../../assets/material'
 import type { FC } from 'react'
 
 export interface InputProps {

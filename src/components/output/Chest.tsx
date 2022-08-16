@@ -1,11 +1,11 @@
 import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
-import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../assets/chest'
-import { ChestGenerator, ChestType } from '../lib/chest'
+import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../../assets/chest'
+import { ChestGenerator, ChestType } from '../../lib/chest'
 
-import type { MaterialTexture } from '../assets/material'
-import type { BaseTextures } from '../lib/chest'
+import type { MaterialTexture } from '../../assets/material'
+import type { BaseTextures } from '../../lib/chest'
 import type { FC } from 'react'
 
 type Images = {

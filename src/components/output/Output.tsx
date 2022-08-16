@@ -2,7 +2,7 @@ import Barrel from './Barrel'
 import Chest from './Chest'
 import Shulker from './Shulker'
 
-import type { MaterialTexture } from '../assets/material'
+import type { MaterialTexture } from '../../assets/material'
 import type { FC } from 'react'
 
 export interface OutputProps {

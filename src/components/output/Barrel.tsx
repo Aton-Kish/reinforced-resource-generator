@@ -1,11 +1,11 @@
 import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
-import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '../assets/barrel'
-import { BarrelGenerator, BarrelType } from '../lib/barrel'
+import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '../../assets/barrel'
+import { BarrelGenerator, BarrelType } from '../../lib/barrel'
 
-import type { MaterialTexture } from '../assets/material'
-import type { BaseTextures } from '../lib/barrel'
+import type { MaterialTexture } from '../../assets/material'
+import type { BaseTextures } from '../../lib/barrel'
 import type { FC } from 'react'
 
 type Images = {
