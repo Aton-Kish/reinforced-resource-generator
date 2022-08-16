@@ -4,11 +4,9 @@ import type { FC } from 'react'
 
 const App: FC = () => {
   return (
-    <>
-      <div className='container mx-auto p-4'>
-        <Generator />
-      </div>
-    </>
+    <div className='container mx-auto p-4'>
+      <Generator />
+    </div>
   )
 }
 
