@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../assets/chest'
 import { ChestGenerator, ChestType } from '../lib/chest'
 
+import type { MaterialTexture } from '../assets/material'
 import type { BaseTextures } from '../lib/chest'
 import type { FC } from 'react'
 
@@ -12,10 +13,10 @@ type Images = {
 }
 
 export interface ChestProps {
-  material: string
+  material: MaterialTexture
 }
 
-const Chest: FC<ChestProps> = (props) => {
+const Chest: FC<ChestProps> = ({ material }) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -25,26 +26,27 @@ const Chest: FC<ChestProps> = (props) => {
         [ChestType.Left]: await Jimp.read(ChestLeftTexture),
         [ChestType.Right]: await Jimp.read(ChestRightTexture),
       }
-      const material = await Jimp.read(props.material)
+      const matl = await Jimp.read(material.src)
 
-      const chest = new ChestGenerator(base, material)
-      const images: Images = {
-        [ChestType.Single]: await chest.generate(ChestType.Single).getBase64Async(Jimp.MIME_PNG),
-        [ChestType.Left]: await chest.generate(ChestType.Left).getBase64Async(Jimp.MIME_PNG),
-        [ChestType.Right]: await chest.generate(ChestType.Right).getBase64Async(Jimp.MIME_PNG),
+      const chest = new ChestGenerator(base, matl)
+      const images: Images = {}
+      for (const type of Object.values(ChestType)) {
+        images[type] = await chest.generate(type).getBase64Async(Jimp.MIME_PNG)
       }
-      setImages((prev) => ({ ...prev, ...images }))
+      setImages({ ...images })
     }
 
     generate()
-  }, [props])
+  }, [material])
 
   return (
-    <>
-      <img src={images[ChestType.Single]} />
-      <img src={images[ChestType.Left]} />
-      <img src={images[ChestType.Right]} />
-    </>
+    <div>
+      <div className='flex flex-wrap gap-2'>
+        {Object.entries(images).map(([type, src]) => (
+          <img key={type} className='w-32' src={src} alt={type} title={type} />
+        ))}
+      </div>
+    </div>
   )
 }
 

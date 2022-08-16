@@ -22,6 +22,7 @@ import {
 } from '../assets/shulker'
 import { DyeColor, ShulkerGenerator } from '../lib/shulker'
 
+import type { MaterialTexture } from '../assets/material'
 import type { BaseTextures } from '../lib/shulker'
 import type { FC } from 'react'
 
@@ -30,10 +31,10 @@ type Images = {
 }
 
 export interface ShulkerProps {
-  material: string
+  material: MaterialTexture
 }
 
-const Shulker: FC<ShulkerProps> = (props) => {
+const Shulker: FC<ShulkerProps> = ({ material }) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -57,54 +58,27 @@ const Shulker: FC<ShulkerProps> = (props) => {
         [DyeColor.Red]: await Jimp.read(ShulkerRedTexture),
         [DyeColor.Black]: await Jimp.read(ShulkerBlackTexture),
       }
-      const material = await Jimp.read(props.material)
+      const matl = await Jimp.read(material.src)
 
-      const shulker = new ShulkerGenerator(base, material)
-      const images: Images = {
-        [DyeColor.Default]: await shulker.generate(DyeColor.Default).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.White]: await shulker.generate(DyeColor.White).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Orange]: await shulker.generate(DyeColor.Orange).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Magenta]: await shulker.generate(DyeColor.Magenta).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.LightBlue]: await shulker.generate(DyeColor.LightBlue).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Yellow]: await shulker.generate(DyeColor.Yellow).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Lime]: await shulker.generate(DyeColor.Lime).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Pink]: await shulker.generate(DyeColor.Pink).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Gray]: await shulker.generate(DyeColor.Gray).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.LightGray]: await shulker.generate(DyeColor.LightGray).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Cyan]: await shulker.generate(DyeColor.Cyan).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Purple]: await shulker.generate(DyeColor.Purple).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Blue]: await shulker.generate(DyeColor.Blue).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Brown]: await shulker.generate(DyeColor.Brown).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Green]: await shulker.generate(DyeColor.Green).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Red]: await shulker.generate(DyeColor.Red).getBase64Async(Jimp.MIME_PNG),
-        [DyeColor.Black]: await shulker.generate(DyeColor.Black).getBase64Async(Jimp.MIME_PNG),
+      const shulker = new ShulkerGenerator(base, matl)
+      const images: Images = {}
+      for (const color of Object.values(DyeColor)) {
+        images[color] = await shulker.generate(color).getBase64Async(Jimp.MIME_PNG)
       }
-      setImages((prev) => ({ ...prev, ...images }))
+      setImages({ ...images })
     }
 
     generate()
-  }, [props])
+  }, [material])
 
   return (
-    <>
-      <img src={images[DyeColor.Default]} />
-      <img src={images[DyeColor.White]} />
-      <img src={images[DyeColor.Orange]} />
-      <img src={images[DyeColor.Magenta]} />
-      <img src={images[DyeColor.LightBlue]} />
-      <img src={images[DyeColor.Yellow]} />
-      <img src={images[DyeColor.Lime]} />
-      <img src={images[DyeColor.Pink]} />
-      <img src={images[DyeColor.Gray]} />
-      <img src={images[DyeColor.LightGray]} />
-      <img src={images[DyeColor.Cyan]} />
-      <img src={images[DyeColor.Purple]} />
-      <img src={images[DyeColor.Blue]} />
-      <img src={images[DyeColor.Brown]} />
-      <img src={images[DyeColor.Green]} />
-      <img src={images[DyeColor.Red]} />
-      <img src={images[DyeColor.Black]} />
-    </>
+    <div>
+      <div className='flex flex-wrap gap-2'>
+        {Object.entries(images).map(([color, src]) => (
+          <img key={color} className='w-32' src={src} alt={color} title={color} />
+        ))}
+      </div>
+    </div>
   )
 }
 

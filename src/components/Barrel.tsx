@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '../assets/barrel'
 import { BarrelGenerator, BarrelType } from '../lib/barrel'
 
+import type { MaterialTexture } from '../assets/material'
 import type { BaseTextures } from '../lib/barrel'
 import type { FC } from 'react'
 
@@ -12,10 +13,10 @@ type Images = {
 }
 
 export interface BarrelProps {
-  material: string
+  material: MaterialTexture
 }
 
-const Barrel: FC<BarrelProps> = (props) => {
+const Barrel: FC<BarrelProps> = ({ material }) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -26,28 +27,27 @@ const Barrel: FC<BarrelProps> = (props) => {
         [BarrelType.Side]: await Jimp.read(BarrelSideTexture),
         [BarrelType.Bottom]: await Jimp.read(BarrelBottomTexture),
       }
-      const material = await Jimp.read(props.material)
+      const matl = await Jimp.read(material.src)
 
-      const chest = new BarrelGenerator(base, material)
-      const images: Images = {
-        [BarrelType.Top]: await chest.generate(BarrelType.Top).getBase64Async(Jimp.MIME_PNG),
-        [BarrelType.TopOpen]: await chest.generate(BarrelType.TopOpen).getBase64Async(Jimp.MIME_PNG),
-        [BarrelType.Side]: await chest.generate(BarrelType.Side).getBase64Async(Jimp.MIME_PNG),
-        [BarrelType.Bottom]: await chest.generate(BarrelType.Bottom).getBase64Async(Jimp.MIME_PNG),
+      const barrel = new BarrelGenerator(base, matl)
+      const images: Images = {}
+      for (const type of Object.values(BarrelType)) {
+        images[type] = await barrel.generate(type).getBase64Async(Jimp.MIME_PNG)
       }
-      setImages((prev) => ({ ...prev, ...images }))
+      setImages({ ...images })
     }
 
     generate()
-  }, [props])
+  }, [material])
 
   return (
-    <>
-      <img src={images[BarrelType.Top]} />
-      <img src={images[BarrelType.TopOpen]} />
-      <img src={images[BarrelType.Side]} />
-      <img src={images[BarrelType.Bottom]} />
-    </>
+    <div>
+      <div className='flex flex-wrap gap-2'>
+        {Object.entries(images).map(([type, src]) => (
+          <img key={type} className='w-8' src={src} alt={type} title={type} />
+        ))}
+      </div>
+    </div>
   )
 }
 
