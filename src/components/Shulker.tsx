@@ -72,12 +72,10 @@ const Shulker: FC<ShulkerProps> = ({ material }) => {
   }, [material])
 
   return (
-    <div>
-      <div className='flex flex-wrap gap-2'>
-        {Object.entries(images).map(([type, src]) => (
-          <img key={type} className='w-32' src={src} alt={type} title={type} />
-        ))}
-      </div>
+    <div className='flex flex-wrap gap-2'>
+      {Object.entries(images).map(([type, src]) => (
+        <img key={type} className='w-32' src={src} alt={type} title={type} />
+      ))}
     </div>
   )
 }
