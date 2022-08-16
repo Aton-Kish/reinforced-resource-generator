@@ -1,9 +1,16 @@
+import { BarrelType } from '../../lib/barrel'
+
 import Bottom from './bottom.png'
 import Side from './side.png'
 import Top from './top.png'
 import TopOpen from './top_open.png'
 
-export const BarrelTopTexture = Top
-export const BarrelTopOpenTexture = TopOpen
-export const BarrelSideTexture = Side
-export const BarrelBottomTexture = Bottom
+export interface BarrelTexture {
+  type: BarrelType
+  src: string
+}
+
+export const BarrelTopTexture: BarrelTexture = { type: BarrelType.Top, src: Top }
+export const BarrelTopOpenTexture: BarrelTexture = { type: BarrelType.TopOpen, src: TopOpen }
+export const BarrelSideTexture: BarrelTexture = { type: BarrelType.Side, src: Side }
+export const BarrelBottomTexture: BarrelTexture = { type: BarrelType.Bottom, src: Bottom }

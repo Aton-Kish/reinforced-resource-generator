@@ -10,8 +10,8 @@ export interface MaterialTexture {
   src: string
 }
 
-export const MaterialCopperTexture = Copper
-export const MaterialIronTexture = Iron
-export const MaterialGoldTexture = Gold
-export const MaterialDiamondTexture = Diamond
-export const MaterialNetheriteTexture = Netherite
+export const MaterialCopperTexture: MaterialTexture = { namespace: 'minecraft', name: 'copper', src: Copper }
+export const MaterialIronTexture: MaterialTexture = { namespace: 'minecraft', name: 'iron', src: Iron }
+export const MaterialGoldTexture: MaterialTexture = { namespace: 'minecraft', name: 'gold', src: Gold }
+export const MaterialDiamondTexture: MaterialTexture = { namespace: 'minecraft', name: 'diamond', src: Diamond }
+export const MaterialNetheriteTexture: MaterialTexture = { namespace: 'minecraft', name: 'netherite', src: Netherite }

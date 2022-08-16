@@ -22,10 +22,10 @@ const Barrel: FC<BarrelProps> = ({ material }) => {
   useEffect(() => {
     const generate = async () => {
       const base: BaseTextures = {
-        [BarrelType.Top]: await Jimp.read(BarrelTopTexture),
-        [BarrelType.TopOpen]: await Jimp.read(BarrelTopOpenTexture),
-        [BarrelType.Side]: await Jimp.read(BarrelSideTexture),
-        [BarrelType.Bottom]: await Jimp.read(BarrelBottomTexture),
+        [BarrelType.Top]: await Jimp.read(BarrelTopTexture.src),
+        [BarrelType.TopOpen]: await Jimp.read(BarrelTopOpenTexture.src),
+        [BarrelType.Side]: await Jimp.read(BarrelSideTexture.src),
+        [BarrelType.Bottom]: await Jimp.read(BarrelBottomTexture.src),
       }
       const matl = await Jimp.read(material.src)
 

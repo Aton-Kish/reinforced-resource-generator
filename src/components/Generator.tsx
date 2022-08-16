@@ -14,11 +14,11 @@ import type { FC } from 'react'
 
 const Generator: FC = () => {
   const materials: MaterialTexture[] = [
-    { namespace: 'minecraft', name: 'copper', src: MaterialCopperTexture },
-    { namespace: 'minecraft', name: 'iron', src: MaterialIronTexture },
-    { namespace: 'minecraft', name: 'gold', src: MaterialGoldTexture },
-    { namespace: 'minecraft', name: 'diamond', src: MaterialDiamondTexture },
-    { namespace: 'minecraft', name: 'netherite', src: MaterialNetheriteTexture },
+    MaterialCopperTexture,
+    MaterialIronTexture,
+    MaterialGoldTexture,
+    MaterialDiamondTexture,
+    MaterialNetheriteTexture,
   ]
 
   return (

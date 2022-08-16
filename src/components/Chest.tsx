@@ -22,9 +22,9 @@ const Chest: FC<ChestProps> = ({ material }) => {
   useEffect(() => {
     const generate = async () => {
       const base: BaseTextures = {
-        [ChestType.Single]: await Jimp.read(ChestSingleTexture),
-        [ChestType.Left]: await Jimp.read(ChestLeftTexture),
-        [ChestType.Right]: await Jimp.read(ChestRightTexture),
+        [ChestType.Single]: await Jimp.read(ChestSingleTexture.src),
+        [ChestType.Left]: await Jimp.read(ChestLeftTexture.src),
+        [ChestType.Right]: await Jimp.read(ChestRightTexture.src),
       }
       const matl = await Jimp.read(material.src)
 

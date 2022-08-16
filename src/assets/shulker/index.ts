@@ -1,3 +1,5 @@
+import { ShulkerType } from '../../lib/shulker'
+
 import Black from './black.png'
 import Blue from './blue.png'
 import Brown from './brown.png'
@@ -16,20 +18,25 @@ import Red from './red.png'
 import White from './white.png'
 import Yellow from './yellow.png'
 
-export const ShulkerDefaultTexture = Default
-export const ShulkerWhiteTexture = White
-export const ShulkerOrangeTexture = Orange
-export const ShulkerMagentaTexture = Magenta
-export const ShulkerLightBlueTexture = LightBlue
-export const ShulkerYellowTexture = Yellow
-export const ShulkerLimeTexture = Lime
-export const ShulkerPinkTexture = Pink
-export const ShulkerGrayTexture = Gray
-export const ShulkerLightGrayTexture = LightGray
-export const ShulkerCyanTexture = Cyan
-export const ShulkerPurpleTexture = Purple
-export const ShulkerBlueTexture = Blue
-export const ShulkerBrownTexture = Brown
-export const ShulkerGreenTexture = Green
-export const ShulkerRedTexture = Red
-export const ShulkerBlackTexture = Black
+export interface ShulkerTexture {
+  type: ShulkerType
+  src: string
+}
+
+export const ShulkerDefaultTexture: ShulkerTexture = { type: ShulkerType.Default, src: Default }
+export const ShulkerWhiteTexture: ShulkerTexture = { type: ShulkerType.White, src: White }
+export const ShulkerOrangeTexture: ShulkerTexture = { type: ShulkerType.Orange, src: Orange }
+export const ShulkerMagentaTexture: ShulkerTexture = { type: ShulkerType.Magenta, src: Magenta }
+export const ShulkerLightBlueTexture: ShulkerTexture = { type: ShulkerType.LightBlue, src: LightBlue }
+export const ShulkerYellowTexture: ShulkerTexture = { type: ShulkerType.Yellow, src: Yellow }
+export const ShulkerLimeTexture: ShulkerTexture = { type: ShulkerType.Lime, src: Lime }
+export const ShulkerPinkTexture: ShulkerTexture = { type: ShulkerType.Pink, src: Pink }
+export const ShulkerGrayTexture: ShulkerTexture = { type: ShulkerType.Gray, src: Gray }
+export const ShulkerLightGrayTexture: ShulkerTexture = { type: ShulkerType.LightGray, src: LightGray }
+export const ShulkerCyanTexture: ShulkerTexture = { type: ShulkerType.Cyan, src: Cyan }
+export const ShulkerPurpleTexture: ShulkerTexture = { type: ShulkerType.Purple, src: Purple }
+export const ShulkerBlueTexture: ShulkerTexture = { type: ShulkerType.Blue, src: Blue }
+export const ShulkerBrownTexture: ShulkerTexture = { type: ShulkerType.Brown, src: Brown }
+export const ShulkerGreenTexture: ShulkerTexture = { type: ShulkerType.Green, src: Green }
+export const ShulkerRedTexture: ShulkerTexture = { type: ShulkerType.Red, src: Red }
+export const ShulkerBlackTexture: ShulkerTexture = { type: ShulkerType.Black, src: Black }
