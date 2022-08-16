@@ -20,14 +20,14 @@ import {
   ShulkerWhiteTexture,
   ShulkerYellowTexture,
 } from '../assets/shulker'
-import { DyeColor, ShulkerGenerator } from '../lib/shulker'
+import { ShulkerGenerator, ShulkerType } from '../lib/shulker'
 
 import type { MaterialTexture } from '../assets/material'
 import type { BaseTextures } from '../lib/shulker'
 import type { FC } from 'react'
 
 type Images = {
-  [color in DyeColor]?: string
+  [type in ShulkerType]?: string
 }
 
 export interface ShulkerProps {
@@ -40,30 +40,30 @@ const Shulker: FC<ShulkerProps> = ({ material }) => {
   useEffect(() => {
     const generate = async () => {
       const base: BaseTextures = {
-        [DyeColor.Default]: await Jimp.read(ShulkerDefaultTexture),
-        [DyeColor.White]: await Jimp.read(ShulkerWhiteTexture),
-        [DyeColor.Orange]: await Jimp.read(ShulkerOrangeTexture),
-        [DyeColor.Magenta]: await Jimp.read(ShulkerMagentaTexture),
-        [DyeColor.LightBlue]: await Jimp.read(ShulkerLightBlueTexture),
-        [DyeColor.Yellow]: await Jimp.read(ShulkerYellowTexture),
-        [DyeColor.Lime]: await Jimp.read(ShulkerLimeTexture),
-        [DyeColor.Pink]: await Jimp.read(ShulkerPinkTexture),
-        [DyeColor.Gray]: await Jimp.read(ShulkerGrayTexture),
-        [DyeColor.LightGray]: await Jimp.read(ShulkerLightGrayTexture),
-        [DyeColor.Cyan]: await Jimp.read(ShulkerCyanTexture),
-        [DyeColor.Purple]: await Jimp.read(ShulkerPurpleTexture),
-        [DyeColor.Blue]: await Jimp.read(ShulkerBlueTexture),
-        [DyeColor.Brown]: await Jimp.read(ShulkerBrownTexture),
-        [DyeColor.Green]: await Jimp.read(ShulkerGreenTexture),
-        [DyeColor.Red]: await Jimp.read(ShulkerRedTexture),
-        [DyeColor.Black]: await Jimp.read(ShulkerBlackTexture),
+        [ShulkerType.Default]: await Jimp.read(ShulkerDefaultTexture),
+        [ShulkerType.White]: await Jimp.read(ShulkerWhiteTexture),
+        [ShulkerType.Orange]: await Jimp.read(ShulkerOrangeTexture),
+        [ShulkerType.Magenta]: await Jimp.read(ShulkerMagentaTexture),
+        [ShulkerType.LightBlue]: await Jimp.read(ShulkerLightBlueTexture),
+        [ShulkerType.Yellow]: await Jimp.read(ShulkerYellowTexture),
+        [ShulkerType.Lime]: await Jimp.read(ShulkerLimeTexture),
+        [ShulkerType.Pink]: await Jimp.read(ShulkerPinkTexture),
+        [ShulkerType.Gray]: await Jimp.read(ShulkerGrayTexture),
+        [ShulkerType.LightGray]: await Jimp.read(ShulkerLightGrayTexture),
+        [ShulkerType.Cyan]: await Jimp.read(ShulkerCyanTexture),
+        [ShulkerType.Purple]: await Jimp.read(ShulkerPurpleTexture),
+        [ShulkerType.Blue]: await Jimp.read(ShulkerBlueTexture),
+        [ShulkerType.Brown]: await Jimp.read(ShulkerBrownTexture),
+        [ShulkerType.Green]: await Jimp.read(ShulkerGreenTexture),
+        [ShulkerType.Red]: await Jimp.read(ShulkerRedTexture),
+        [ShulkerType.Black]: await Jimp.read(ShulkerBlackTexture),
       }
       const matl = await Jimp.read(material.src)
 
       const shulker = new ShulkerGenerator(base, matl)
       const images: Images = {}
-      for (const color of Object.values(DyeColor)) {
-        images[color] = await shulker.generate(color).getBase64Async(Jimp.MIME_PNG)
+      for (const type of Object.values(ShulkerType)) {
+        images[type] = await shulker.generate(type).getBase64Async(Jimp.MIME_PNG)
       }
       setImages({ ...images })
     }
@@ -74,8 +74,8 @@ const Shulker: FC<ShulkerProps> = ({ material }) => {
   return (
     <div>
       <div className='flex flex-wrap gap-2'>
-        {Object.entries(images).map(([color, src]) => (
-          <img key={color} className='w-32' src={src} alt={color} title={color} />
+        {Object.entries(images).map(([type, src]) => (
+          <img key={type} className='w-32' src={src} alt={type} title={type} />
         ))}
       </div>
     </div>

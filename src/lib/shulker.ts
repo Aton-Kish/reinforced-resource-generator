@@ -2,7 +2,7 @@ import Jimp from 'jimp'
 
 import { Material9 } from './material'
 
-export const DyeColor = {
+export const ShulkerType = {
   Default: 'default',
   White: 'white',
   Orange: 'orange',
@@ -22,10 +22,10 @@ export const DyeColor = {
   Black: 'black',
 } as const
 
-export type DyeColor = typeof DyeColor[keyof typeof DyeColor]
+export type ShulkerType = typeof ShulkerType[keyof typeof ShulkerType]
 
 export type BaseTextures = {
-  [color in DyeColor]: Jimp
+  [type in ShulkerType]: Jimp
 }
 
 export class ShulkerGenerator {
@@ -33,9 +33,9 @@ export class ShulkerGenerator {
   #material9: Material9
 
   constructor(base: BaseTextures, material: Jimp) {
-    for (const [color, image] of Object.entries(base)) {
+    for (const [type, image] of Object.entries(base)) {
       if (!(image.getWidth() === 64 && image.getHeight() === 64)) {
-        throw new Error(`${color} color image size must be 64x64`)
+        throw new Error(`${type} color image size must be 64x64`)
       }
     }
 
@@ -43,7 +43,7 @@ export class ShulkerGenerator {
     this.#material9 = new Material9(material)
   }
 
-  generate(color: DyeColor): Jimp {
+  generate(type: ShulkerType): Jimp {
     const material = this.#material9.rect(16, 16)
 
     const leftPillar = material.clone().crop(0, 0, 2, 16)
@@ -67,7 +67,7 @@ export class ShulkerGenerator {
 
     const plate = this.#material9.rect(12, 12)
 
-    const image = this.#base[color].clone()
+    const image = this.#base[type].clone()
 
     for (let i = 0; i < 4; i++) {
       image.composite(topLeftPillar, 16 * i, 16)
