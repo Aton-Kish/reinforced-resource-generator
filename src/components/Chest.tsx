@@ -41,9 +41,11 @@ const Chest: FC<ChestProps> = ({ material }) => {
 
   return (
     <div className='flex flex-wrap gap-2'>
-      {Object.entries(images).map(([type, src]) => (
-        <img key={type} className='w-32' src={src} alt={type} title={type} />
-      ))}
+      {Object.entries(images).map(([type, src]) => {
+        const id = `entity/reinforced_chest/${material.name}/${type}`
+
+        return <img key={id} className='w-32' src={src} alt={id} title={id} />
+      })}
     </div>
   )
 }

@@ -42,9 +42,11 @@ const Barrel: FC<BarrelProps> = ({ material }) => {
 
   return (
     <div className='flex flex-wrap gap-2'>
-      {Object.entries(images).map(([type, src]) => (
-        <img key={type} className='w-8' src={src} alt={type} title={type} />
-      ))}
+      {Object.entries(images).map(([type, src]) => {
+        const id = `block/${material.name}_barrel_${type}`
+
+        return <img key={id} className='w-8' src={src} alt={id} title={id} />
+      })}
     </div>
   )
 }
