@@ -1,9 +1,9 @@
 import Jimp from 'jimp'
 
-import { Material9 } from './material9'
+import { Material9 } from './material'
 
 export const DyeColor = {
-  Default: '',
+  Default: 'default',
   White: 'white',
   Orange: 'orange',
   Magenta: 'magenta',
@@ -35,7 +35,7 @@ export class ShulkerGenerator {
   constructor(base: BaseTextures, material: Jimp) {
     for (const [color, image] of Object.entries(base)) {
       if (!(image.getWidth() === 64 && image.getHeight() === 64)) {
-        throw new Error(`${color !== '' ? color : 'default'} color image size must be 64x64`)
+        throw new Error(`${color} color image size must be 64x64`)
       }
     }
 

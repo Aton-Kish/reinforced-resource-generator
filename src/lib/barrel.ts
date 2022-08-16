@@ -1,6 +1,6 @@
 import Jimp from 'jimp'
 
-import { Material9 } from './material9'
+import { Material9 } from './material'
 
 const SHADOW_OUTER_MAIN_COLOR = Jimp.rgbaToInt(0, 0, 0, 65)
 const SHADOW_OUTER_SUB_COLOR = Jimp.rgbaToInt(0, 0, 0, 90)
