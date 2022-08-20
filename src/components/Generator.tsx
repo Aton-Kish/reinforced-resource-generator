@@ -4,9 +4,7 @@ import { MaterialContext } from '../contexts'
 
 import GeneratorCard from './GeneratorCard'
 
-import type { FC } from 'react'
-
-const Generator: FC = () => {
+const Generator = (): JSX.Element => {
   const { materials } = useContext(MaterialContext)
 
   return (

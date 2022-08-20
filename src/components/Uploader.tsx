@@ -5,9 +5,7 @@ import { MaterialContext } from '../contexts'
 import UploaderDropzone from './UploaderDropzone'
 import UploaderSelector from './UploaderSelector '
 
-import type { FC } from 'react'
-
-const Uploader: FC = () => {
+const Uploader = (): JSX.Element => {
   const { materials } = useContext(MaterialContext)
 
   return (

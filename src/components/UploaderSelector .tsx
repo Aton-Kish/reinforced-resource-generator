@@ -1,11 +1,10 @@
 import type { MaterialTexture } from '../assets/material'
-import type { FC } from 'react'
 
 export interface UploaderSelectorProps {
   material: MaterialTexture
 }
 
-const UploaderSelector: FC<UploaderSelectorProps> = ({ material }) => {
+const UploaderSelector = ({ material }: UploaderSelectorProps): JSX.Element => {
   return (
     <li>
       <input

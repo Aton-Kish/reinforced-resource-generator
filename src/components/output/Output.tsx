@@ -3,13 +3,12 @@ import OutputChest from './OutputChest'
 import OutputShulker from './OutputShulker'
 
 import type { MaterialTexture } from '../../assets/material'
-import type { FC } from 'react'
 
 export interface OutputProps {
   material: MaterialTexture
 }
 
-const Output: FC<OutputProps> = ({ material }) => {
+const Output = ({ material }: OutputProps): JSX.Element => {
   return (
     <div className='flex flex-col gap-2'>
       <h2 className='text-2xl'>Output</h2>

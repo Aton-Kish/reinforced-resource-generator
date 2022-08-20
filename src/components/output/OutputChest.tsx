@@ -6,7 +6,6 @@ import { ChestGenerator, ChestType } from '../../lib/chest'
 
 import type { MaterialTexture } from '../../assets/material'
 import type { BaseTextures } from '../../lib/chest'
-import type { FC } from 'react'
 
 type Images = {
   [type in ChestType]?: string
@@ -16,7 +15,7 @@ export interface OutputChestProps {
   material: MaterialTexture
 }
 
-const OutputChest: FC<OutputChestProps> = ({ material }) => {
+const OutputChest = ({ material }: OutputChestProps): JSX.Element => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {

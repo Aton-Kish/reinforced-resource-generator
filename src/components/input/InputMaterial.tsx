@@ -3,13 +3,12 @@ import { useContext } from 'react'
 import { MaterialContext } from '../../contexts'
 
 import type { MaterialTexture } from '../../assets/material'
-import type { FC } from 'react'
 
 export interface InputMaterialProps {
   material: MaterialTexture
 }
 
-const InputMaterial: FC<InputMaterialProps> = ({ material }) => {
+const InputMaterial = ({ material }: InputMaterialProps): JSX.Element => {
   const { materials, setMaterials } = useContext(MaterialContext)
 
   return (

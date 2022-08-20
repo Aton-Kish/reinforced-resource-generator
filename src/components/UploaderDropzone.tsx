@@ -6,9 +6,8 @@ import { v4 as uuid } from 'uuid'
 import { MaterialContext } from '../contexts'
 
 import type { MaterialTexture } from '../assets/material'
-import type { FC } from 'react'
 
-const UploaderDropzone: FC = () => {
+const UploaderDropzone = (): JSX.Element => {
   const { materials, setMaterials } = useContext(MaterialContext)
   const [rejected, setRejected] = useState<string[]>([])
   const { getRootProps, getInputProps } = useDropzone({

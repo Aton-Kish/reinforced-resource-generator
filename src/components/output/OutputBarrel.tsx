@@ -6,7 +6,6 @@ import { BarrelGenerator, BarrelType } from '../../lib/barrel'
 
 import type { MaterialTexture } from '../../assets/material'
 import type { BaseTextures } from '../../lib/barrel'
-import type { FC } from 'react'
 
 type Images = {
   [type in BarrelType]?: string
@@ -16,7 +15,7 @@ export interface OutputBarrelProps {
   material: MaterialTexture
 }
 
-const OutputBarrel: FC<OutputBarrelProps> = ({ material }) => {
+const OutputBarrel = ({ material }: OutputBarrelProps): JSX.Element => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {

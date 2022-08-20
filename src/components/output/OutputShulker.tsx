@@ -24,7 +24,6 @@ import { ShulkerGenerator, ShulkerType } from '../../lib/shulker'
 
 import type { MaterialTexture } from '../../assets/material'
 import type { BaseTextures } from '../../lib/shulker'
-import type { FC } from 'react'
 
 type Images = {
   [type in ShulkerType]?: string
@@ -34,7 +33,7 @@ export interface OutputShulkerProps {
   material: MaterialTexture
 }
 
-const OutputShulker: FC<OutputShulkerProps> = ({ material }) => {
+const OutputShulker = ({ material }: OutputShulkerProps): JSX.Element => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {

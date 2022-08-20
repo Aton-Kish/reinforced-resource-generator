@@ -12,9 +12,8 @@ import Uploader from './components/Uploader'
 import { MaterialContext } from './contexts'
 
 import type { MaterialTexture } from './assets/material'
-import type { FC } from 'react'
 
-const App: FC = () => {
+const App = (): JSX.Element => {
   const [materials, setMaterials] = useState<Record<string, MaterialTexture>>({
     [MaterialCopperTexture.id]: MaterialCopperTexture,
     [MaterialIronTexture.id]: MaterialIronTexture,
