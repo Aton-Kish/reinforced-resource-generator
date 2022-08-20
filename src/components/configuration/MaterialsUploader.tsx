@@ -13,25 +13,23 @@ const MaterialsUploader = (): JSX.Element => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'image/png': [] },
     onDrop: async (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-      const rejected: string[] = fileRejections.map((fileRejection) => fileRejection.file.name)
-      const sources: string[] = []
+      const acceptedMaterials: Record<string, MaterialTexture> = {}
+      const rejectedFilenames: string[] = fileRejections.map((fileRejection) => fileRejection.file.name)
 
-      await Promise.all(
-        acceptedFiles.map(async (file) => {
-          const src = URL.createObjectURL(file)
-          const jimp = await Jimp.read(src)
-          if (jimp.getWidth() === 16 && jimp.getHeight() === 16) {
-            sources.push(src)
-          } else {
-            rejected.push(file.name)
-          }
-        }),
-      )
+      for (const file of acceptedFiles) {
+        const id = uuid()
+        const name = file.name.split('.').slice(0, -1).join('.')
 
-      const acceptedMaterials: Record<string, MaterialTexture> = sources.reduce((materials, src) => {
-        const material: MaterialTexture = { id: uuid(), namespace: '', name: '', src }
-        return { ...materials, [material.id]: material }
-      }, {})
+        const src = URL.createObjectURL(file)
+        const jimp = await Jimp.read(src)
+        if (!(jimp.getWidth() === 16 && jimp.getHeight() === 16)) {
+          rejectedFilenames.push(file.name)
+          continue
+        }
+
+        const material: MaterialTexture = { id, namespace: '', name, src }
+        acceptedMaterials[id] = material
+      }
 
       setMaterials({ ...materials, ...acceptedMaterials })
       setRejected(rejected)
