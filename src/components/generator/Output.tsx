@@ -4,11 +4,11 @@ import OutputShulker from './OutputShulker'
 
 import type { SelectableMaterialTexture } from '../../contexts'
 
-export interface OutputProps {
+interface Props {
   material: SelectableMaterialTexture
 }
 
-const Output = ({ material }: OutputProps): JSX.Element => {
+const Output = ({ material }: Props): JSX.Element => {
   return (
     <div className='flex flex-col gap-2'>
       <h2 className='text-2xl'>Output</h2>

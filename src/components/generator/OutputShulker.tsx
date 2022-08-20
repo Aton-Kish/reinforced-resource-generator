@@ -29,11 +29,11 @@ type Images = {
   [type in ShulkerType]?: string
 }
 
-export interface OutputShulkerProps {
+interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputShulker = ({ material }: OutputShulkerProps): JSX.Element => {
+const OutputShulker = ({ material }: Props): JSX.Element => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {

@@ -11,11 +11,11 @@ type Images = {
   [type in BarrelType]?: string
 }
 
-export interface OutputBarrelProps {
+interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputBarrel = ({ material }: OutputBarrelProps): JSX.Element => {
+const OutputBarrel = ({ material }: Props): JSX.Element => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {

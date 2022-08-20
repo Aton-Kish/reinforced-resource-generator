@@ -11,11 +11,11 @@ type Images = {
   [type in ChestType]?: string
 }
 
-export interface OutputChestProps {
+interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputChest = ({ material }: OutputChestProps): JSX.Element => {
+const OutputChest = ({ material }: Props): JSX.Element => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {

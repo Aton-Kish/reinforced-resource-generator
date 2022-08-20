@@ -4,11 +4,11 @@ import { MaterialContext } from '../../contexts'
 
 import type { SelectableMaterialTexture } from '../../contexts'
 
-export interface InputMaterialProps {
+interface Props {
   material: SelectableMaterialTexture
 }
 
-const InputMaterial = ({ material }: InputMaterialProps): JSX.Element => {
+const InputMaterial = ({ material }: Props): JSX.Element => {
   const { materials, setMaterials } = useContext(MaterialContext)
 
   return (
