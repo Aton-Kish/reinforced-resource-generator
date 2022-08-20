@@ -1,3 +1,7 @@
+import { useContext } from 'react'
+
+import { MaterialContext } from '../../contexts'
+
 import type { MaterialTexture } from '../../assets/material'
 import type { FC } from 'react'
 
@@ -6,6 +10,8 @@ export interface MaterialProps {
 }
 
 const Material: FC<MaterialProps> = ({ material }) => {
+  const { materials, setMaterials } = useContext(MaterialContext)
+
   return (
     <div>
       <h3 className='text-lg'>Material</h3>
@@ -21,7 +27,9 @@ const Material: FC<MaterialProps> = ({ material }) => {
           className='focus:(border-blue-500 outline-none) w-full appearance-none rounded border border-gray-300 bg-gray-50 p-1 leading-tight text-gray-900'
           type='text'
           defaultValue={material.namespace}
-          onBlur={(event) => console.log({ materialNamespace: event.target.value })}
+          onBlur={(event) => {
+            setMaterials({ ...materials, [material.id]: { ...material, namespace: event.target.value } })
+          }}
         />
 
         <label htmlFor={`material-name-${material.id}`} className='md:(h-8 leading-8) text-sm'>
@@ -32,7 +40,9 @@ const Material: FC<MaterialProps> = ({ material }) => {
           className='focus:(border-blue-500 outline-none) w-full appearance-none rounded border border-gray-300 bg-gray-50 p-1 leading-tight text-gray-900'
           type='text'
           defaultValue={material.name}
-          onBlur={(event) => console.log({ materialName: event.target.value })}
+          onBlur={(event) => {
+            setMaterials({ ...materials, [material.id]: { ...material, name: event.target.value } })
+          }}
         />
       </div>
     </div>
