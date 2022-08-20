@@ -7,8 +7,8 @@ import {
   MaterialIronTexture,
   MaterialNetheriteTexture,
 } from './assets/material'
-import Generator from './components/Generator'
 import Uploader from './components/Uploader'
+import Generator from './components/generator/Generator'
 import { MaterialContext } from './contexts'
 
 import type { MaterialTexture } from './assets/material'

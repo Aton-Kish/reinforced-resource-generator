@@ -1,7 +1,7 @@
-import Input from './input/Input'
-import Output from './output/Output'
+import Input from './Input'
+import Output from './Output'
 
-import type { MaterialTexture } from '../assets/material'
+import type { MaterialTexture } from '../../assets/material'
 
 export interface GeneratorCardProps {
   material: MaterialTexture

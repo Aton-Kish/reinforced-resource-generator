@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { MaterialContext } from '../contexts'
+import { MaterialContext } from '../../contexts'
 
 import GeneratorCard from './GeneratorCard'
 
