@@ -45,7 +45,7 @@ const Barrel: FC<BarrelProps> = ({ material }) => {
       {Object.entries(images).map(([type, src]) => {
         const id = `block/${material.name}_barrel_${type}`
 
-        return <img key={id} className='w-8' src={src} alt={id} title={id} />
+        return <img key={`${type}-barrel-${material.id}`} className='w-8' src={src} alt={id} title={id} />
       })}
     </div>
   )

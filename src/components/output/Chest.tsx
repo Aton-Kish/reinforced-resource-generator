@@ -44,7 +44,7 @@ const Chest: FC<ChestProps> = ({ material }) => {
       {Object.entries(images).map(([type, src]) => {
         const id = `entity/reinforced_chest/${material.name}/${type}`
 
-        return <img key={id} className='w-32' src={src} alt={id} title={id} />
+        return <img key={`${type}-chest-${material.id}`} className='w-32' src={src} alt={id} title={id} />
       })}
     </div>
   )

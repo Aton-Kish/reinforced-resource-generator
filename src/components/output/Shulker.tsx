@@ -77,7 +77,7 @@ const Shulker: FC<ShulkerProps> = ({ material }) => {
         const shulkerType = `shulker${type === 'default' ? '' : `_${type}`}`
         const id = `entity/reinforced_shulker/${material.name}/${shulkerType}`
 
-        return <img key={id} className='w-32' src={src} alt={id} title={id} />
+        return <img key={`${type}-shulker-${material.id}`} className='w-32' src={src} alt={id} title={id} />
       })}
     </div>
   )
