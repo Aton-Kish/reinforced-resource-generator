@@ -13,7 +13,7 @@ const Material: FC<MaterialProps> = ({ material }) => {
   const { materials, setMaterials } = useContext(MaterialContext)
 
   return (
-    <div>
+    <div className='flex flex-col gap-1'>
       <h3 className='text-lg'>Material</h3>
       <div className='grid grid-cols-1 gap-1 md:grid-cols-[80px_1fr]'>
         <span className='md:(h-8 leading-8) text-sm'>Texture</span>
