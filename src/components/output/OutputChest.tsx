@@ -12,11 +12,11 @@ type Images = {
   [type in ChestType]?: string
 }
 
-export interface ChestProps {
+export interface OutputChestProps {
   material: MaterialTexture
 }
 
-const Chest: FC<ChestProps> = ({ material }) => {
+const OutputChest: FC<OutputChestProps> = ({ material }) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -53,4 +53,4 @@ const Chest: FC<ChestProps> = ({ material }) => {
   )
 }
 
-export default Chest
+export default OutputChest

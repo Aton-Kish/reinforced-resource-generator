@@ -12,11 +12,11 @@ type Images = {
   [type in BarrelType]?: string
 }
 
-export interface BarrelProps {
+export interface OutputBarrelProps {
   material: MaterialTexture
 }
 
-const Barrel: FC<BarrelProps> = ({ material }) => {
+const OutputBarrel: FC<OutputBarrelProps> = ({ material }) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -54,4 +54,4 @@ const Barrel: FC<BarrelProps> = ({ material }) => {
   )
 }
 
-export default Barrel
+export default OutputBarrel

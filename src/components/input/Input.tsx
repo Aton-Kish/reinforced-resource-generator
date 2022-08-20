@@ -1,4 +1,4 @@
-import Material from './Material'
+import InputMaterial from './InputMaterial'
 
 import type { MaterialTexture } from '../../assets/material'
 import type { FC } from 'react'
@@ -11,7 +11,7 @@ const Input: FC<InputProps> = ({ material }) => {
   return (
     <div className='flex flex-col gap-2'>
       <h2 className='text-2xl'>Input</h2>
-      <Material material={material} />
+      <InputMaterial material={material} />
     </div>
   )
 }

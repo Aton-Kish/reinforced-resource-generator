@@ -30,11 +30,11 @@ type Images = {
   [type in ShulkerType]?: string
 }
 
-export interface ShulkerProps {
+export interface OutputShulkerProps {
   material: MaterialTexture
 }
 
-const Shulker: FC<ShulkerProps> = ({ material }) => {
+const OutputShulker: FC<OutputShulkerProps> = ({ material }) => {
   const [images, setImages] = useState<Images>({})
 
   useEffect(() => {
@@ -86,4 +86,4 @@ const Shulker: FC<ShulkerProps> = ({ material }) => {
   )
 }
 
-export default Shulker
+export default OutputShulker
