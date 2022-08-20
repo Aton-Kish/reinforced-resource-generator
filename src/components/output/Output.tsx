@@ -11,13 +11,11 @@ export interface OutputProps {
 
 const Output: FC<OutputProps> = ({ material }) => {
   return (
-    <div>
+    <div className='flex flex-col gap-2'>
       <h2 className='text-2xl'>Output</h2>
-      <div>
-        <Chest material={material} />
-        <Shulker material={material} />
-        <Barrel material={material} />
-      </div>
+      <Chest material={material} />
+      <Shulker material={material} />
+      <Barrel material={material} />
     </div>
   )
 }

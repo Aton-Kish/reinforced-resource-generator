@@ -1,3 +1,5 @@
+import Material from './Material'
+
 import type { MaterialTexture } from '../../assets/material'
 import type { FC } from 'react'
 
@@ -7,13 +9,9 @@ export interface InputProps {
 
 const Input: FC<InputProps> = ({ material }) => {
   return (
-    <div>
+    <div className='flex flex-col gap-2'>
       <h2 className='text-2xl'>Input</h2>
-      <div>
-        <div>namespace: {material.namespace}</div>
-        <div>name: {material.name}</div>
-        <img className='w-8' src={material.src} alt={material.name} title={material.name} />
-      </div>
+      <Material material={material} />
     </div>
   )
 }

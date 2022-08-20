@@ -25,7 +25,7 @@ const Generator: FC = () => {
     <div>
       {materials.map((material) => {
         return (
-          <div key={material.id} className='grid grid-cols-2 gap-2'>
+          <div key={material.id} className='grid grid-cols-1 gap-4 md:grid-cols-[256px_1fr]'>
             <Input material={material} />
             <Output material={material} />
           </div>
