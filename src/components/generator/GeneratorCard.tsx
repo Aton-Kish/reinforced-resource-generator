@@ -1,10 +1,10 @@
 import Input from './Input'
 import Output from './Output'
 
-import type { MaterialTexture } from '../../assets/material'
+import type { SelectableMaterialTexture } from '../../contexts'
 
 export interface GeneratorCardProps {
-  material: MaterialTexture
+  material: SelectableMaterialTexture
 }
 
 const GeneratorCard = ({ material }: GeneratorCardProps): JSX.Element => {

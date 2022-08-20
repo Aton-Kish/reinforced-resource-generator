@@ -9,9 +9,11 @@ const Generator = (): JSX.Element => {
 
   return (
     <>
-      {Object.values(materials).map((material) => {
-        return <GeneratorCard key={material.id} material={material} />
-      })}
+      {Object.values(materials)
+        .filter(({ selected }) => selected)
+        .map((material) => {
+          return <GeneratorCard key={material.id} material={material} />
+        })}
     </>
   )
 }

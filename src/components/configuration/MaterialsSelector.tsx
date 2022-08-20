@@ -1,10 +1,16 @@
-import type { MaterialTexture } from '../../assets/material'
+import { useContext } from 'react'
+
+import { MaterialContext } from '../../contexts'
+
+import type { SelectableMaterialTexture } from '../../contexts'
 
 export interface MaterialsSelectorProps {
-  material: MaterialTexture
+  material: SelectableMaterialTexture
 }
 
 const MaterialsSelector = ({ material }: MaterialsSelectorProps): JSX.Element => {
+  const { materials, setMaterials } = useContext(MaterialContext)
+
   return (
     <li>
       <input
@@ -12,7 +18,7 @@ const MaterialsSelector = ({ material }: MaterialsSelectorProps): JSX.Element =>
         className='peer hidden'
         type='checkbox'
         onChange={(event) => {
-          console.log(event.target.checked)
+          setMaterials({ ...materials, [material.id]: { ...material, selected: event.target.checked } })
         }}
       />
       <label

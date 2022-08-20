@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { v4 as uuid } from 'uuid'
 
 import {
   MaterialCopperTexture,
@@ -11,15 +12,21 @@ import Configuration from './components/configuration/Configuration'
 import Generator from './components/generator/Generator'
 import { MaterialContext } from './contexts'
 
-import type { MaterialTexture } from './assets/material'
+import type { SelectableMaterialTexture } from './contexts'
 
 const App = (): JSX.Element => {
-  const [materials, setMaterials] = useState<Record<string, MaterialTexture>>({
-    [MaterialCopperTexture.id]: MaterialCopperTexture,
-    [MaterialIronTexture.id]: MaterialIronTexture,
-    [MaterialGoldTexture.id]: MaterialGoldTexture,
-    [MaterialDiamondTexture.id]: MaterialDiamondTexture,
-    [MaterialNetheriteTexture.id]: MaterialNetheriteTexture,
+  const copper: SelectableMaterialTexture = { ...MaterialCopperTexture, id: uuid(), selected: false }
+  const iron: SelectableMaterialTexture = { ...MaterialIronTexture, id: uuid(), selected: false }
+  const gold: SelectableMaterialTexture = { ...MaterialGoldTexture, id: uuid(), selected: false }
+  const diamond: SelectableMaterialTexture = { ...MaterialDiamondTexture, id: uuid(), selected: false }
+  const netherite: SelectableMaterialTexture = { ...MaterialNetheriteTexture, id: uuid(), selected: false }
+
+  const [materials, setMaterials] = useState<Record<string, SelectableMaterialTexture>>({
+    [copper.id]: copper,
+    [iron.id]: iron,
+    [gold.id]: gold,
+    [diamond.id]: diamond,
+    [netherite.id]: netherite,
   })
 
   return (

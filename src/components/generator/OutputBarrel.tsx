@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '../../assets/barrel'
 import { BarrelGenerator, BarrelType } from '../../lib/barrel'
 
-import type { MaterialTexture } from '../../assets/material'
+import type { SelectableMaterialTexture } from '../../contexts'
 import type { BaseTextures } from '../../lib/barrel'
 
 type Images = {
@@ -12,7 +12,7 @@ type Images = {
 }
 
 export interface OutputBarrelProps {
-  material: MaterialTexture
+  material: SelectableMaterialTexture
 }
 
 const OutputBarrel = ({ material }: OutputBarrelProps): JSX.Element => {

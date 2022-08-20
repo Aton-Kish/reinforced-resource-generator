@@ -2,10 +2,10 @@ import { useContext } from 'react'
 
 import { MaterialContext } from '../../contexts'
 
-import type { MaterialTexture } from '../../assets/material'
+import type { SelectableMaterialTexture } from '../../contexts'
 
 export interface InputMaterialProps {
-  material: MaterialTexture
+  material: SelectableMaterialTexture
 }
 
 const InputMaterial = ({ material }: InputMaterialProps): JSX.Element => {

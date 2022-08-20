@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../../assets/chest'
 import { ChestGenerator, ChestType } from '../../lib/chest'
 
-import type { MaterialTexture } from '../../assets/material'
+import type { SelectableMaterialTexture } from '../../contexts'
 import type { BaseTextures } from '../../lib/chest'
 
 type Images = {
@@ -12,7 +12,7 @@ type Images = {
 }
 
 export interface OutputChestProps {
-  material: MaterialTexture
+  material: SelectableMaterialTexture
 }
 
 const OutputChest = ({ material }: OutputChestProps): JSX.Element => {

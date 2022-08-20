@@ -1,9 +1,9 @@
 import InputMaterial from './InputMaterial'
 
-import type { MaterialTexture } from '../../assets/material'
+import type { SelectableMaterialTexture } from '../../contexts'
 
 export interface InputProps {
-  material: MaterialTexture
+  material: SelectableMaterialTexture
 }
 
 const Input = ({ material }: InputProps): JSX.Element => {

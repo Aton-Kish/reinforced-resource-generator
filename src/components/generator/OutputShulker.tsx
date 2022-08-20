@@ -22,7 +22,7 @@ import {
 } from '../../assets/shulker'
 import { ShulkerGenerator, ShulkerType } from '../../lib/shulker'
 
-import type { MaterialTexture } from '../../assets/material'
+import type { SelectableMaterialTexture } from '../../contexts'
 import type { BaseTextures } from '../../lib/shulker'
 
 type Images = {
@@ -30,7 +30,7 @@ type Images = {
 }
 
 export interface OutputShulkerProps {
-  material: MaterialTexture
+  material: SelectableMaterialTexture
 }
 
 const OutputShulker = ({ material }: OutputShulkerProps): JSX.Element => {
