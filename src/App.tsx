@@ -10,11 +10,19 @@ import {
 } from './assets/material'
 import Configuration from './components/configuration/Configuration'
 import Generator from './components/generator/Generator'
-import { MaterialContext } from './contexts'
+import { MaterialContext, ProjectContext } from './contexts'
 
-import type { SelectableMaterialTexture } from './contexts'
+import type { Project, SelectableMaterialTexture } from './contexts'
 
 const App = (): JSX.Element => {
+  const [project, setProject] = useState<Project>({
+    namespace: {
+      chest: 'reinfchest',
+      shulker: 'reinfshulker',
+      barrel: 'reinfbarrel',
+    },
+  })
+
   const copper: SelectableMaterialTexture = { ...MaterialCopperTexture, id: uuid(), selected: false }
   const iron: SelectableMaterialTexture = { ...MaterialIronTexture, id: uuid(), selected: false }
   const gold: SelectableMaterialTexture = { ...MaterialGoldTexture, id: uuid(), selected: false }
@@ -31,12 +39,14 @@ const App = (): JSX.Element => {
 
   return (
     <div className='container mx-auto p-4'>
-      <MaterialContext.Provider value={{ materials, setMaterials }}>
-        <div className='flex flex-col gap-4'>
-          <Configuration />
-          <Generator />
-        </div>
-      </MaterialContext.Provider>
+      <ProjectContext.Provider value={{ project, setProject }}>
+        <MaterialContext.Provider value={{ materials, setMaterials }}>
+          <div className='flex flex-col gap-4'>
+            <Configuration />
+            <Generator />
+          </div>
+        </MaterialContext.Provider>
+      </ProjectContext.Provider>
     </div>
   )
 }
