@@ -72,13 +72,16 @@ const Shulker: FC<ShulkerProps> = ({ material }) => {
   }, [material])
 
   return (
-    <div className='flex flex-wrap gap-2'>
-      {Object.entries(images).map(([type, src]) => {
-        const shulkerType = `shulker${type === 'default' ? '' : `_${type}`}`
-        const id = `entity/reinforced_shulker/${material.name}/${shulkerType}`
+    <div className='flex flex-col gap-1'>
+      <h3 className='text-lg'>Shulker</h3>
+      <div className='flex flex-wrap gap-2'>
+        {Object.entries(images).map(([type, src]) => {
+          const shulkerType = `shulker${type === 'default' ? '' : `_${type}`}`
+          const id = `entity/reinforced_shulker/${material.name}/${shulkerType}`
 
-        return <img key={`${type}-shulker-${material.id}`} className='w-32' src={src} alt={id} title={id} />
-      })}
+          return <img key={`${type}-shulker-${material.id}`} className='w-32' src={src} alt={id} title={id} />
+        })}
+      </div>
     </div>
   )
 }
