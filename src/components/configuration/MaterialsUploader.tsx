@@ -3,11 +3,11 @@ import { useContext, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { v4 as uuid } from 'uuid'
 
-import { MaterialContext } from '../contexts'
+import { MaterialContext } from '../../contexts'
 
-import type { MaterialTexture } from '../assets/material'
+import type { MaterialTexture } from '../../assets/material'
 
-const UploaderDropzone = (): JSX.Element => {
+const MaterialsUploader = (): JSX.Element => {
   const { materials, setMaterials } = useContext(MaterialContext)
   const [rejected, setRejected] = useState<string[]>([])
   const { getRootProps, getInputProps } = useDropzone({
@@ -68,4 +68,4 @@ const UploaderDropzone = (): JSX.Element => {
   )
 }
 
-export default UploaderDropzone
+export default MaterialsUploader

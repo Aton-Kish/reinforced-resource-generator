@@ -1,10 +1,10 @@
-import type { MaterialTexture } from '../assets/material'
+import type { MaterialTexture } from '../../assets/material'
 
-export interface UploaderSelectorProps {
+export interface MaterialsSelectorProps {
   material: MaterialTexture
 }
 
-const UploaderSelector = ({ material }: UploaderSelectorProps): JSX.Element => {
+const MaterialsSelector = ({ material }: MaterialsSelectorProps): JSX.Element => {
   return (
     <li>
       <input
@@ -30,4 +30,4 @@ const UploaderSelector = ({ material }: UploaderSelectorProps): JSX.Element => {
   )
 }
 
-export default UploaderSelector
+export default MaterialsSelector

@@ -7,7 +7,7 @@ import {
   MaterialIronTexture,
   MaterialNetheriteTexture,
 } from './assets/material'
-import Uploader from './components/Uploader'
+import Configuration from './components/configuration/Configuration'
 import Generator from './components/generator/Generator'
 import { MaterialContext } from './contexts'
 
@@ -26,7 +26,7 @@ const App = (): JSX.Element => {
     <div className='container mx-auto p-4'>
       <MaterialContext.Provider value={{ materials, setMaterials }}>
         <div className='flex flex-col gap-4'>
-          <Uploader />
+          <Configuration />
           <Generator />
         </div>
       </MaterialContext.Provider>
