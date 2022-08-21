@@ -76,7 +76,7 @@ const OutputShulkerTexture = ({ material }: Props): JSX.Element => {
       <h4 className='text'>Texture</h4>
       <div className='flex flex-wrap gap-2'>
         {Object.entries(images).map(([type, src]) => {
-          const shulkerType = `shulker${type === 'default' ? '' : `_${type}`}`
+          const shulkerType = `shulker${type === ShulkerType.Default ? '' : `_${type}`}`
           const id = `entity/reinforced_shulker/${material.name}/${shulkerType}`
 
           return <img key={`${type}-shulker-${material.id}`} className='w-32' src={src} alt={id} title={id} />

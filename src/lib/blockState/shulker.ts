@@ -15,7 +15,9 @@ export class ShulkerGenerator {
     const states: BlockState = {
       variants: {
         '': {
-          model: `${this.#namespace}:block/${type === 'default' ? '' : `${type}_`}${this.#material}_shulker_box`,
+          model: `${this.#namespace}:block/${type === ShulkerType.Default ? '' : `${type}_`}${
+            this.#material
+          }_shulker_box`,
         },
       },
     }
