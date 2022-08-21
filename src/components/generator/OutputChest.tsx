@@ -1,5 +1,5 @@
 import OutputChestBlockModel from './OutputChestBlockModel'
-import OutputChestBlockStates from './OutputChestBlockStates'
+import OutputChestBlockState from './OutputChestBlockState'
 import OutputChestItemModel from './OutputChestItemModel'
 import OutputChestTexture from './OutputChestTexture'
 
@@ -16,7 +16,7 @@ const OutputChest = ({ material }: Props): JSX.Element => {
       <OutputChestTexture material={material} />
       <OutputChestBlockModel material={material} />
       <OutputChestItemModel material={material} />
-      <OutputChestBlockStates material={material} />
+      <OutputChestBlockState material={material} />
     </div>
   )
 }

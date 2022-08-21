@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '../../contexts'
 import { BarrelType } from '../../lib/common'
-import { BarrelGenerator } from '../../lib/models/block'
+import { BarrelGenerator } from '../../lib/model/block'
 
 import Code from './Code'
 
 import type { SelectableMaterialTexture } from '../../contexts'
-import type { BlockModel } from '../../lib/models/block'
+import type { BlockModel } from '../../lib/model/block'
 
 interface Props {
   material: SelectableMaterialTexture

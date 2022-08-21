@@ -1,4 +1,4 @@
-export interface BlockStates {
+export interface BlockState {
   variants: {
     [key: string]: {
       model: string

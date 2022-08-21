@@ -1,4 +1,4 @@
-import type { BlockStates } from './common'
+import type { BlockState } from './common'
 
 export class BarrelGenerator {
   #namespace: string
@@ -9,8 +9,8 @@ export class BarrelGenerator {
     this.#material = materialName
   }
 
-  generate(): BlockStates {
-    const states: BlockStates = {
+  generate(): BlockState {
+    const states: BlockState = {
       variants: {
         'facing=down,open=false': {
           x: 180,

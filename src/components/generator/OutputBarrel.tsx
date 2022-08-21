@@ -1,5 +1,5 @@
 import OutputBarrelBlockModel from './OutputBarrelBlockModel'
-import OutputBarrelBlockStates from './OutputBarrelBlockStates'
+import OutputBarrelBlockState from './OutputBarrelBlockState'
 import OutputBarrelItemModel from './OutputBarrelItemModel'
 import OutputBarrelTexture from './OutputBarrelTexture'
 
@@ -16,7 +16,7 @@ const OutputBarrel = ({ material }: Props): JSX.Element => {
       <OutputBarrelTexture material={material} />
       <OutputBarrelBlockModel material={material} />
       <OutputBarrelItemModel material={material} />
-      <OutputBarrelBlockStates material={material} />
+      <OutputBarrelBlockState material={material} />
     </div>
   )
 }

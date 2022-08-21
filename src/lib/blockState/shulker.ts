@@ -1,6 +1,6 @@
 import { ShulkerType } from '../common'
 
-import type { BlockStates } from './common'
+import type { BlockState } from './common'
 
 export class ShulkerGenerator {
   #namespace: string
@@ -11,8 +11,8 @@ export class ShulkerGenerator {
     this.#material = materialName
   }
 
-  generate(type: ShulkerType): BlockStates {
-    const states: BlockStates = {
+  generate(type: ShulkerType): BlockState {
+    const states: BlockState = {
       variants: {
         '': {
           model: `${this.#namespace}:block/${type === 'default' ? '' : `${type}_`}${this.#material}_shulker_box`,

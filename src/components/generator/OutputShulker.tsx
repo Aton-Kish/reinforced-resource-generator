@@ -1,5 +1,5 @@
 import OutputShulkerBlockModel from './OutputShulkerBlockModel '
-import OutputShulkerBlockStates from './OutputShulkerBlockStates'
+import OutputShulkerBlockState from './OutputShulkerBlockState'
 import OutputShulkerItemModel from './OutputShulkerItemModel '
 import OutputShulkerTexture from './OutputShulkerTexture'
 
@@ -16,7 +16,7 @@ const OutputShulker = ({ material }: Props): JSX.Element => {
       <OutputShulkerTexture material={material} />
       <OutputShulkerBlockModel material={material} />
       <OutputShulkerItemModel material={material} />
-      <OutputShulkerBlockStates material={material} />
+      <OutputShulkerBlockState material={material} />
     </div>
   )
 }

@@ -1,22 +1,23 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '../../contexts'
-import { BarrelGenerator, BlockStates } from '../../lib/blockStates'
+import { ChestGenerator } from '../../lib/blockState'
 
 import Code from './Code'
 
 import type { SelectableMaterialTexture } from '../../contexts'
+import type { BlockState } from '../../lib/blockState'
 
 interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputBarrelBlockStates = ({ material }: Props): JSX.Element => {
+const OutputChestBlockState = ({ material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
-  const [blockStates, setBlockStates] = useState<BlockStates>({ variants: {} })
+  const [blockStates, setBlockStates] = useState<BlockState>({ variants: {} })
 
   useEffect(() => {
-    const generator = new BarrelGenerator(project.namespace.barrel, material.name)
+    const generator = new ChestGenerator(project.namespace.chest, material.name)
     setBlockStates(generator.generate())
   }, [project, material])
 
@@ -24,11 +25,11 @@ const OutputBarrelBlockStates = ({ material }: Props): JSX.Element => {
     <div className='flex flex-col gap-1'>
       <h4 className='text'>Block States</h4>
       <Code
-        lang={`${project.namespace.barrel}/assets/blockstates/${material.name}_barrel.json`}
+        lang={`${project.namespace.chest}/assets/blockstates/${material.name}_chest.json`}
         data={JSON.stringify(blockStates, null, 2)}
       />
     </div>
   )
 }
 
-export default OutputBarrelBlockStates
+export default OutputChestBlockState

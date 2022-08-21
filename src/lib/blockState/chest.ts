@@ -1,4 +1,4 @@
-import type { BlockStates } from './common'
+import type { BlockState } from './common'
 
 export class ChestGenerator {
   #namespace: string
@@ -9,8 +9,8 @@ export class ChestGenerator {
     this.#material = materialName
   }
 
-  generate(): BlockStates {
-    const states: BlockStates = {
+  generate(): BlockState {
+    const states: BlockState = {
       variants: {
         '': {
           model: `${this.#namespace}:block/${this.#material}_chest`,

@@ -1,24 +1,25 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '../../contexts'
-import { BlockStates, ShulkerGenerator } from '../../lib/blockStates'
+import { ShulkerGenerator } from '../../lib/blockState'
 import { ShulkerType } from '../../lib/common'
 
 import Code from './Code'
 
 import type { SelectableMaterialTexture } from '../../contexts'
+import type { BlockState } from '../../lib/blockState'
 
 interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputShulkerBlockStates = ({ material }: Props): JSX.Element => {
+const OutputShulkerBlockState = ({ material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
-  const [blockStates, setBlockStates] = useState<Partial<Record<ShulkerType, BlockStates>>>({})
+  const [blockStates, setBlockStates] = useState<Partial<Record<ShulkerType, BlockState>>>({})
 
   useEffect(() => {
     const generator = new ShulkerGenerator(project.namespace.chest, material.name)
-    const blockStates = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, BlockStates>>>((states, type) => {
+    const blockStates = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, BlockState>>>((states, type) => {
       return { ...states, [type]: generator.generate(type) }
     }, {})
     setBlockStates(blockStates)
@@ -44,4 +45,4 @@ const OutputShulkerBlockStates = ({ material }: Props): JSX.Element => {
   )
 }
 
-export default OutputShulkerBlockStates
+export default OutputShulkerBlockState
