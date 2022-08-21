@@ -1,28 +1,22 @@
 import Jimp from 'jimp'
 
+import { ChestType } from '../common'
+
 import { Material9 } from './material'
 
 const SHADOW_INNER_COLOR = Jimp.rgbaToInt(0, 0, 0, 153)
 const SHADOW_KNOB_MAIN_COLOR = Jimp.rgbaToInt(0, 0, 0, 102)
 const SHADOW_KNOB_SUB_COLOR = Jimp.rgbaToInt(0, 0, 0, 26)
 
-export const ChestType = {
-  Single: 'single',
-  Left: 'left',
-  Right: 'right',
-} as const
-
-export type ChestType = typeof ChestType[keyof typeof ChestType]
-
-export type BaseTextures = {
+export type ChestBaseTextures = {
   [type in ChestType]: Jimp
 }
 
 export class ChestGenerator {
-  #base: BaseTextures
+  #base: ChestBaseTextures
   #material9: Material9
 
-  constructor(base: BaseTextures, material: Jimp) {
+  constructor(base: ChestBaseTextures, material: Jimp) {
     for (const [type, image] of Object.entries(base)) {
       if (!(image.getWidth() === 64 && image.getHeight() === 64)) {
         throw new Error(`${type} image size must be 64x64`)

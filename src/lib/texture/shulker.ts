@@ -1,38 +1,18 @@
 import Jimp from 'jimp'
 
+import { ShulkerType } from '../common'
+
 import { Material9 } from './material'
 
-export const ShulkerType = {
-  Default: 'default',
-  White: 'white',
-  Orange: 'orange',
-  Magenta: 'magenta',
-  LightBlue: 'light_blue',
-  Yellow: 'yellow',
-  Lime: 'lime',
-  Pink: 'pink',
-  Gray: 'gray',
-  LightGray: 'light_gray',
-  Cyan: 'cyan',
-  Purple: 'purple',
-  Blue: 'blue',
-  Brown: 'brown',
-  Green: 'green',
-  Red: 'red',
-  Black: 'black',
-} as const
-
-export type ShulkerType = typeof ShulkerType[keyof typeof ShulkerType]
-
-export type BaseTextures = {
+export type ShulkerBaseTextures = {
   [type in ShulkerType]: Jimp
 }
 
 export class ShulkerGenerator {
-  #base: BaseTextures
+  #base: ShulkerBaseTextures
   #material9: Material9
 
-  constructor(base: BaseTextures, material: Jimp) {
+  constructor(base: ShulkerBaseTextures, material: Jimp) {
     for (const [type, image] of Object.entries(base)) {
       if (!(image.getWidth() === 64 && image.getHeight() === 64)) {
         throw new Error(`${type} color image size must be 64x64`)

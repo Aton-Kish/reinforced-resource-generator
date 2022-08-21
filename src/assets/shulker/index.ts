@@ -1,4 +1,4 @@
-import { ShulkerType } from '../../lib/shulker'
+import { ShulkerType } from '../../lib/common'
 
 import Black from './black.png'
 import Blue from './blue.png'

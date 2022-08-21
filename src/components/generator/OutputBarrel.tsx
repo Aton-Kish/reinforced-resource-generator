@@ -2,10 +2,11 @@ import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
 import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '../../assets/barrel'
-import { BarrelGenerator, BarrelType } from '../../lib/barrel'
+import { BarrelType } from '../../lib/common'
+import { BarrelGenerator } from '../../lib/texture'
 
 import type { SelectableMaterialTexture } from '../../contexts'
-import type { BaseTextures } from '../../lib/barrel'
+import type { BarrelBaseTextures } from '../../lib/texture'
 
 type Images = {
   [type in BarrelType]?: string
@@ -20,7 +21,7 @@ const OutputBarrel = ({ material }: Props): JSX.Element => {
 
   useEffect(() => {
     const generate = async () => {
-      const base: BaseTextures = {
+      const base: BarrelBaseTextures = {
         [BarrelType.Top]: await Jimp.read(BarrelTopTexture.src),
         [BarrelType.TopOpen]: await Jimp.read(BarrelTopOpenTexture.src),
         [BarrelType.Side]: await Jimp.read(BarrelSideTexture.src),

@@ -1,4 +1,4 @@
-import { BarrelType } from '../../lib/barrel'
+import { BarrelType } from '../../lib/common'
 
 import Bottom from './bottom.png'
 import Side from './side.png'

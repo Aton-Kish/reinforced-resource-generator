@@ -2,10 +2,11 @@ import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
 import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../../assets/chest'
-import { ChestGenerator, ChestType } from '../../lib/chest'
+import { ChestType } from '../../lib/common'
+import { ChestGenerator } from '../../lib/texture'
 
 import type { SelectableMaterialTexture } from '../../contexts'
-import type { BaseTextures } from '../../lib/chest'
+import type { ChestBaseTextures } from '../../lib/texture'
 
 type Images = {
   [type in ChestType]?: string
@@ -20,7 +21,7 @@ const OutputChest = ({ material }: Props): JSX.Element => {
 
   useEffect(() => {
     const generate = async () => {
-      const base: BaseTextures = {
+      const base: ChestBaseTextures = {
         [ChestType.Single]: await Jimp.read(ChestSingleTexture.src),
         [ChestType.Left]: await Jimp.read(ChestLeftTexture.src),
         [ChestType.Right]: await Jimp.read(ChestRightTexture.src),

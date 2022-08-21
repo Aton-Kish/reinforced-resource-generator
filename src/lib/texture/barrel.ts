@@ -1,5 +1,7 @@
 import Jimp from 'jimp'
 
+import { BarrelType } from '../common'
+
 import { Material9 } from './material'
 
 const SHADOW_OUTER_MAIN_COLOR = Jimp.rgbaToInt(0, 0, 0, 65)
@@ -9,24 +11,15 @@ const SHADOW_INNER_SUB1_COLOR = Jimp.rgbaToInt(0, 0, 0, 150)
 const SHADOW_INNER_SUB2_COLOR = Jimp.rgbaToInt(0, 0, 0, 125)
 const SHADOW_INNER_SUB3_COLOR = Jimp.rgbaToInt(0, 0, 0, 90)
 
-export const BarrelType = {
-  Top: 'top',
-  TopOpen: 'top_open',
-  Side: 'side',
-  Bottom: 'bottom',
-} as const
-
-export type BarrelType = typeof BarrelType[keyof typeof BarrelType]
-
-export type BaseTextures = {
+export type BarrelBaseTextures = {
   [type in BarrelType]: Jimp
 }
 
 export class BarrelGenerator {
-  #base: BaseTextures
+  #base: BarrelBaseTextures
   #material9: Material9
 
-  constructor(base: BaseTextures, material: Jimp) {
+  constructor(base: BarrelBaseTextures, material: Jimp) {
     for (const [type, image] of Object.entries(base)) {
       if (!(image.getWidth() === 16 && image.getHeight() === 16)) {
         throw new Error(`${type} image size must be 16x16`)

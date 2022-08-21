@@ -1,4 +1,4 @@
-import { ChestType } from '../../lib/chest'
+import { ChestType } from '../../lib/common'
 
 import Left from './left.png'
 import Right from './right.png'
