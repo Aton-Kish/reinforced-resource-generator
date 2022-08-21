@@ -23,7 +23,7 @@ const MaterialsSelector = ({ material }: Props): JSX.Element => {
       />
       <label
         htmlFor={`material-${material.id}`}
-        className='inline-flex cursor-pointer rounded border border-gray-300 bg-white p-4 hover:bg-gray-50 peer-checked:border-blue-500'
+        className='inline-flex cursor-pointer rounded border border-gray-300 bg-white p-4 hover:bg-blue-50 peer-checked:border-blue-500'
       >
         <img
           className='w-8'
