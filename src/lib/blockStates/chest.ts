@@ -1,4 +1,4 @@
-import { BlockStates } from './common'
+import type { BlockStates } from './common'
 
 export class ChestGenerator {
   #namespace: string

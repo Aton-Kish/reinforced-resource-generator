@@ -1,6 +1,6 @@
 import { ShulkerType } from '../common'
 
-import { BlockStates } from './common'
+import type { BlockStates } from './common'
 
 export class ShulkerGenerator {
   #namespace: string
