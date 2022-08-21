@@ -19,7 +19,7 @@ const OutputBlockStateBarrel = ({ material }: Props): JSX.Element => {
   useEffect(() => {
     const generator = new BarrelGenerator(project.namespace.barrel, material.name)
     setBlockState(generator.generate())
-  }, [project, material])
+  }, [project.namespace.barrel, material.name])
 
   return (
     <div className='flex flex-col gap-1'>

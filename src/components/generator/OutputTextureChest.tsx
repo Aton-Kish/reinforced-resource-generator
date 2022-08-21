@@ -37,7 +37,7 @@ const OutputTextureChest = ({ material }: Props): JSX.Element => {
     }
 
     generate()
-  }, [material])
+  }, [material.src])
 
   return (
     <div className='flex flex-col gap-1'>

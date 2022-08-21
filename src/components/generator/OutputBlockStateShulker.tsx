@@ -23,7 +23,7 @@ const OutputBlockStateShulker = ({ material }: Props): JSX.Element => {
       return { ...acc, [type]: generator.generate(type) }
     }, {})
     setBlockStates(blockStates)
-  }, [project, material])
+  }, [project.namespace.chest, material.name])
 
   return (
     <div className='flex flex-col gap-1'>

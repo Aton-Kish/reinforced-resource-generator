@@ -24,7 +24,7 @@ const OutputBlockModelBarrel = ({ material }: Props): JSX.Element => {
       [BarrelType.TopOpen]: generator.generate(BarrelType.TopOpen),
     }
     setModels(models)
-  }, [project, material])
+  }, [project.namespace.barrel, material.name])
 
   return (
     <div className='flex flex-col gap-1'>

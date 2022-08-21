@@ -19,7 +19,7 @@ const OutputItemModelBarrel = ({ material }: Props): JSX.Element => {
   useEffect(() => {
     const generator = new BarrelGenerator(project.namespace.barrel, material.name)
     setModel(generator.generate())
-  }, [project, material])
+  }, [project.namespace.barrel, material.name])
 
   return (
     <div className='flex flex-col gap-1'>

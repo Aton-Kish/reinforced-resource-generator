@@ -19,7 +19,7 @@ const OutputBlockModelChest = ({ material }: Props): JSX.Element => {
   useEffect(() => {
     const generator = new ChestGenerator(material.namespace, material.name)
     setModel(generator.generate())
-  }, [material])
+  }, [material.namespace, material.name])
 
   return (
     <div className='flex flex-col gap-1'>
