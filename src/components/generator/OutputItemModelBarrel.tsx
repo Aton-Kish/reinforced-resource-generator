@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '../../contexts'
-import { ChestGenerator } from '../../lib/model/item'
+import { BarrelGenerator } from '../../lib/model/item'
 
 import Code from './Code'
 
@@ -12,24 +12,24 @@ interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputChestItemModel = ({ material }: Props): JSX.Element => {
+const OutputItemModelBarrel = ({ material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [model, setModel] = useState<ItemModel>({})
 
   useEffect(() => {
-    const generator = new ChestGenerator(material.namespace, material.name)
+    const generator = new BarrelGenerator(project.namespace.barrel, material.name)
     setModel(generator.generate())
-  }, [material])
+  }, [project, material])
 
   return (
     <div className='flex flex-col gap-1'>
-      <h4 className='text'>Item Model</h4>
+      <h4 className='text'>Barrel</h4>
       <Code
-        lang={`${project.namespace.chest}/assets/models/block/${material.name}_chest.json`}
+        lang={`${project.namespace.barrel}/assets/models/item/${material.name}_barrel.json`}
         data={JSON.stringify(model, null, 2)}
       />
     </div>
   )
 }
 
-export default OutputChestItemModel
+export default OutputItemModelBarrel

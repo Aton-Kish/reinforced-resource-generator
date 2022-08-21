@@ -26,16 +26,12 @@ import { ShulkerGenerator } from '../../lib/texture'
 import type { SelectableMaterialTexture } from '../../contexts'
 import type { ShulkerBaseTextures } from '../../lib/texture'
 
-type Images = {
-  [type in ShulkerType]?: string
-}
-
 interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputShulkerTexture = ({ material }: Props): JSX.Element => {
-  const [images, setImages] = useState<Images>({})
+const OutputTextureShulker = ({ material }: Props): JSX.Element => {
+  const [textures, setTextures] = useState<Partial<Record<ShulkerType, string>>>({})
 
   useEffect(() => {
     const generate = async () => {
@@ -60,12 +56,16 @@ const OutputShulkerTexture = ({ material }: Props): JSX.Element => {
       }
       const matl = await Jimp.read(material.src)
 
-      const shulker = new ShulkerGenerator(base, matl)
-      const images: Images = {}
-      for (const type of Object.values(ShulkerType)) {
-        images[type] = await shulker.generate(type).getBase64Async(Jimp.MIME_PNG)
-      }
-      setImages({ ...images })
+      const generator = new ShulkerGenerator(base, matl)
+      const textures = await Object.values(ShulkerType).reduce<Promise<Partial<Record<ShulkerType, string>>>>(
+        async (acc, type) => {
+          const jimp = generator.generate(type)
+          const src = await jimp.getBase64Async(Jimp.MIME_PNG)
+          return Promise.resolve({ ...(await acc), [type]: src })
+        },
+        Promise.resolve({}),
+      )
+      setTextures({ ...textures })
     }
 
     generate()
@@ -73,11 +73,12 @@ const OutputShulkerTexture = ({ material }: Props): JSX.Element => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <h4 className='text'>Texture</h4>
+      <h4 className='text'>Shulker</h4>
       <div className='flex flex-wrap gap-2'>
-        {Object.entries(images).map(([type, src]) => {
-          const shulkerType = `shulker${type === ShulkerType.Default ? '' : `_${type}`}`
-          const id = `entity/reinforced_shulker/${material.name}/${shulkerType}`
+        {Object.entries(textures).map(([type, src]) => {
+          const id = `entity/reinforced_shulker/${material.name}/shulker${
+            type === ShulkerType.Default ? '' : `_${type}`
+          }`
 
           return <img key={`${type}-shulker-${material.id}`} className='w-32' src={src} alt={id} title={id} />
         })}
@@ -86,4 +87,4 @@ const OutputShulkerTexture = ({ material }: Props): JSX.Element => {
   )
 }
 
-export default OutputShulkerTexture
+export default OutputTextureShulker

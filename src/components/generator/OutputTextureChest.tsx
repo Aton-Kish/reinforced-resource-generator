@@ -8,16 +8,12 @@ import { ChestGenerator } from '../../lib/texture'
 import type { SelectableMaterialTexture } from '../../contexts'
 import type { ChestBaseTextures } from '../../lib/texture'
 
-type Images = {
-  [type in ChestType]?: string
-}
-
 interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputChestTexture = ({ material }: Props): JSX.Element => {
-  const [images, setImages] = useState<Images>({})
+const OutputTextureChest = ({ material }: Props): JSX.Element => {
+  const [textures, setTextures] = useState<Partial<Record<ChestType, string>>>({})
 
   useEffect(() => {
     const generate = async () => {
@@ -28,12 +24,16 @@ const OutputChestTexture = ({ material }: Props): JSX.Element => {
       }
       const matl = await Jimp.read(material.src)
 
-      const chest = new ChestGenerator(base, matl)
-      const images: Images = {}
-      for (const type of Object.values(ChestType)) {
-        images[type] = await chest.generate(type).getBase64Async(Jimp.MIME_PNG)
-      }
-      setImages({ ...images })
+      const generator = new ChestGenerator(base, matl)
+      const textures = await Object.values(ChestType).reduce<Promise<Partial<Record<ChestType, string>>>>(
+        async (acc, type) => {
+          const jimp = generator.generate(type)
+          const src = await jimp.getBase64Async(Jimp.MIME_PNG)
+          return Promise.resolve({ ...(await acc), [type]: src })
+        },
+        Promise.resolve({}),
+      )
+      setTextures({ ...textures })
     }
 
     generate()
@@ -41,9 +41,9 @@ const OutputChestTexture = ({ material }: Props): JSX.Element => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <h4 className='text'>Texture</h4>
+      <h4 className='text'>Chest</h4>
       <div className='flex flex-wrap gap-2'>
-        {Object.entries(images).map(([type, src]) => {
+        {Object.entries(textures).map(([type, src]) => {
           const id = `entity/reinforced_chest/${material.name}/${type}`
 
           return <img key={`${type}-chest-${material.id}`} className='w-32' src={src} alt={id} title={id} />
@@ -53,4 +53,4 @@ const OutputChestTexture = ({ material }: Props): JSX.Element => {
   )
 }
 
-export default OutputChestTexture
+export default OutputTextureChest

@@ -13,30 +13,30 @@ interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputShulkerBlockState = ({ material }: Props): JSX.Element => {
+const OutputBlockStateShulker = ({ material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [blockStates, setBlockStates] = useState<Partial<Record<ShulkerType, BlockState>>>({})
 
   useEffect(() => {
     const generator = new ShulkerGenerator(project.namespace.chest, material.name)
-    const blockStates = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, BlockState>>>((states, type) => {
-      return { ...states, [type]: generator.generate(type) }
+    const blockStates = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, BlockState>>>((acc, type) => {
+      return { ...acc, [type]: generator.generate(type) }
     }, {})
     setBlockStates(blockStates)
   }, [project, material])
 
   return (
     <div className='flex flex-col gap-1'>
-      <h4 className='text'>Block States</h4>
+      <h4 className='text'>Shulker</h4>
       <div className='flex flex-col gap-1'>
-        {Object.entries(blockStates).map(([type, states]) => {
+        {Object.entries(blockStates).map(([type, blockState]) => {
           return (
             <Code
               key={type}
               lang={`${project.namespace.shulker}/assets/blockstates/${type === ShulkerType.Default ? '' : `${type}_`}${
                 material.name
               }_shulker_box.json`}
-              data={JSON.stringify(states, null, 2)}
+              data={JSON.stringify(blockState, null, 2)}
             />
           )
         })}
@@ -45,4 +45,4 @@ const OutputShulkerBlockState = ({ material }: Props): JSX.Element => {
   )
 }
 
-export default OutputShulkerBlockState
+export default OutputBlockStateShulker

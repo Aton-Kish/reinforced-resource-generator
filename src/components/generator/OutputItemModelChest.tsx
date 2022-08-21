@@ -1,20 +1,20 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '../../contexts'
-import { ChestGenerator } from '../../lib/model/block'
+import { ChestGenerator } from '../../lib/model/item'
 
 import Code from './Code'
 
 import type { SelectableMaterialTexture } from '../../contexts'
-import type { BlockModel } from '../../lib/model/block'
+import type { ItemModel } from '../../lib/model/item'
 
 interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputChestBlockModel = ({ material }: Props): JSX.Element => {
+const OutputItemModelChest = ({ material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
-  const [model, setModel] = useState<BlockModel>({})
+  const [model, setModel] = useState<ItemModel>({})
 
   useEffect(() => {
     const generator = new ChestGenerator(material.namespace, material.name)
@@ -23,7 +23,7 @@ const OutputChestBlockModel = ({ material }: Props): JSX.Element => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <h4 className='text'>Block Model</h4>
+      <h4 className='text'>Chest</h4>
       <Code
         lang={`${project.namespace.chest}/assets/models/block/${material.name}_chest.json`}
         data={JSON.stringify(model, null, 2)}
@@ -32,4 +32,4 @@ const OutputChestBlockModel = ({ material }: Props): JSX.Element => {
   )
 }
 
-export default OutputChestBlockModel
+export default OutputItemModelChest

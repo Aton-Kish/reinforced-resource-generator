@@ -13,7 +13,7 @@ interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputBarrelBlockModel = ({ material }: Props): JSX.Element => {
+const OutputBlockModelBarrel = ({ material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [models, setModels] = useState<Partial<Record<BarrelType, BlockModel>>>({})
 
@@ -28,7 +28,7 @@ const OutputBarrelBlockModel = ({ material }: Props): JSX.Element => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <h4 className='text'>Block Model</h4>
+      <h4 className='text'>Barrel</h4>
       <Code
         lang={`${project.namespace.barrel}/assets/models/block/${material.name}_barrel.json`}
         data={JSON.stringify(models[BarrelType.Top], null, 2)}
@@ -41,4 +41,4 @@ const OutputBarrelBlockModel = ({ material }: Props): JSX.Element => {
   )
 }
 
-export default OutputBarrelBlockModel
+export default OutputBlockModelBarrel

@@ -8,16 +8,12 @@ import { BarrelGenerator } from '../../lib/texture'
 import type { SelectableMaterialTexture } from '../../contexts'
 import type { BarrelBaseTextures } from '../../lib/texture'
 
-type Images = {
-  [type in BarrelType]?: string
-}
-
 interface Props {
   material: SelectableMaterialTexture
 }
 
-const OutputBarrelTexture = ({ material }: Props): JSX.Element => {
-  const [images, setImages] = useState<Images>({})
+const OutputTextureBarrel = ({ material }: Props): JSX.Element => {
+  const [textures, setTextures] = useState<Partial<Record<BarrelType, string>>>({})
 
   useEffect(() => {
     const generate = async () => {
@@ -29,12 +25,16 @@ const OutputBarrelTexture = ({ material }: Props): JSX.Element => {
       }
       const matl = await Jimp.read(material.src)
 
-      const barrel = new BarrelGenerator(base, matl)
-      const images: Images = {}
-      for (const type of Object.values(BarrelType)) {
-        images[type] = await barrel.generate(type).getBase64Async(Jimp.MIME_PNG)
-      }
-      setImages({ ...images })
+      const generator = new BarrelGenerator(base, matl)
+      const textures = await Object.values(BarrelType).reduce<Promise<Partial<Record<BarrelType, string>>>>(
+        async (acc, type) => {
+          const jimp = generator.generate(type)
+          const src = await jimp.getBase64Async(Jimp.MIME_PNG)
+          return Promise.resolve({ ...(await acc), [type]: src })
+        },
+        Promise.resolve({}),
+      )
+      setTextures({ ...textures })
     }
 
     generate()
@@ -44,7 +44,7 @@ const OutputBarrelTexture = ({ material }: Props): JSX.Element => {
     <div className='flex flex-col gap-1'>
       <h4 className='text'>Texture</h4>
       <div className='flex flex-wrap gap-2'>
-        {Object.entries(images).map(([type, src]) => {
+        {Object.entries(textures).map(([type, src]) => {
           const id = `block/${material.name}_barrel_${type}`
 
           return <img key={`${type}-barrel-${material.id}`} className='w-8' src={src} alt={id} title={id} />
@@ -54,4 +54,4 @@ const OutputBarrelTexture = ({ material }: Props): JSX.Element => {
   )
 }
 
-export default OutputBarrelTexture
+export default OutputTextureBarrel
