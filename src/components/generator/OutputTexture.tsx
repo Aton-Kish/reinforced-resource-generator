@@ -1,6 +1,4 @@
-import { useContext } from 'react'
-
-import { outputContexts, OutputSection } from '../../contexts/output'
+import { useState } from 'react'
 
 import OutputTextureBarrel from './OutputTextureBarrel'
 import OutputTextureChest from './OutputTextureChest'
@@ -13,23 +11,14 @@ interface Props {
 }
 
 const OutputTexture = ({ material }: Props): JSX.Element => {
-  const { active, setActive } = useContext(outputContexts[material.id])
+  const [isOpen, setIsOpen] = useState(true)
 
   return (
     <div className='flex flex-col gap-1 overflow-hidden'>
-      <h3
-        className='cursor-pointer text-lg hover:text-blue-500'
-        onClick={() => {
-          if (active !== OutputSection.Texture) {
-            setActive(OutputSection.Texture)
-          } else {
-            setActive()
-          }
-        }}
-      >
+      <h3 className='cursor-pointer text-lg hover:text-blue-500' onClick={() => setIsOpen(!isOpen)}>
         Texture
       </h3>
-      <div className={`flex flex-col gap-1 ${active === OutputSection.Texture ? 'h-full' : 'h-0'}`}>
+      <div className={`flex flex-col gap-1 ${isOpen ? 'h-full' : 'h-0'}`}>
         <OutputTextureChest material={material} />
         <OutputTextureShulker material={material} />
         <OutputTextureBarrel material={material} />

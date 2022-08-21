@@ -1,6 +1,4 @@
-import { useContext } from 'react'
-
-import { outputContexts, OutputSection } from '../../contexts/output'
+import { useState } from 'react'
 
 import OutputBlockStateBarrel from './OutputBlockStateBarrel'
 import OutputBlockStateChest from './OutputBlockStateChest'
@@ -13,23 +11,14 @@ interface Props {
 }
 
 const OutputBlockState = ({ material }: Props): JSX.Element => {
-  const { active, setActive } = useContext(outputContexts[material.id])
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className='flex flex-col gap-1 overflow-hidden'>
-      <h3
-        className='cursor-pointer text-lg hover:text-blue-500'
-        onClick={() => {
-          if (active !== OutputSection.BlockState) {
-            setActive(OutputSection.BlockState)
-          } else {
-            setActive()
-          }
-        }}
-      >
+      <h3 className='cursor-pointer text-lg hover:text-blue-500' onClick={() => setIsOpen(!isOpen)}>
         Block State
       </h3>
-      <div className={`flex flex-col gap-1 ${active === OutputSection.BlockState ? 'h-full' : 'h-0'}`}>
+      <div className={`flex flex-col gap-1 ${isOpen ? 'h-full' : 'h-0'}`}>
         <OutputBlockStateChest material={material} />
         <OutputBlockStateShulker material={material} />
         <OutputBlockStateBarrel material={material} />
