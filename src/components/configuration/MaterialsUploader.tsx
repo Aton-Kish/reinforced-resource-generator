@@ -20,7 +20,19 @@ const MaterialsUploader = (): JSX.Element => {
         const id = uuid()
         const name = file.name.split('.').slice(0, -1).join('.')
 
-        const src = URL.createObjectURL(file)
+        const src = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onload = () => {
+            const result = reader.result
+            if (result == null || result instanceof ArrayBuffer) {
+              reject(new Error('invalid data type'))
+            } else {
+              resolve(result)
+            }
+          }
+          reader.onerror = (error) => reject(error)
+          reader.readAsDataURL(file)
+        })
         const jimp = await Jimp.read(src)
         if (!(jimp.getWidth() === 16 && jimp.getHeight() === 16)) {
           rejectedFilenames.push(file.name)
