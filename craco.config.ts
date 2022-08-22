@@ -6,7 +6,7 @@ export default {
     plugins: {
       add: [
         new NodePolyfillPlugin({
-          excludeAliases: ['console'],
+          excludeAliases: ['console', 'path'],
         }),
         new WindiCSSWebpackPlugin({
           virtualModulePath: 'src',
@@ -15,6 +15,9 @@ export default {
     },
     configure: {
       resolve: {
+        alias: {
+          path: 'path-browserify',
+        },
         fallback: {
           fs: false,
         },

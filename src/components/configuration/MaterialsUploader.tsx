@@ -1,3 +1,5 @@
+import { parse } from 'path'
+
 import Jimp from 'jimp'
 import { useContext, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
@@ -18,7 +20,7 @@ const MaterialsUploader = (): JSX.Element => {
 
       for (const file of acceptedFiles) {
         const id = uuid()
-        const name = file.name.split('.').slice(0, -1).join('.')
+        const name = parse(file.name).name
 
         const src = await new Promise<string>((resolve, reject) => {
           const reader = new FileReader()
