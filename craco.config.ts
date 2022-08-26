@@ -1,7 +1,9 @@
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import WindiCSSWebpackPlugin from 'windicss-webpack-plugin'
 
-export default {
+import type { CracoConfig } from '@craco/craco'
+
+const config: CracoConfig = {
   webpack: {
     plugins: {
       add: [
@@ -25,3 +27,5 @@ export default {
     },
   },
 }
+
+export default config
