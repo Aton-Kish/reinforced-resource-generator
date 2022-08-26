@@ -4,15 +4,16 @@ import { ShulkerType } from '../common'
 
 import { Material9 } from './material'
 
-export type ShulkerBaseTextures = {
-  [type in ShulkerType]: Jimp
+export interface ShulkerTexture {
+  type: ShulkerType
+  src: string
 }
 
 export class ShulkerGenerator {
-  #base: ShulkerBaseTextures
+  #base: Record<ShulkerType, Jimp>
   #material9: Material9
 
-  constructor(base: ShulkerBaseTextures, material: Jimp) {
+  constructor(base: Record<ShulkerType, Jimp>, material: Jimp) {
     for (const [type, image] of Object.entries(base)) {
       if (!(image.getWidth() === 64 && image.getHeight() === 64)) {
         throw new Error(`${type} color image size must be 64x64`)

@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { MaterialTexture } from '../assets/material'
+import type { MaterialTexture } from '../lib/texture'
 
 export interface SelectableMaterialTexture extends MaterialTexture {
   id: string

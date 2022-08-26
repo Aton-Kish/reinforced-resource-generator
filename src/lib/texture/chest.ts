@@ -8,15 +8,16 @@ const SHADOW_INNER_COLOR = Jimp.rgbaToInt(0, 0, 0, 153)
 const SHADOW_KNOB_MAIN_COLOR = Jimp.rgbaToInt(0, 0, 0, 102)
 const SHADOW_KNOB_SUB_COLOR = Jimp.rgbaToInt(0, 0, 0, 26)
 
-export type ChestBaseTextures = {
-  [type in ChestType]: Jimp
+export interface ChestTexture {
+  type: ChestType
+  src: string
 }
 
 export class ChestGenerator {
-  #base: ChestBaseTextures
+  #base: Record<ChestType, Jimp>
   #material9: Material9
 
-  constructor(base: ChestBaseTextures, material: Jimp) {
+  constructor(base: Record<ChestType, Jimp>, material: Jimp) {
     for (const [type, image] of Object.entries(base)) {
       if (!(image.getWidth() === 64 && image.getHeight() === 64)) {
         throw new Error(`${type} image size must be 64x64`)

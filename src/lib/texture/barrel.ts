@@ -11,15 +11,16 @@ const SHADOW_INNER_SUB1_COLOR = Jimp.rgbaToInt(0, 0, 0, 150)
 const SHADOW_INNER_SUB2_COLOR = Jimp.rgbaToInt(0, 0, 0, 125)
 const SHADOW_INNER_SUB3_COLOR = Jimp.rgbaToInt(0, 0, 0, 90)
 
-export type BarrelBaseTextures = {
-  [type in BarrelType]: Jimp
+export interface BarrelTexture {
+  type: BarrelType
+  src: string
 }
 
 export class BarrelGenerator {
-  #base: BarrelBaseTextures
+  #base: Record<BarrelType, Jimp>
   #material9: Material9
 
-  constructor(base: BarrelBaseTextures, material: Jimp) {
+  constructor(base: Record<BarrelType, Jimp>, material: Jimp) {
     for (const [type, image] of Object.entries(base)) {
       if (!(image.getWidth() === 16 && image.getHeight() === 16)) {
         throw new Error(`${type} image size must be 16x16`)

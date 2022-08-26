@@ -18,10 +18,7 @@ import Red from './red.png'
 import White from './white.png'
 import Yellow from './yellow.png'
 
-export interface ShulkerTexture {
-  type: ShulkerType
-  src: string
-}
+import type { ShulkerTexture } from '../../lib/texture'
 
 export const ShulkerDefaultTexture: ShulkerTexture = { type: ShulkerType.Default, src: Default }
 export const ShulkerWhiteTexture: ShulkerTexture = { type: ShulkerType.White, src: White }

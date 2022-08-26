@@ -24,7 +24,6 @@ import { ShulkerType } from '../../lib/common'
 import { ShulkerGenerator } from '../../lib/texture'
 
 import type { SelectableMaterialTexture } from '../../contexts'
-import type { ShulkerBaseTextures } from '../../lib/texture'
 
 interface Props {
   material: SelectableMaterialTexture
@@ -35,7 +34,7 @@ const OutputTextureShulker = ({ material }: Props): JSX.Element => {
 
   useEffect(() => {
     const generate = async () => {
-      const base: ShulkerBaseTextures = {
+      const base: Record<ShulkerType, Jimp> = {
         [ShulkerType.Default]: await Jimp.read(ShulkerDefaultTexture.src),
         [ShulkerType.White]: await Jimp.read(ShulkerWhiteTexture.src),
         [ShulkerType.Orange]: await Jimp.read(ShulkerOrangeTexture.src),

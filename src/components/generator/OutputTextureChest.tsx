@@ -6,7 +6,6 @@ import { ChestType } from '../../lib/common'
 import { ChestGenerator } from '../../lib/texture'
 
 import type { SelectableMaterialTexture } from '../../contexts'
-import type { ChestBaseTextures } from '../../lib/texture'
 
 interface Props {
   material: SelectableMaterialTexture
@@ -17,7 +16,7 @@ const OutputTextureChest = ({ material }: Props): JSX.Element => {
 
   useEffect(() => {
     const generate = async () => {
-      const base: ChestBaseTextures = {
+      const base: Record<ChestType, Jimp> = {
         [ChestType.Single]: await Jimp.read(ChestSingleTexture.src),
         [ChestType.Left]: await Jimp.read(ChestLeftTexture.src),
         [ChestType.Right]: await Jimp.read(ChestRightTexture.src),

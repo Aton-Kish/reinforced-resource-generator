@@ -4,11 +4,7 @@ import Gold from './gold.png'
 import Iron from './iron.png'
 import Netherite from './netherite.png'
 
-export interface MaterialTexture {
-  namespace: string
-  name: string
-  src: string
-}
+import type { MaterialTexture } from '../../lib/texture'
 
 export const MaterialCopperTexture: MaterialTexture = {
   namespace: 'minecraft',

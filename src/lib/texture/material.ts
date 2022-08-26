@@ -1,5 +1,11 @@
 import Jimp from 'jimp'
 
+export interface MaterialTexture {
+  namespace: string
+  name: string
+  src: string
+}
+
 export class Material9 {
   // Corner
   #cornerTopLeft: Jimp
