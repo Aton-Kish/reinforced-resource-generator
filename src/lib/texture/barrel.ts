@@ -4,12 +4,14 @@ import { BarrelType } from '@/lib/common'
 
 import { Material9 } from './material'
 
-const SHADOW_OUTER_MAIN_COLOR = Jimp.rgbaToInt(0, 0, 0, 65)
-const SHADOW_OUTER_SUB_COLOR = Jimp.rgbaToInt(0, 0, 0, 90)
-const SHADOW_INNER_MAIN_COLOR = Jimp.rgbaToInt(0, 0, 0, 175)
-const SHADOW_INNER_SUB1_COLOR = Jimp.rgbaToInt(0, 0, 0, 150)
-const SHADOW_INNER_SUB2_COLOR = Jimp.rgbaToInt(0, 0, 0, 125)
-const SHADOW_INNER_SUB3_COLOR = Jimp.rgbaToInt(0, 0, 0, 90)
+const ShadowColor = {
+  OuterMain: Jimp.rgbaToInt(0, 0, 0, 65),
+  OuterSub: Jimp.rgbaToInt(0, 0, 0, 90),
+  InnerMain: Jimp.rgbaToInt(0, 0, 0, 175),
+  InnerSub1: Jimp.rgbaToInt(0, 0, 0, 150),
+  InnerSub2: Jimp.rgbaToInt(0, 0, 0, 125),
+  InnerSub3: Jimp.rgbaToInt(0, 0, 0, 90),
+} as const
 
 export interface BarrelTexture {
   type: BarrelType
@@ -100,28 +102,28 @@ export class BarrelGenerator {
   #outerShadow(): Jimp {
     const shadow = new Jimp(16, 16)
 
-    shadow.setPixelColor(SHADOW_OUTER_SUB_COLOR, 1, 1)
+    shadow.setPixelColor(ShadowColor.OuterSub, 1, 1)
 
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 2, 1)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 1, 2)
+    shadow.setPixelColor(ShadowColor.OuterMain, 2, 1)
+    shadow.setPixelColor(ShadowColor.OuterMain, 1, 2)
 
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 1, 3)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 2, 2)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 3, 1)
+    shadow.setPixelColor(ShadowColor.OuterMain, 1, 3)
+    shadow.setPixelColor(ShadowColor.OuterMain, 2, 2)
+    shadow.setPixelColor(ShadowColor.OuterMain, 3, 1)
 
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 1, 4)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 2, 3)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 3, 2)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 4, 1)
+    shadow.setPixelColor(ShadowColor.OuterMain, 1, 4)
+    shadow.setPixelColor(ShadowColor.OuterMain, 2, 3)
+    shadow.setPixelColor(ShadowColor.OuterMain, 3, 2)
+    shadow.setPixelColor(ShadowColor.OuterMain, 4, 1)
 
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 1, 5)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 5, 1)
+    shadow.setPixelColor(ShadowColor.OuterMain, 1, 5)
+    shadow.setPixelColor(ShadowColor.OuterMain, 5, 1)
 
-    shadow.setPixelColor(SHADOW_OUTER_SUB_COLOR, 1, 6)
-    shadow.setPixelColor(SHADOW_OUTER_SUB_COLOR, 6, 1)
+    shadow.setPixelColor(ShadowColor.OuterSub, 1, 6)
+    shadow.setPixelColor(ShadowColor.OuterSub, 6, 1)
 
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 1, 7)
-    shadow.setPixelColor(SHADOW_OUTER_MAIN_COLOR, 7, 1)
+    shadow.setPixelColor(ShadowColor.OuterMain, 1, 7)
+    shadow.setPixelColor(ShadowColor.OuterMain, 7, 1)
 
     const quarter = shadow.clone()
     shadow.composite(quarter.clone().rotate(90), 0, -1)
@@ -134,47 +136,47 @@ export class BarrelGenerator {
   #innerShadow(): Jimp {
     const shadow = new Jimp(16, 16)
 
-    shadow.setPixelColor(SHADOW_INNER_SUB3_COLOR, 2, 4)
-    shadow.setPixelColor(SHADOW_INNER_SUB3_COLOR, 3, 3)
-    shadow.setPixelColor(SHADOW_INNER_SUB3_COLOR, 4, 2)
+    shadow.setPixelColor(ShadowColor.InnerSub3, 2, 4)
+    shadow.setPixelColor(ShadowColor.InnerSub3, 3, 3)
+    shadow.setPixelColor(ShadowColor.InnerSub3, 4, 2)
 
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 2, 5)
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 3, 4)
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 4, 3)
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 5, 2)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 2, 5)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 3, 4)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 4, 3)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 5, 2)
 
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 2, 6)
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 3, 5)
-    shadow.setPixelColor(SHADOW_INNER_SUB1_COLOR, 4, 4)
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 5, 3)
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 6, 2)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 2, 6)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 3, 5)
+    shadow.setPixelColor(ShadowColor.InnerSub1, 4, 4)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 5, 3)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 6, 2)
 
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 2, 7)
-    shadow.setPixelColor(SHADOW_INNER_SUB1_COLOR, 3, 6)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 4, 5)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 5, 4)
-    shadow.setPixelColor(SHADOW_INNER_SUB1_COLOR, 6, 3)
-    shadow.setPixelColor(SHADOW_INNER_SUB2_COLOR, 7, 2)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 2, 7)
+    shadow.setPixelColor(ShadowColor.InnerSub1, 3, 6)
+    shadow.setPixelColor(ShadowColor.InnerMain, 4, 5)
+    shadow.setPixelColor(ShadowColor.InnerMain, 5, 4)
+    shadow.setPixelColor(ShadowColor.InnerSub1, 6, 3)
+    shadow.setPixelColor(ShadowColor.InnerSub2, 7, 2)
 
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 3, 7)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 4, 6)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 5, 5)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 6, 4)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 7, 3)
+    shadow.setPixelColor(ShadowColor.InnerMain, 3, 7)
+    shadow.setPixelColor(ShadowColor.InnerMain, 4, 6)
+    shadow.setPixelColor(ShadowColor.InnerMain, 5, 5)
+    shadow.setPixelColor(ShadowColor.InnerMain, 6, 4)
+    shadow.setPixelColor(ShadowColor.InnerMain, 7, 3)
 
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 4, 7)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 5, 6)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 6, 5)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 7, 4)
+    shadow.setPixelColor(ShadowColor.InnerMain, 4, 7)
+    shadow.setPixelColor(ShadowColor.InnerMain, 5, 6)
+    shadow.setPixelColor(ShadowColor.InnerMain, 6, 5)
+    shadow.setPixelColor(ShadowColor.InnerMain, 7, 4)
 
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 5, 7)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 6, 6)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 7, 5)
+    shadow.setPixelColor(ShadowColor.InnerMain, 5, 7)
+    shadow.setPixelColor(ShadowColor.InnerMain, 6, 6)
+    shadow.setPixelColor(ShadowColor.InnerMain, 7, 5)
 
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 6, 7)
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 7, 6)
+    shadow.setPixelColor(ShadowColor.InnerMain, 6, 7)
+    shadow.setPixelColor(ShadowColor.InnerMain, 7, 6)
 
-    shadow.setPixelColor(SHADOW_INNER_MAIN_COLOR, 7, 7)
+    shadow.setPixelColor(ShadowColor.InnerMain, 7, 7)
 
     const quarter = shadow.clone()
     shadow.composite(quarter.clone().rotate(90), 0, -1)

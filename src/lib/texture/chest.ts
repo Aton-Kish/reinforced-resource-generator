@@ -4,9 +4,11 @@ import { ChestType } from '@/lib/common'
 
 import { Material9 } from './material'
 
-const SHADOW_INNER_COLOR = Jimp.rgbaToInt(0, 0, 0, 153)
-const SHADOW_KNOB_MAIN_COLOR = Jimp.rgbaToInt(0, 0, 0, 102)
-const SHADOW_KNOB_SUB_COLOR = Jimp.rgbaToInt(0, 0, 0, 26)
+const ShadowColor = {
+  Inner: Jimp.rgbaToInt(0, 0, 0, 153),
+  KnobMain: Jimp.rgbaToInt(0, 0, 0, 102),
+  KnobSub: Jimp.rgbaToInt(0, 0, 0, 26),
+} as const
 
 export interface ChestTexture {
   type: ChestType
@@ -154,7 +156,7 @@ export class ChestGenerator {
   #singleShadow(): Jimp {
     const shadow = new Jimp(64, 64)
 
-    const inner = new Jimp(10, 10, SHADOW_INNER_COLOR)
+    const inner = new Jimp(10, 10, ShadowColor.Inner)
     shadow.composite(inner, 16, 2)
 
     const black = new Jimp(10, 10, 'black')
@@ -169,7 +171,7 @@ export class ChestGenerator {
   #leftShadow(): Jimp {
     const shadow = new Jimp(64, 64)
 
-    const inner = new Jimp(13, 10, SHADOW_INNER_COLOR)
+    const inner = new Jimp(13, 10, ShadowColor.Inner)
     shadow.composite(inner, 14, 2)
 
     const black = new Jimp(13, 10, 'black')
@@ -183,7 +185,7 @@ export class ChestGenerator {
   #rightShadow(): Jimp {
     const shadow = new Jimp(64, 64)
 
-    const inner = new Jimp(13, 10, SHADOW_INNER_COLOR)
+    const inner = new Jimp(13, 10, ShadowColor.Inner)
     shadow.composite(inner, 16, 2)
 
     const black = new Jimp(13, 10, 'black')
@@ -195,31 +197,31 @@ export class ChestGenerator {
   }
 
   #setLeftKnobShadow(image: Jimp, x: number, y: number): Jimp {
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x, y)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x + 1, y)
-    image.setPixelColor(SHADOW_KNOB_SUB_COLOR, x, y + 1)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x + 1, y + 1)
-    image.setPixelColor(SHADOW_KNOB_SUB_COLOR, x + 1, y + 2)
+    image.setPixelColor(ShadowColor.KnobMain, x, y)
+    image.setPixelColor(ShadowColor.KnobMain, x + 1, y)
+    image.setPixelColor(ShadowColor.KnobSub, x, y + 1)
+    image.setPixelColor(ShadowColor.KnobMain, x + 1, y + 1)
+    image.setPixelColor(ShadowColor.KnobSub, x + 1, y + 2)
 
-    image.setPixelColor(SHADOW_KNOB_SUB_COLOR, x, y + 25)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x + 1, y + 25)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x, y + 26)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x + 1, y + 26)
+    image.setPixelColor(ShadowColor.KnobSub, x, y + 25)
+    image.setPixelColor(ShadowColor.KnobMain, x + 1, y + 25)
+    image.setPixelColor(ShadowColor.KnobMain, x, y + 26)
+    image.setPixelColor(ShadowColor.KnobMain, x + 1, y + 26)
 
     return image
   }
 
   #setRightKnobShadow(image: Jimp, x: number, y: number): Jimp {
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x, y)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x + 1, y)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x, y + 1)
-    image.setPixelColor(SHADOW_KNOB_SUB_COLOR, x + 1, y + 1)
-    image.setPixelColor(SHADOW_KNOB_SUB_COLOR, x, y + 2)
+    image.setPixelColor(ShadowColor.KnobMain, x, y)
+    image.setPixelColor(ShadowColor.KnobMain, x + 1, y)
+    image.setPixelColor(ShadowColor.KnobMain, x, y + 1)
+    image.setPixelColor(ShadowColor.KnobSub, x + 1, y + 1)
+    image.setPixelColor(ShadowColor.KnobSub, x, y + 2)
 
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x, y + 25)
-    image.setPixelColor(SHADOW_KNOB_SUB_COLOR, x + 1, y + 25)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x, y + 26)
-    image.setPixelColor(SHADOW_KNOB_MAIN_COLOR, x + 1, y + 26)
+    image.setPixelColor(ShadowColor.KnobMain, x, y + 25)
+    image.setPixelColor(ShadowColor.KnobSub, x + 1, y + 25)
+    image.setPixelColor(ShadowColor.KnobMain, x, y + 26)
+    image.setPixelColor(ShadowColor.KnobMain, x + 1, y + 26)
 
     return image
   }
