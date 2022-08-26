@@ -1,11 +1,11 @@
-import { BarrelType } from '../../lib/common'
+import { BarrelType } from '@/lib/common'
 
 import Bottom from './bottom.png'
 import Side from './side.png'
 import Top from './top.png'
 import TopOpen from './top_open.png'
 
-import type { BarrelTexture } from '../../lib/texture'
+import type { BarrelTexture } from '@/lib/texture'
 
 export const BarrelTopTexture: BarrelTexture = { type: BarrelType.Top, src: Top }
 export const BarrelTopOpenTexture: BarrelTexture = { type: BarrelType.TopOpen, src: TopOpen }

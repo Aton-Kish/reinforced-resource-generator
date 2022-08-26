@@ -5,9 +5,9 @@ import { useContext, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { v4 as uuid } from 'uuid'
 
-import { MaterialContext } from '../../contexts'
+import { MaterialContext } from '@/contexts'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 const MaterialsUploader = (): JSX.Element => {
   const { materials, setMaterials } = useContext(MaterialContext)

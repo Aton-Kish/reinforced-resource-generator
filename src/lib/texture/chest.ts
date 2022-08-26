@@ -1,6 +1,6 @@
 import Jimp from 'jimp'
 
-import { ChestType } from '../common'
+import { ChestType } from '@/lib/common'
 
 import { Material9 } from './material'
 

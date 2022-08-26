@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 
-import { MaterialContext } from '../../contexts'
+import { MaterialContext } from '@/contexts'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 interface Props {
   material: SelectableMaterialTexture

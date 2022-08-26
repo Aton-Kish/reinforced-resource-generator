@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { ProjectContext } from '../../contexts'
-import { ShulkerGenerator } from '../../lib/blockState'
-import { ShulkerType } from '../../lib/common'
+import { ProjectContext } from '@/contexts'
+import { ShulkerGenerator } from '@/lib/blockState'
+import { ShulkerType } from '@/lib/common'
 
 import Code from './Code'
 
-import type { SelectableMaterialTexture } from '../../contexts'
-import type { BlockState } from '../../lib/blockState'
+import type { SelectableMaterialTexture } from '@/contexts'
+import type { BlockState } from '@/lib/blockState'
 
 interface Props {
   material: SelectableMaterialTexture

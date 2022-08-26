@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { ProjectContext } from '../../contexts'
-import { BarrelType } from '../../lib/common'
-import { BarrelGenerator } from '../../lib/model/block'
+import { ProjectContext } from '@/contexts'
+import { BarrelType } from '@/lib/common'
+import { BarrelGenerator } from '@/lib/model/block'
 
 import Code from './Code'
 
-import type { SelectableMaterialTexture } from '../../contexts'
-import type { BlockModel } from '../../lib/model/block'
+import type { SelectableMaterialTexture } from '@/contexts'
+import type { BlockModel } from '@/lib/model/block'
 
 interface Props {
   material: SelectableMaterialTexture

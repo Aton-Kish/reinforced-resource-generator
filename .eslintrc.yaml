@@ -41,6 +41,11 @@ rules:
         - sibling
         - index
         - type
+      pathGroups:
+        - pattern: '@/**'
+          group: parent
+      pathGroupsExcludedImportTypes:
+        - type
       alphabetize:
         order: asc
       newlines-between: always

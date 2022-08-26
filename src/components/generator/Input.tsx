@@ -1,6 +1,6 @@
 import InputMaterial from './InputMaterial'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 interface Props {
   material: SelectableMaterialTexture

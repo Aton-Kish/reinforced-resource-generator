@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { MaterialContext } from '../../contexts'
+import { MaterialContext } from '@/contexts'
 
 import MaterialsSelector from './MaterialsSelector'
 import MaterialsUploader from './MaterialsUploader'

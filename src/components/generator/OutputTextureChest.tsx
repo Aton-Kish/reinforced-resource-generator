@@ -1,11 +1,11 @@
 import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
-import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '../../assets/chest'
-import { ChestType } from '../../lib/common'
-import { ChestGenerator } from '../../lib/texture'
+import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '@/assets/chest'
+import { ChestType } from '@/lib/common'
+import { ChestGenerator } from '@/lib/texture'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 interface Props {
   material: SelectableMaterialTexture

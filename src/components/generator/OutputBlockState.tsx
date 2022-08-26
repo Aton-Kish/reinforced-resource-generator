@@ -4,7 +4,7 @@ import OutputBlockStateBarrel from './OutputBlockStateBarrel'
 import OutputBlockStateChest from './OutputBlockStateChest'
 import OutputBlockStateShulker from './OutputBlockStateShulker'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 interface Props {
   material: SelectableMaterialTexture

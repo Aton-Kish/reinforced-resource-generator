@@ -1,11 +1,11 @@
 import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
-import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '../../assets/barrel'
-import { BarrelType } from '../../lib/common'
-import { BarrelGenerator } from '../../lib/texture'
+import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '@/assets/barrel'
+import { BarrelType } from '@/lib/common'
+import { BarrelGenerator } from '@/lib/texture'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 interface Props {
   material: SelectableMaterialTexture

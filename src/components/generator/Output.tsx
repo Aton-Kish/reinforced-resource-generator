@@ -3,7 +3,7 @@ import OutputBlockState from './OutputBlockState'
 import OutputItemModel from './OutputItemModel'
 import OutputTexture from './OutputTexture'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 interface Props {
   material: SelectableMaterialTexture

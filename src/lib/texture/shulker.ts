@@ -1,6 +1,6 @@
 import Jimp from 'jimp'
 
-import { ShulkerType } from '../common'
+import { ShulkerType } from '@/lib/common'
 
 import { Material9 } from './material'
 

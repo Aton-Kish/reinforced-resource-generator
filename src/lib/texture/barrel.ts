@@ -1,6 +1,6 @@
 import Jimp from 'jimp'
 
-import { BarrelType } from '../common'
+import { BarrelType } from '@/lib/common'
 
 import { Material9 } from './material'
 

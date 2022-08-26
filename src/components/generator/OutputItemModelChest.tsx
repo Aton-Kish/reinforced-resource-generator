@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { ProjectContext } from '../../contexts'
-import { ChestGenerator } from '../../lib/model/item'
+import { ProjectContext } from '@/contexts'
+import { ChestGenerator } from '@/lib/model/item'
 
 import Code from './Code'
 
-import type { SelectableMaterialTexture } from '../../contexts'
-import type { ItemModel } from '../../lib/model/item'
+import type { SelectableMaterialTexture } from '@/contexts'
+import type { ItemModel } from '@/lib/model/item'
 
 interface Props {
   material: SelectableMaterialTexture

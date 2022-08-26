@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { ProjectContext } from '../../contexts'
+import { ProjectContext } from '@/contexts'
 
 const Project = (): JSX.Element => {
   const { project, setProject } = useContext(ProjectContext)

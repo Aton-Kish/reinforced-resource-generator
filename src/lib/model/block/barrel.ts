@@ -1,4 +1,4 @@
-import { BarrelType } from '../../common'
+import { BarrelType } from '@/lib/common'
 
 import type { BlockModel } from './common'
 

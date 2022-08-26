@@ -19,11 +19,11 @@ import {
   ShulkerRedTexture,
   ShulkerWhiteTexture,
   ShulkerYellowTexture,
-} from '../../assets/shulker'
-import { ShulkerType } from '../../lib/common'
-import { ShulkerGenerator } from '../../lib/texture'
+} from '@/assets/shulker'
+import { ShulkerType } from '@/lib/common'
+import { ShulkerGenerator } from '@/lib/texture'
 
-import type { SelectableMaterialTexture } from '../../contexts'
+import type { SelectableMaterialTexture } from '@/contexts'
 
 interface Props {
   material: SelectableMaterialTexture

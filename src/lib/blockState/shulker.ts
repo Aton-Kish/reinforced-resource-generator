@@ -1,4 +1,4 @@
-import { ShulkerType } from '../common'
+import { ShulkerType } from '@/lib/common'
 
 import type { BlockState } from './common'
 
