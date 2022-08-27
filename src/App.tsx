@@ -12,7 +12,8 @@ import Configuration from './components/configuration/Configuration'
 import Generator from './components/generator/Generator'
 import { MaterialContext, ProjectContext } from './contexts'
 
-import type { Project, MaterialTextureOption } from './contexts'
+import type { MaterialTextureOption } from './contexts'
+import type { Project } from './lib/common'
 
 const App = (): JSX.Element => {
   const [project, setProject] = useState<Project>({

@@ -1,14 +1,6 @@
 import { createContext } from 'react'
 
-export interface Project {
-  namespace: ProjectNamespace
-}
-
-export interface ProjectNamespace {
-  chest: string
-  shulker: string
-  barrel: string
-}
+import type { Project } from '@/lib/common'
 
 export interface ProjectContextValue {
   project: Project
