@@ -41,7 +41,7 @@ const MaterialsUploader = (): JSX.Element => {
           continue
         }
 
-        const material: MaterialTextureOption = { id, namespace: 'minecraft', name, src, selected: false }
+        const material: MaterialTextureOption = { id, namespace: 'minecraft', name, src, selected: true }
         acceptedMaterials[id] = material
       }
 

@@ -20,6 +20,7 @@ const MaterialsSelector = ({ material }: Props): JSX.Element => {
         onChange={(event) => {
           setMaterials({ ...materials, [material.id]: { ...material, selected: event.target.checked } })
         }}
+        checked={material.selected}
       />
       <label
         htmlFor={`material-${material.id}`}
