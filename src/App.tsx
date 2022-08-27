@@ -11,15 +11,16 @@ import {
 import Configuration from '@/components/configuration/Configuration'
 import Generator from '@/components/generator/Generator'
 import { MaterialContext, ProjectContext } from '@/contexts'
+import { ProjectType } from '@/lib/common'
 
 import type { MaterialTextureOption } from '@/contexts'
-import type { Project } from '@/lib/common'
+import type { ProjectConfig } from '@/lib/common'
 
 const App = (): JSX.Element => {
-  const [project, setProject] = useState<Project>({
-    chest: { namespace: 'reinfchest' },
-    shulker: { namespace: 'reinfshulker' },
-    barrel: { namespace: 'reinfbarrel' },
+  const [project, setProject] = useState<Record<ProjectType, ProjectConfig>>({
+    [ProjectType.Chest]: { namespace: 'reinfchest' },
+    [ProjectType.Shulker]: { namespace: 'reinfshulker' },
+    [ProjectType.Barrel]: { namespace: 'reinfbarrel' },
   })
 
   const copper: MaterialTextureOption = { ...MaterialCopperTexture, id: uuid(), selected: false }

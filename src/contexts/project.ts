@@ -1,17 +1,19 @@
 import { createContext } from 'react'
 
-import type { Project } from '@/lib/common'
+import { ProjectType } from '@/lib/common'
+
+import type { ProjectConfig } from '@/lib/common'
 
 export interface ProjectContextValue {
-  project: Project
-  setProject: (project: Project) => void
+  project: Record<ProjectType, ProjectConfig>
+  setProject: (project: Record<ProjectType, ProjectConfig>) => void
 }
 
 export const ProjectContext = createContext<ProjectContextValue>({
   project: {
-    chest: { namespace: '' },
-    shulker: { namespace: '' },
-    barrel: { namespace: '' },
+    [ProjectType.Chest]: { namespace: '' },
+    [ProjectType.Shulker]: { namespace: '' },
+    [ProjectType.Barrel]: { namespace: '' },
   },
   setProject: () => {},
 })
