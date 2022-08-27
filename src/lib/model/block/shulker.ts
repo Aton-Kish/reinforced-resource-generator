@@ -1,8 +1,8 @@
 import { ShulkerType } from '@/lib/common'
 
-import type { BlockModel } from './common'
+import type { BlockModel, BlockModelGenerator } from './common'
 
-export class ShulkerGenerator {
+export class ShulkerBlockModelGenerator implements BlockModelGenerator {
   constructor() {}
 
   generate(type: ShulkerType): BlockModel {

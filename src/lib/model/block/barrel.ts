@@ -1,8 +1,8 @@
 import { BarrelType } from '@/lib/common'
 
-import type { BlockModel } from './common'
+import type { BlockModel, BlockModelGenerator } from './common'
 
-export class BarrelGenerator {
+export class BarrelBlockModelGenerator implements BlockModelGenerator {
   #namespace: string
   #material: string
 

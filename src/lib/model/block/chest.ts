@@ -1,6 +1,6 @@
-import type { BlockModel } from './common'
+import type { BlockModel, BlockModelGenerator } from './common'
 
-export class ChestGenerator {
+export class ChestBlockModelGenerator implements BlockModelGenerator {
   #namespace: string
   #material: string
 

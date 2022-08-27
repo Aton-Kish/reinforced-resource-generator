@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
 import { BarrelType } from '@/lib/common'
-import { BarrelGenerator } from '@/lib/model/block'
+import { BarrelBlockModelGenerator } from '@/lib/model/block'
 
 import Code from './Code'
 
@@ -18,7 +18,7 @@ const OutputBlockModelBarrel = ({ material }: Props): JSX.Element => {
   const [models, setModels] = useState<Partial<Record<BarrelType, BlockModel>>>({})
 
   useEffect(() => {
-    const generator = new BarrelGenerator(project.barrel.namespace, material.name)
+    const generator = new BarrelBlockModelGenerator(project.barrel.namespace, material.name)
     const models: Partial<Record<BarrelType, BlockModel>> = {
       [BarrelType.Top]: generator.generate(BarrelType.Top),
       [BarrelType.TopOpen]: generator.generate(BarrelType.TopOpen),
