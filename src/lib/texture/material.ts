@@ -1,8 +1,8 @@
 import Jimp from 'jimp'
 
-export interface MaterialTexture {
-  namespace: string
-  name: string
+import type { Material } from '@/lib/common'
+
+export interface MaterialTexture extends Material {
   src: string
 }
 
