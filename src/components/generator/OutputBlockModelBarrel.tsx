@@ -2,29 +2,33 @@ import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
 import { BarrelType } from '@/lib/common'
-import { BarrelBlockModelGenerator } from '@/lib/model/block'
 
 import Code from './Code'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { BlockModelGenerator } from '@/lib/model/block'
 import type { BlockModel } from '@/lib/model/block'
 
 interface Props {
+  generator?: BlockModelGenerator
   material: MaterialTextureOption
 }
 
-const OutputBlockModelBarrel = ({ material }: Props): JSX.Element => {
+const OutputBlockModelBarrel = ({ generator, material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [models, setModels] = useState<Partial<Record<BarrelType, BlockModel>>>({})
 
   useEffect(() => {
-    const generator = new BarrelBlockModelGenerator(project.barrel.namespace, material.name)
+    if (generator == null) {
+      return
+    }
+
     const models: Partial<Record<BarrelType, BlockModel>> = {
       [BarrelType.Top]: generator.generate(BarrelType.Top),
       [BarrelType.TopOpen]: generator.generate(BarrelType.TopOpen),
     }
     setModels(models)
-  }, [project.barrel.namespace, material.name])
+  }, [generator])
 
   return (
     <div className='flex flex-col gap-1'>

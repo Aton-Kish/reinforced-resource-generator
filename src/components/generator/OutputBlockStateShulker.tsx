@@ -1,29 +1,33 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
-import { ShulkerBlockStateGenerator } from '@/lib/blockState'
 import { ShulkerType } from '@/lib/common'
 
 import Code from './Code'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { BlockStateGenerator } from '@/lib/blockState'
 import type { BlockState } from '@/lib/blockState'
 
 interface Props {
+  generator?: BlockStateGenerator
   material: MaterialTextureOption
 }
 
-const OutputBlockStateShulker = ({ material }: Props): JSX.Element => {
+const OutputBlockStateShulker = ({ generator, material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [blockStates, setBlockStates] = useState<Partial<Record<ShulkerType, BlockState>>>({})
 
   useEffect(() => {
-    const generator = new ShulkerBlockStateGenerator(project.chest.namespace, material.name)
+    if (generator == null) {
+      return
+    }
+
     const blockStates = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, BlockState>>>((acc, type) => {
       return { ...acc, [type]: generator.generate(type) }
     }, {})
     setBlockStates(blockStates)
-  }, [project.chest.namespace, material.name])
+  }, [generator])
 
   return (
     <div className='flex flex-col gap-1'>

@@ -5,12 +5,15 @@ import OutputBlockStateChest from './OutputBlockStateChest'
 import OutputBlockStateShulker from './OutputBlockStateShulker'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { BlockStateGenerator } from '@/lib/blockState'
+import type { ProjectType } from '@/lib/common'
 
 interface Props {
+  generators?: Record<ProjectType, BlockStateGenerator>
   material: MaterialTextureOption
 }
 
-const OutputBlockState = ({ material }: Props): JSX.Element => {
+const OutputBlockState = ({ generators, material }: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -19,9 +22,9 @@ const OutputBlockState = ({ material }: Props): JSX.Element => {
         Block State
       </h3>
       <div className={`flex flex-col gap-1 ${isOpen ? 'h-full' : 'h-0'}`}>
-        <OutputBlockStateChest material={material} />
-        <OutputBlockStateShulker material={material} />
-        <OutputBlockStateBarrel material={material} />
+        <OutputBlockStateChest generator={generators?.chest} material={material} />
+        <OutputBlockStateShulker generator={generators?.shulker} material={material} />
+        <OutputBlockStateBarrel generator={generators?.barrel} material={material} />
       </div>
     </div>
   )

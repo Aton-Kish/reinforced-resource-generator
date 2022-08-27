@@ -1,25 +1,29 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
-import { ChestItemModelGenerator } from '@/lib/model/item'
 
 import Code from './Code'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { ItemModelGenerator } from '@/lib/model/item'
 import type { ItemModel } from '@/lib/model/item'
 
 interface Props {
+  generator?: ItemModelGenerator
   material: MaterialTextureOption
 }
 
-const OutputItemModelChest = ({ material }: Props): JSX.Element => {
+const OutputItemModelChest = ({ generator, material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [model, setModel] = useState<ItemModel>({})
 
   useEffect(() => {
-    const generator = new ChestItemModelGenerator(material.namespace, material.name)
+    if (generator == null) {
+      return
+    }
+
     setModel(generator.generate())
-  }, [material.namespace, material.name])
+  }, [generator])
 
   return (
     <div className='flex flex-col gap-1'>

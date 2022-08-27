@@ -1,25 +1,29 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
-import { ChestBlockStateGenerator } from '@/lib/blockState'
 
 import Code from './Code'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { BlockStateGenerator } from '@/lib/blockState'
 import type { BlockState } from '@/lib/blockState'
 
 interface Props {
+  generator?: BlockStateGenerator
   material: MaterialTextureOption
 }
 
-const OutputBlockStateChest = ({ material }: Props): JSX.Element => {
+const OutputBlockStateChest = ({ generator, material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [blockState, setBlockState] = useState<BlockState>({ variants: {} })
 
   useEffect(() => {
-    const generator = new ChestBlockStateGenerator(project.chest.namespace, material.name)
+    if (generator == null) {
+      return
+    }
+
     setBlockState(generator.generate())
-  }, [project.chest.namespace, material.name])
+  }, [generator])
 
   return (
     <div className='flex flex-col gap-1'>

@@ -2,28 +2,32 @@ import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
 import { ShulkerType } from '@/lib/common'
-import { ShulkerItemModelGenerator } from '@/lib/model/item'
 
 import Code from './Code'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { ItemModelGenerator } from '@/lib/model/item'
 import type { ItemModel } from '@/lib/model/item'
 
 interface Props {
+  generator?: ItemModelGenerator
   material: MaterialTextureOption
 }
 
-const OutputItemModelShulker = ({ material }: Props): JSX.Element => {
+const OutputItemModelShulker = ({ generator, material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [models, setModels] = useState<Partial<Record<ShulkerType, ItemModel>>>({})
 
   useEffect(() => {
-    const generator = new ShulkerItemModelGenerator()
+    if (generator == null) {
+      return
+    }
+
     const models = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, ItemModel>>>((acc, type) => {
       return { ...acc, [type]: generator.generate(type) }
     }, {})
     setModels(models)
-  }, [])
+  }, [generator])
 
   return (
     <div className='flex flex-col gap-1'>

@@ -1,25 +1,29 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
-import { BarrelBlockStateGenerator } from '@/lib/blockState'
 
 import Code from './Code'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { BlockStateGenerator } from '@/lib/blockState'
 import type { BlockState } from '@/lib/blockState'
 
 interface Props {
+  generator?: BlockStateGenerator
   material: MaterialTextureOption
 }
 
-const OutputBlockStateBarrel = ({ material }: Props): JSX.Element => {
+const OutputBlockStateBarrel = ({ generator, material }: Props): JSX.Element => {
   const { project } = useContext(ProjectContext)
   const [blockState, setBlockState] = useState<BlockState>({ variants: {} })
 
   useEffect(() => {
-    const generator = new BarrelBlockStateGenerator(project.barrel.namespace, material.name)
+    if (generator == null) {
+      return
+    }
+
     setBlockState(generator.generate())
-  }, [project.barrel.namespace, material.name])
+  }, [generator])
 
   return (
     <div className='flex flex-col gap-1'>

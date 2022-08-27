@@ -1,29 +1,25 @@
 import Jimp from 'jimp'
 import { useEffect, useState } from 'react'
 
-import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '@/assets/chest'
 import { ChestType } from '@/lib/common'
-import { ChestTextureGenerator } from '@/lib/texture'
 
 import type { MaterialTextureOption } from '@/contexts'
-import type { ChestTexture } from '@/lib/texture'
+import type { TextureGenerator } from '@/lib/texture'
 
 interface Props {
+  generator?: TextureGenerator
   material: MaterialTextureOption
 }
 
-const OutputTextureChest = ({ material }: Props): JSX.Element => {
+const OutputTextureChest = ({ generator, material }: Props): JSX.Element => {
   const [textures, setTextures] = useState<Partial<Record<ChestType, string>>>({})
 
   useEffect(() => {
-    const generate = async () => {
-      const base: Record<ChestType, ChestTexture> = {
-        [ChestType.Single]: ChestSingleTexture,
-        [ChestType.Left]: ChestLeftTexture,
-        [ChestType.Right]: ChestRightTexture,
-      }
+    if (generator == null) {
+      return
+    }
 
-      const generator = await ChestTextureGenerator.build(base, material)
+    const load = async () => {
       const textures = await Object.values(ChestType).reduce<Promise<Partial<Record<ChestType, string>>>>(
         async (acc, type) => {
           const jimp = generator.generate(type)
@@ -35,8 +31,8 @@ const OutputTextureChest = ({ material }: Props): JSX.Element => {
       setTextures({ ...textures })
     }
 
-    generate()
-  }, [material.src])
+    load()
+  }, [generator])
 
   return (
     <div className='flex flex-col gap-1'>
