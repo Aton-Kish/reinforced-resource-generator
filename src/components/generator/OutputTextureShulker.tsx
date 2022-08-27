@@ -24,6 +24,7 @@ import { ShulkerType } from '@/lib/common'
 import { ShulkerTextureGenerator } from '@/lib/texture'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { ShulkerTexture } from '@/lib/texture'
 
 interface Props {
   material: MaterialTextureOption
@@ -34,28 +35,27 @@ const OutputTextureShulker = ({ material }: Props): JSX.Element => {
 
   useEffect(() => {
     const generate = async () => {
-      const base: Record<ShulkerType, Jimp> = {
-        [ShulkerType.Default]: await Jimp.read(ShulkerDefaultTexture.src),
-        [ShulkerType.White]: await Jimp.read(ShulkerWhiteTexture.src),
-        [ShulkerType.Orange]: await Jimp.read(ShulkerOrangeTexture.src),
-        [ShulkerType.Magenta]: await Jimp.read(ShulkerMagentaTexture.src),
-        [ShulkerType.LightBlue]: await Jimp.read(ShulkerLightBlueTexture.src),
-        [ShulkerType.Yellow]: await Jimp.read(ShulkerYellowTexture.src),
-        [ShulkerType.Lime]: await Jimp.read(ShulkerLimeTexture.src),
-        [ShulkerType.Pink]: await Jimp.read(ShulkerPinkTexture.src),
-        [ShulkerType.Gray]: await Jimp.read(ShulkerGrayTexture.src),
-        [ShulkerType.LightGray]: await Jimp.read(ShulkerLightGrayTexture.src),
-        [ShulkerType.Cyan]: await Jimp.read(ShulkerCyanTexture.src),
-        [ShulkerType.Purple]: await Jimp.read(ShulkerPurpleTexture.src),
-        [ShulkerType.Blue]: await Jimp.read(ShulkerBlueTexture.src),
-        [ShulkerType.Brown]: await Jimp.read(ShulkerBrownTexture.src),
-        [ShulkerType.Green]: await Jimp.read(ShulkerGreenTexture.src),
-        [ShulkerType.Red]: await Jimp.read(ShulkerRedTexture.src),
-        [ShulkerType.Black]: await Jimp.read(ShulkerBlackTexture.src),
+      const base: Record<ShulkerType, ShulkerTexture> = {
+        [ShulkerType.Default]: ShulkerDefaultTexture,
+        [ShulkerType.White]: ShulkerWhiteTexture,
+        [ShulkerType.Orange]: ShulkerOrangeTexture,
+        [ShulkerType.Magenta]: ShulkerMagentaTexture,
+        [ShulkerType.LightBlue]: ShulkerLightBlueTexture,
+        [ShulkerType.Yellow]: ShulkerYellowTexture,
+        [ShulkerType.Lime]: ShulkerLimeTexture,
+        [ShulkerType.Pink]: ShulkerPinkTexture,
+        [ShulkerType.Gray]: ShulkerGrayTexture,
+        [ShulkerType.LightGray]: ShulkerLightGrayTexture,
+        [ShulkerType.Cyan]: ShulkerCyanTexture,
+        [ShulkerType.Purple]: ShulkerPurpleTexture,
+        [ShulkerType.Blue]: ShulkerBlueTexture,
+        [ShulkerType.Brown]: ShulkerBrownTexture,
+        [ShulkerType.Green]: ShulkerGreenTexture,
+        [ShulkerType.Red]: ShulkerRedTexture,
+        [ShulkerType.Black]: ShulkerBlackTexture,
       }
-      const matl = await Jimp.read(material.src)
 
-      const generator = new ShulkerTextureGenerator(base, matl)
+      const generator = await ShulkerTextureGenerator.build(base, material)
       const textures = await Object.values(ShulkerType).reduce<Promise<Partial<Record<ShulkerType, string>>>>(
         async (acc, type) => {
           const jimp = generator.generate(type)

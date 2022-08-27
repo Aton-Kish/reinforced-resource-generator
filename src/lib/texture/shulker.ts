@@ -5,6 +5,7 @@ import { ShulkerType } from '@/lib/common'
 import { Material9 } from './material'
 
 import type { TextureGenerator } from './common'
+import type { MaterialTexture } from './material'
 
 export interface ShulkerTexture {
   type: ShulkerType
@@ -12,22 +13,54 @@ export interface ShulkerTexture {
 }
 
 export class ShulkerTextureGenerator implements TextureGenerator {
-  #base: Record<ShulkerType, Jimp>
-  #material9: Material9
+  #base?: Record<ShulkerType, Jimp>
+  #material9?: Material9
 
-  constructor(base: Record<ShulkerType, Jimp>, material: Jimp) {
-    for (const [type, image] of Object.entries(base)) {
+  static async build(
+    base: Record<ShulkerType, ShulkerTexture>,
+    material: MaterialTexture,
+  ): Promise<ShulkerTextureGenerator> {
+    const generator = new ShulkerTextureGenerator()
+    generator.#base = {
+      [ShulkerType.Default]: await Jimp.read(base[ShulkerType.Default].src),
+      [ShulkerType.White]: await Jimp.read(base[ShulkerType.White].src),
+      [ShulkerType.Orange]: await Jimp.read(base[ShulkerType.Orange].src),
+      [ShulkerType.Magenta]: await Jimp.read(base[ShulkerType.Magenta].src),
+      [ShulkerType.LightBlue]: await Jimp.read(base[ShulkerType.LightBlue].src),
+      [ShulkerType.Yellow]: await Jimp.read(base[ShulkerType.Yellow].src),
+      [ShulkerType.Lime]: await Jimp.read(base[ShulkerType.Lime].src),
+      [ShulkerType.Pink]: await Jimp.read(base[ShulkerType.Pink].src),
+      [ShulkerType.Gray]: await Jimp.read(base[ShulkerType.Gray].src),
+      [ShulkerType.LightGray]: await Jimp.read(base[ShulkerType.LightGray].src),
+      [ShulkerType.Cyan]: await Jimp.read(base[ShulkerType.Cyan].src),
+      [ShulkerType.Purple]: await Jimp.read(base[ShulkerType.Purple].src),
+      [ShulkerType.Blue]: await Jimp.read(base[ShulkerType.Blue].src),
+      [ShulkerType.Brown]: await Jimp.read(base[ShulkerType.Brown].src),
+      [ShulkerType.Green]: await Jimp.read(base[ShulkerType.Green].src),
+      [ShulkerType.Red]: await Jimp.read(base[ShulkerType.Red].src),
+      [ShulkerType.Black]: await Jimp.read(base[ShulkerType.Black].src),
+    }
+    generator.#material9 = new Material9(await Jimp.read(material.src))
+
+    return generator
+  }
+
+  #validate() {
+    if (this.#base == null || this.#material9 == null) {
+      throw new Error('initialization not completed')
+    }
+
+    for (const [type, image] of Object.entries(this.#base)) {
       if (!(image.getWidth() === 64 && image.getHeight() === 64)) {
         throw new Error(`${type} color image size must be 64x64`)
       }
     }
-
-    this.#base = base
-    this.#material9 = new Material9(material)
   }
 
   generate(type: ShulkerType): Jimp {
-    const material = this.#material9.rect(16, 16)
+    this.#validate()
+
+    const material = this.#material9!.rect(16, 16)
 
     const leftPillar = material.clone().crop(0, 0, 2, 16)
     const rightPillar = material.clone().crop(14, 0, 2, 16)
@@ -36,10 +69,10 @@ export class ShulkerTextureGenerator implements TextureGenerator {
     const bottomLeftPillar = leftPillar.clone().resize(2, 4)
     const bottomRightPillar = rightPillar.clone().resize(2, 4)
 
-    const leftSide = this.#material9.leftSide(5)
-    const rightSide = this.#material9.rightSide(5)
-    const topSide = this.#material9.topSide(8)
-    const bottomSide = this.#material9.bottomSide(10)
+    const leftSide = this.#material9!.leftSide(5)
+    const rightSide = this.#material9!.rightSide(5)
+    const topSide = this.#material9!.topSide(8)
+    const bottomSide = this.#material9!.bottomSide(10)
     const bottomLeftSide = bottomSide.clone().crop(0, 0, 5, 1)
     const bottomRightSide = bottomSide.clone().crop(5, 0, 5, 1)
 
@@ -48,9 +81,9 @@ export class ShulkerTextureGenerator implements TextureGenerator {
     const bottomInner = material.clone().mask(this.#bottomInnerMask(), 0, 0)
     const bottomOuter = material.clone().mask(this.#bottomOuterMask(), 0, 0)
 
-    const plate = this.#material9.rect(12, 12)
+    const plate = this.#material9!.rect(12, 12)
 
-    const image = this.#base[type].clone()
+    const image = this.#base![type].clone()
 
     for (let i = 0; i < 4; i++) {
       image.composite(topLeftPillar, 16 * i, 16)
