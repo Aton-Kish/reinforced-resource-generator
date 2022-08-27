@@ -17,15 +17,15 @@ const OutputBlockStateChest = ({ material }: Props): JSX.Element => {
   const [blockState, setBlockState] = useState<BlockState>({ variants: {} })
 
   useEffect(() => {
-    const generator = new ChestGenerator(project.namespace.chest, material.name)
+    const generator = new ChestGenerator(project.chest.namespace, material.name)
     setBlockState(generator.generate())
-  }, [project.namespace.chest, material.name])
+  }, [project.chest.namespace, material.name])
 
   return (
     <div className='flex flex-col gap-1'>
       <h4 className='text'>Chest</h4>
       <Code
-        lang={`${project.namespace.chest}/assets/blockstates/${material.name}_chest.json`}
+        lang={`${project.chest.namespace}/assets/blockstates/${material.name}_chest.json`}
         data={JSON.stringify(blockState, null, 2)}
       />
     </div>

@@ -17,11 +17,9 @@ import type { Project } from './lib/common'
 
 const App = (): JSX.Element => {
   const [project, setProject] = useState<Project>({
-    namespace: {
-      chest: 'reinfchest',
-      shulker: 'reinfshulker',
-      barrel: 'reinfbarrel',
-    },
+    chest: { namespace: 'reinfchest' },
+    shulker: { namespace: 'reinfshulker' },
+    barrel: { namespace: 'reinfbarrel' },
   })
 
   const copper: MaterialTextureOption = { ...MaterialCopperTexture, id: uuid(), selected: false }

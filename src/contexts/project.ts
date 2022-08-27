@@ -8,6 +8,10 @@ export interface ProjectContextValue {
 }
 
 export const ProjectContext = createContext<ProjectContextValue>({
-  project: { namespace: { chest: '', shulker: '', barrel: '' } },
+  project: {
+    chest: { namespace: '' },
+    shulker: { namespace: '' },
+    barrel: { namespace: '' },
+  },
   setProject: () => {},
 })

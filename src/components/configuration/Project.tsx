@@ -16,9 +16,9 @@ const Project = (): JSX.Element => {
           id='project-chest-namespace'
           className='focus:(border-blue-500 outline-none) w-full appearance-none rounded border border-gray-300 bg-gray-50 p-1 leading-tight text-gray-900'
           type='text'
-          defaultValue={project.namespace.chest}
+          defaultValue={project.chest.namespace}
           onBlur={(event) => {
-            setProject({ ...project, namespace: { ...project.namespace, chest: event.target.value } })
+            setProject({ ...project, chest: { ...project.chest, namespace: event.target.value } })
           }}
         />
 
@@ -29,9 +29,9 @@ const Project = (): JSX.Element => {
           id='project-shulker-namespace'
           className='focus:(border-blue-500 outline-none) w-full appearance-none rounded border border-gray-300 bg-gray-50 p-1 leading-tight text-gray-900'
           type='text'
-          defaultValue={project.namespace.shulker}
+          defaultValue={project.shulker.namespace}
           onBlur={(event) => {
-            setProject({ ...project, namespace: { ...project.namespace, shulker: event.target.value } })
+            setProject({ ...project, shulker: { ...project.shulker, namespace: event.target.value } })
           }}
         />
 
@@ -42,9 +42,9 @@ const Project = (): JSX.Element => {
           id='project-barrel-namespace'
           className='focus:(border-blue-500 outline-none) w-full appearance-none rounded border border-gray-300 bg-gray-50 p-1 leading-tight text-gray-900'
           type='text'
-          defaultValue={project.namespace.barrel}
+          defaultValue={project.barrel.namespace}
           onBlur={(event) => {
-            setProject({ ...project, namespace: { ...project.namespace, barrel: event.target.value } })
+            setProject({ ...project, barrel: { ...project.barrel, namespace: event.target.value } })
           }}
         />
       </div>

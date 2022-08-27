@@ -18,12 +18,12 @@ const OutputBlockStateShulker = ({ material }: Props): JSX.Element => {
   const [blockStates, setBlockStates] = useState<Partial<Record<ShulkerType, BlockState>>>({})
 
   useEffect(() => {
-    const generator = new ShulkerGenerator(project.namespace.chest, material.name)
+    const generator = new ShulkerGenerator(project.chest.namespace, material.name)
     const blockStates = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, BlockState>>>((acc, type) => {
       return { ...acc, [type]: generator.generate(type) }
     }, {})
     setBlockStates(blockStates)
-  }, [project.namespace.chest, material.name])
+  }, [project.chest.namespace, material.name])
 
   return (
     <div className='flex flex-col gap-1'>
@@ -33,7 +33,7 @@ const OutputBlockStateShulker = ({ material }: Props): JSX.Element => {
           return (
             <Code
               key={type}
-              lang={`${project.namespace.shulker}/assets/blockstates/${type === ShulkerType.Default ? '' : `${type}_`}${
+              lang={`${project.shulker.namespace}/assets/blockstates/${type === ShulkerType.Default ? '' : `${type}_`}${
                 material.name
               }_shulker_box.json`}
               data={JSON.stringify(blockState, null, 2)}

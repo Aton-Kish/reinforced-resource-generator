@@ -25,7 +25,7 @@ const OutputItemModelChest = ({ material }: Props): JSX.Element => {
     <div className='flex flex-col gap-1'>
       <h4 className='text'>Chest</h4>
       <Code
-        lang={`${project.namespace.chest}/assets/models/block/${material.name}_chest.json`}
+        lang={`${project.chest.namespace}/assets/models/block/${material.name}_chest.json`}
         data={JSON.stringify(model, null, 2)}
       />
     </div>

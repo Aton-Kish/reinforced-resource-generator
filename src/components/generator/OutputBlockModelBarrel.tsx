@@ -18,23 +18,23 @@ const OutputBlockModelBarrel = ({ material }: Props): JSX.Element => {
   const [models, setModels] = useState<Partial<Record<BarrelType, BlockModel>>>({})
 
   useEffect(() => {
-    const generator = new BarrelGenerator(project.namespace.barrel, material.name)
+    const generator = new BarrelGenerator(project.barrel.namespace, material.name)
     const models: Partial<Record<BarrelType, BlockModel>> = {
       [BarrelType.Top]: generator.generate(BarrelType.Top),
       [BarrelType.TopOpen]: generator.generate(BarrelType.TopOpen),
     }
     setModels(models)
-  }, [project.namespace.barrel, material.name])
+  }, [project.barrel.namespace, material.name])
 
   return (
     <div className='flex flex-col gap-1'>
       <h4 className='text'>Barrel</h4>
       <Code
-        lang={`${project.namespace.barrel}/assets/models/block/${material.name}_barrel.json`}
+        lang={`${project.barrel.namespace}/assets/models/block/${material.name}_barrel.json`}
         data={JSON.stringify(models[BarrelType.Top], null, 2)}
       />
       <Code
-        lang={`${project.namespace.barrel}/assets/models/block/${material.name}_barrel_open.json`}
+        lang={`${project.barrel.namespace}/assets/models/block/${material.name}_barrel_open.json`}
         data={JSON.stringify(models[BarrelType.TopOpen], null, 2)}
       />
     </div>

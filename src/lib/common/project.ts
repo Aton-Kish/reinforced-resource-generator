@@ -1,9 +1,9 @@
 export interface Project {
-  namespace: ProjectNamespace
+  chest: ProjectConfig
+  shulker: ProjectConfig
+  barrel: ProjectConfig
 }
 
-export interface ProjectNamespace {
-  chest: string
-  shulker: string
-  barrel: string
+export interface ProjectConfig {
+  namespace: string
 }

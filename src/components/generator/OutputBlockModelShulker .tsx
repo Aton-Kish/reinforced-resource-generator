@@ -33,7 +33,7 @@ const OutputBlockModelShulker = ({ material }: Props): JSX.Element => {
           return (
             <Code
               key={type}
-              lang={`${project.namespace.shulker}/assets/models/block/${
+              lang={`${project.shulker.namespace}/assets/models/block/${
                 type === ShulkerType.Default ? '' : `${type}_`
               }${material.name}_shulker_box.json`}
               data={JSON.stringify(model, null, 2)}
