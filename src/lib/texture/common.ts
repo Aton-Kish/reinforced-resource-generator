@@ -4,5 +4,5 @@ import type JSZip from 'jszip'
 
 export interface TextureGenerator {
   generate(type: ChestType | ShulkerType | BarrelType): Jimp
-  zip(z: JSZip, type: ChestType | ShulkerType | BarrelType): Promise<JSZip>
+  zipAsync(zip: JSZip, type: ChestType | ShulkerType | BarrelType): Promise<JSZip>
 }

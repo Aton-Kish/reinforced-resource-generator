@@ -76,16 +76,16 @@ export class BarrelTextureGenerator implements TextureGenerator {
     }
   }
 
-  async zip(z: JSZip, type: BarrelType): Promise<JSZip> {
+  async zipAsync(zip: JSZip, type: BarrelType): Promise<JSZip> {
     const image = this.generate(type)
     const data = await image
       .getBase64Async(Jimp.MIME_PNG)
       .then((data) => data.substring('data:image/png;base64,'.length))
 
     const path = `assets/${this.#project.namespace}/textures/block/${this.#material.name}_barrel_${type}.png`
-    z.file(path, data, { base64: true })
+    zip.file(path, data, { base64: true })
 
-    return z
+    return zip
   }
 
   #top(): Jimp {

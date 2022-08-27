@@ -29,15 +29,15 @@ export class ShulkerBlockStateGenerator implements BlockStateGenerator {
     return state
   }
 
-  zip(z: JSZip, type: ShulkerType): JSZip {
+  zipSync(zip: JSZip, type: ShulkerType): JSZip {
     const state = this.generate(type)
     const data = JSON.stringify(state, null, 2)
 
     const path = `assets/${this.#project.namespace}/blockstates/${type === ShulkerType.Default ? '' : `${type}_`}${
       this.#material.name
     }_shulker_box.json`
-    z.file(path, data)
+    zip.file(path, data)
 
-    return z
+    return zip
   }
 }

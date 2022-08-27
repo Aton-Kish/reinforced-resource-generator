@@ -26,14 +26,14 @@ export class BarrelBlockModelGenerator implements BlockModelGenerator {
     }
   }
 
-  zip(z: JSZip, type: BarrelType): JSZip {
+  zipSync(zip: JSZip, type: BarrelType): JSZip {
     const model = this.generate(type)
     const data = JSON.stringify(model, null, 2)
 
     const path = `assets/${this.#project.namespace}/models/block/${this.#material.name}_barrel.json`
-    z.file(path, data)
+    zip.file(path, data)
 
-    return z
+    return zip
   }
 
   #top(): BlockModel {

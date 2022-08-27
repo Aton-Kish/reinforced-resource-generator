@@ -25,13 +25,13 @@ export class ChestBlockStateGenerator implements BlockStateGenerator {
     return state
   }
 
-  zip(z: JSZip): JSZip {
+  zipSync(zip: JSZip): JSZip {
     const state = this.generate()
     const data = JSON.stringify(state, null, 2)
 
     const path = `assets/${this.#project.namespace}/blockstates/${this.#material.name}_chest.json`
-    z.file(path, data)
+    zip.file(path, data)
 
-    return z
+    return zip
   }
 }

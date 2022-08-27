@@ -3,7 +3,7 @@ import type JSZip from 'jszip'
 
 export interface BlockModelGenerator {
   generate(type?: ShulkerType | BarrelType): BlockModel
-  zip(z: JSZip, type?: ShulkerType | BarrelType): JSZip
+  zipSync(zip: JSZip, type?: ShulkerType | BarrelType): JSZip
 }
 
 export interface BlockModel {

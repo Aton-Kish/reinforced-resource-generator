@@ -3,7 +3,7 @@ import type JSZip from 'jszip'
 
 export interface BlockStateGenerator {
   generate(type?: ShulkerType): BlockState
-  zip(z: JSZip, type?: ShulkerType): JSZip
+  zipSync(zip: JSZip, type?: ShulkerType): JSZip
 }
 
 export interface BlockState {

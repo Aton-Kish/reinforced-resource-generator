@@ -56,13 +56,13 @@ export class ChestItemModelGenerator implements ItemModelGenerator {
     return model
   }
 
-  zip(z: JSZip): JSZip {
+  zipSync(zip: JSZip): JSZip {
     const model = this.generate()
     const data = JSON.stringify(model, null, 2)
 
     const path = `assets/${this.#project.namespace}/models/item/${this.#material.name}_chest.json`
-    z.file(path, data)
+    zip.file(path, data)
 
-    return z
+    return zip
   }
 }

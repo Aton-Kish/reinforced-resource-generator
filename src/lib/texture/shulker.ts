@@ -135,7 +135,7 @@ export class ShulkerTextureGenerator implements TextureGenerator {
     return image
   }
 
-  async zip(z: JSZip, type: ShulkerType): Promise<JSZip> {
+  async zipAsync(zip: JSZip, type: ShulkerType): Promise<JSZip> {
     const image = this.generate(type)
     const data = await image
       .getBase64Async(Jimp.MIME_PNG)
@@ -144,9 +144,9 @@ export class ShulkerTextureGenerator implements TextureGenerator {
     const path = `assets/${this.#project.namespace}/textures/entity/reinforced_shulker/${this.#material.name}/shulker${
       type === ShulkerType.Default ? '' : `_${type}`
     }.png`
-    z.file(path, data, { base64: true })
+    zip.file(path, data, { base64: true })
 
-    return z
+    return zip
   }
 
   #topInnerMask(): Jimp {

@@ -25,15 +25,15 @@ export class ShulkerBlockModelGenerator implements BlockModelGenerator {
     return model
   }
 
-  zip(z: JSZip, type: ShulkerType): JSZip {
+  zipSync(zip: JSZip, type: ShulkerType): JSZip {
     const model = this.generate(type)
     const data = JSON.stringify(model, null, 2)
 
     const path = `assets/${this.#project.namespace}/models/block/${type === ShulkerType.Default ? '' : `${type}_`}${
       this.#material.name
     }_shulker_box.json`
-    z.file(path, data)
+    zip.file(path, data)
 
-    return z
+    return zip
   }
 }
