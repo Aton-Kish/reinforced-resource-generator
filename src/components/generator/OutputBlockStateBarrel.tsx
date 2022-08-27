@@ -5,11 +5,11 @@ import { BarrelGenerator } from '@/lib/blockState'
 
 import Code from './Code'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 import type { BlockState } from '@/lib/blockState'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const OutputBlockStateBarrel = ({ material }: Props): JSX.Element => {

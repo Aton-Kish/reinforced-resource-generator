@@ -5,11 +5,11 @@ import { ChestGenerator } from '@/lib/blockState'
 
 import Code from './Code'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 import type { BlockState } from '@/lib/blockState'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const OutputBlockStateChest = ({ material }: Props): JSX.Element => {

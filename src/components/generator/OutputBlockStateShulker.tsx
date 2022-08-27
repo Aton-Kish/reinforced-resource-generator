@@ -6,11 +6,11 @@ import { ShulkerType } from '@/lib/common'
 
 import Code from './Code'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 import type { BlockState } from '@/lib/blockState'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const OutputBlockStateShulker = ({ material }: Props): JSX.Element => {

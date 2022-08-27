@@ -5,10 +5,10 @@ import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTop
 import { BarrelType } from '@/lib/common'
 import { BarrelGenerator } from '@/lib/texture'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const OutputTextureBarrel = ({ material }: Props): JSX.Element => {

@@ -5,10 +5,10 @@ import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '@/asset
 import { ChestType } from '@/lib/common'
 import { ChestGenerator } from '@/lib/texture'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const OutputTextureChest = ({ material }: Props): JSX.Element => {

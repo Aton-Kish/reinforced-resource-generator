@@ -12,7 +12,7 @@ import Configuration from './components/configuration/Configuration'
 import Generator from './components/generator/Generator'
 import { MaterialContext, ProjectContext } from './contexts'
 
-import type { Project, SelectableMaterialTexture } from './contexts'
+import type { Project, MaterialTextureOption } from './contexts'
 
 const App = (): JSX.Element => {
   const [project, setProject] = useState<Project>({
@@ -23,13 +23,13 @@ const App = (): JSX.Element => {
     },
   })
 
-  const copper: SelectableMaterialTexture = { ...MaterialCopperTexture, id: uuid(), selected: false }
-  const iron: SelectableMaterialTexture = { ...MaterialIronTexture, id: uuid(), selected: false }
-  const gold: SelectableMaterialTexture = { ...MaterialGoldTexture, id: uuid(), selected: false }
-  const diamond: SelectableMaterialTexture = { ...MaterialDiamondTexture, id: uuid(), selected: false }
-  const netherite: SelectableMaterialTexture = { ...MaterialNetheriteTexture, id: uuid(), selected: false }
+  const copper: MaterialTextureOption = { ...MaterialCopperTexture, id: uuid(), selected: false }
+  const iron: MaterialTextureOption = { ...MaterialIronTexture, id: uuid(), selected: false }
+  const gold: MaterialTextureOption = { ...MaterialGoldTexture, id: uuid(), selected: false }
+  const diamond: MaterialTextureOption = { ...MaterialDiamondTexture, id: uuid(), selected: false }
+  const netherite: MaterialTextureOption = { ...MaterialNetheriteTexture, id: uuid(), selected: false }
 
-  const [materials, setMaterials] = useState<Record<string, SelectableMaterialTexture>>({
+  const [materials, setMaterials] = useState<Record<string, MaterialTextureOption>>({
     [copper.id]: copper,
     [iron.id]: iron,
     [gold.id]: gold,

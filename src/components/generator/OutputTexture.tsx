@@ -4,10 +4,10 @@ import OutputTextureBarrel from './OutputTextureBarrel'
 import OutputTextureChest from './OutputTextureChest'
 import OutputTextureShulker from './OutputTextureShulker'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const OutputTexture = ({ material }: Props): JSX.Element => {

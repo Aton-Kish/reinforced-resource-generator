@@ -3,10 +3,10 @@ import OutputBlockState from './OutputBlockState'
 import OutputItemModel from './OutputItemModel'
 import OutputTexture from './OutputTexture'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const Output = ({ material }: Props): JSX.Element => {

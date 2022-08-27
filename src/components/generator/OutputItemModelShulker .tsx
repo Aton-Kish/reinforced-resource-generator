@@ -6,11 +6,11 @@ import { ShulkerGenerator } from '@/lib/model/item'
 
 import Code from './Code'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 import type { ItemModel } from '@/lib/model/item'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const OutputItemModelShulker = ({ material }: Props): JSX.Element => {

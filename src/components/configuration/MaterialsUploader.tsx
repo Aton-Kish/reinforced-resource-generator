@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 
 import { MaterialContext } from '@/contexts'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 
 const MaterialsUploader = (): JSX.Element => {
   const { materials, setMaterials } = useContext(MaterialContext)
@@ -15,7 +15,7 @@ const MaterialsUploader = (): JSX.Element => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'image/png': [] },
     onDrop: async (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-      const acceptedMaterials: Record<string, SelectableMaterialTexture> = {}
+      const acceptedMaterials: Record<string, MaterialTextureOption> = {}
       const rejectedFilenames: string[] = fileRejections.map((fileRejection) => fileRejection.file.name)
 
       for (const file of acceptedFiles) {
@@ -41,7 +41,7 @@ const MaterialsUploader = (): JSX.Element => {
           continue
         }
 
-        const material: SelectableMaterialTexture = { id, namespace: 'minecraft', name, src, selected: false }
+        const material: MaterialTextureOption = { id, namespace: 'minecraft', name, src, selected: false }
         acceptedMaterials[id] = material
       }
 

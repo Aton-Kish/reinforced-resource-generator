@@ -3,10 +3,10 @@ import { useState } from 'react'
 import Input from './Input'
 import Output from './Output'
 
-import type { SelectableMaterialTexture } from '@/contexts'
+import type { MaterialTextureOption } from '@/contexts'
 
 interface Props {
-  material: SelectableMaterialTexture
+  material: MaterialTextureOption
 }
 
 const GeneratorCard = ({ material }: Props): JSX.Element => {
