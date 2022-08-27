@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
-import { ChestGenerator } from '@/lib/model/item'
+import { ChestItemModelGenerator } from '@/lib/model/item'
 
 import Code from './Code'
 
@@ -17,7 +17,7 @@ const OutputItemModelChest = ({ material }: Props): JSX.Element => {
   const [model, setModel] = useState<ItemModel>({})
 
   useEffect(() => {
-    const generator = new ChestGenerator(material.namespace, material.name)
+    const generator = new ChestItemModelGenerator(material.namespace, material.name)
     setModel(generator.generate())
   }, [material.namespace, material.name])
 

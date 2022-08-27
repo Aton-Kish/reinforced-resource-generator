@@ -1,6 +1,6 @@
-import type { ItemModel } from './common'
+import type { ItemModel, ItemModelGenerator } from './common'
 
-export class ChestGenerator {
+export class ChestItemModelGenerator implements ItemModelGenerator {
   #namespace: string
   #material: string
 

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
 import { ShulkerType } from '@/lib/common'
-import { ShulkerGenerator } from '@/lib/model/item'
+import { ShulkerItemModelGenerator } from '@/lib/model/item'
 
 import Code from './Code'
 
@@ -18,7 +18,7 @@ const OutputItemModelShulker = ({ material }: Props): JSX.Element => {
   const [models, setModels] = useState<Partial<Record<ShulkerType, ItemModel>>>({})
 
   useEffect(() => {
-    const generator = new ShulkerGenerator()
+    const generator = new ShulkerItemModelGenerator()
     const models = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, ItemModel>>>((acc, type) => {
       return { ...acc, [type]: generator.generate(type) }
     }, {})

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
-import { BarrelGenerator } from '@/lib/model/item'
+import { BarrelItemModelGenerator } from '@/lib/model/item'
 
 import Code from './Code'
 
@@ -17,7 +17,7 @@ const OutputItemModelBarrel = ({ material }: Props): JSX.Element => {
   const [model, setModel] = useState<ItemModel>({})
 
   useEffect(() => {
-    const generator = new BarrelGenerator(project.barrel.namespace, material.name)
+    const generator = new BarrelItemModelGenerator(project.barrel.namespace, material.name)
     setModel(generator.generate())
   }, [project.barrel.namespace, material.name])
 
