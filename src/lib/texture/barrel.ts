@@ -5,6 +5,7 @@ import { BarrelType } from '@/lib/common'
 import { Material9 } from './material'
 
 import type { TextureGenerator } from './common'
+import type { MaterialTexture } from './material'
 
 const ShadowColor = {
   OuterMain: Jimp.rgbaToInt(0, 0, 0, 65),
@@ -21,21 +22,40 @@ export interface BarrelTexture {
 }
 
 export class BarrelTextureGenerator implements TextureGenerator {
-  #base: Record<BarrelType, Jimp>
-  #material9: Material9
+  #base?: Record<BarrelType, Jimp>
+  #material9?: Material9
 
-  constructor(base: Record<BarrelType, Jimp>, material: Jimp) {
-    for (const [type, image] of Object.entries(base)) {
+  static async build(
+    base: Record<BarrelType, BarrelTexture>,
+    material: MaterialTexture,
+  ): Promise<BarrelTextureGenerator> {
+    const generator = new BarrelTextureGenerator()
+    generator.#base = {
+      [BarrelType.Top]: await Jimp.read(base[BarrelType.Top].src),
+      [BarrelType.TopOpen]: await Jimp.read(base[BarrelType.TopOpen].src),
+      [BarrelType.Side]: await Jimp.read(base[BarrelType.Side].src),
+      [BarrelType.Bottom]: await Jimp.read(base[BarrelType.Bottom].src),
+    }
+    generator.#material9 = new Material9(await Jimp.read(material.src))
+
+    return generator
+  }
+
+  #validate() {
+    if (this.#base == null || this.#material9 == null) {
+      throw new Error('initialization not completed')
+    }
+
+    for (const [type, image] of Object.entries(this.#base)) {
       if (!(image.getWidth() === 16 && image.getHeight() === 16)) {
         throw new Error(`${type} image size must be 16x16`)
       }
     }
-
-    this.#base = base
-    this.#material9 = new Material9(material)
   }
 
   generate(type: BarrelType): Jimp {
+    this.#validate()
+
     switch (type) {
       case BarrelType.Top:
         return this.#top()
@@ -49,10 +69,10 @@ export class BarrelTextureGenerator implements TextureGenerator {
   }
 
   #top(): Jimp {
-    const knob = this.#base.top.clone().crop(3, 8, 2, 2)
+    const knob = this.#base!.top.clone().crop(3, 8, 2, 2)
     const outerShadow = this.#outerShadow()
 
-    const image = this.#material9.rect(16, 16)
+    const image = this.#material9!.rect(16, 16)
 
     image.composite(knob, 3, 8)
 
@@ -65,7 +85,7 @@ export class BarrelTextureGenerator implements TextureGenerator {
     const outerShadow = this.#outerShadow()
     const innerShadow = this.#innerShadow()
 
-    const image = this.#material9.rect(16, 16)
+    const image = this.#material9!.rect(16, 16)
 
     image.composite(outerShadow, 0, 0)
     image.composite(innerShadow, 0, 0)
@@ -74,14 +94,14 @@ export class BarrelTextureGenerator implements TextureGenerator {
   }
 
   #side(): Jimp {
-    const plate = this.#material9.rect(5, 18).crop(1, 1, 4, 16)
+    const plate = this.#material9!.rect(5, 18).crop(1, 1, 4, 16)
     const leftPlate = plate.clone().crop(0, 0, 2, 16)
     const rightPlate = plate.clone().crop(2, 0, 2, 16)
 
-    const topHoop = this.#base.side.clone().crop(0, 3, 16, 2)
-    const bottomHoop = this.#base.side.clone().crop(0, 11, 16, 2)
+    const topHoop = this.#base!.side.clone().crop(0, 3, 16, 2)
+    const bottomHoop = this.#base!.side.clone().crop(0, 11, 16, 2)
 
-    const image = this.#material9.rect(16, 16)
+    const image = this.#material9!.rect(16, 16)
 
     image.composite(rightPlate, 0, 0)
     image.composite(plate, 2, 0)
@@ -96,7 +116,7 @@ export class BarrelTextureGenerator implements TextureGenerator {
   }
 
   #bottom(): Jimp {
-    const image = this.#material9.rect(16, 16)
+    const image = this.#material9!.rect(16, 16)
 
     return image
   }

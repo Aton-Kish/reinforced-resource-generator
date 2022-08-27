@@ -6,6 +6,7 @@ import { BarrelType } from '@/lib/common'
 import { BarrelTextureGenerator } from '@/lib/texture'
 
 import type { MaterialTextureOption } from '@/contexts'
+import type { BarrelTexture } from '@/lib/texture'
 
 interface Props {
   material: MaterialTextureOption
@@ -16,15 +17,14 @@ const OutputTextureBarrel = ({ material }: Props): JSX.Element => {
 
   useEffect(() => {
     const generate = async () => {
-      const base: Record<BarrelType, Jimp> = {
-        [BarrelType.Top]: await Jimp.read(BarrelTopTexture.src),
-        [BarrelType.TopOpen]: await Jimp.read(BarrelTopOpenTexture.src),
-        [BarrelType.Side]: await Jimp.read(BarrelSideTexture.src),
-        [BarrelType.Bottom]: await Jimp.read(BarrelBottomTexture.src),
+      const base: Record<BarrelType, BarrelTexture> = {
+        [BarrelType.Top]: BarrelTopTexture,
+        [BarrelType.TopOpen]: BarrelTopOpenTexture,
+        [BarrelType.Side]: BarrelSideTexture,
+        [BarrelType.Bottom]: BarrelBottomTexture,
       }
-      const matl = await Jimp.read(material.src)
 
-      const generator = new BarrelTextureGenerator(base, matl)
+      const generator = await BarrelTextureGenerator.build(base, material)
       const textures = await Object.values(BarrelType).reduce<Promise<Partial<Record<BarrelType, string>>>>(
         async (acc, type) => {
           const jimp = generator.generate(type)
