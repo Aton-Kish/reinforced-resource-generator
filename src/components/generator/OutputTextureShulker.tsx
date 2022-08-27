@@ -21,7 +21,7 @@ import {
   ShulkerYellowTexture,
 } from '@/assets/shulker'
 import { ShulkerType } from '@/lib/common'
-import { ShulkerGenerator } from '@/lib/texture'
+import { ShulkerTextureGenerator } from '@/lib/texture'
 
 import type { MaterialTextureOption } from '@/contexts'
 
@@ -55,7 +55,7 @@ const OutputTextureShulker = ({ material }: Props): JSX.Element => {
       }
       const matl = await Jimp.read(material.src)
 
-      const generator = new ShulkerGenerator(base, matl)
+      const generator = new ShulkerTextureGenerator(base, matl)
       const textures = await Object.values(ShulkerType).reduce<Promise<Partial<Record<ShulkerType, string>>>>(
         async (acc, type) => {
           const jimp = generator.generate(type)

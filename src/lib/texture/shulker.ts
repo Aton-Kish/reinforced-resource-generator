@@ -4,12 +4,14 @@ import { ShulkerType } from '@/lib/common'
 
 import { Material9 } from './material'
 
+import type { TextureGenerator } from './common'
+
 export interface ShulkerTexture {
   type: ShulkerType
   src: string
 }
 
-export class ShulkerGenerator {
+export class ShulkerTextureGenerator implements TextureGenerator {
   #base: Record<ShulkerType, Jimp>
   #material9: Material9
 

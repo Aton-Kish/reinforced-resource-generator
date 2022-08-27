@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '@/assets/barrel'
 import { BarrelType } from '@/lib/common'
-import { BarrelGenerator } from '@/lib/texture'
+import { BarrelTextureGenerator } from '@/lib/texture'
 
 import type { MaterialTextureOption } from '@/contexts'
 
@@ -24,7 +24,7 @@ const OutputTextureBarrel = ({ material }: Props): JSX.Element => {
       }
       const matl = await Jimp.read(material.src)
 
-      const generator = new BarrelGenerator(base, matl)
+      const generator = new BarrelTextureGenerator(base, matl)
       const textures = await Object.values(BarrelType).reduce<Promise<Partial<Record<BarrelType, string>>>>(
         async (acc, type) => {
           const jimp = generator.generate(type)

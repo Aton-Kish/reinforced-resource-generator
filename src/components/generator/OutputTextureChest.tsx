@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '@/assets/chest'
 import { ChestType } from '@/lib/common'
-import { ChestGenerator } from '@/lib/texture'
+import { ChestTextureGenerator } from '@/lib/texture'
 
 import type { MaterialTextureOption } from '@/contexts'
 
@@ -23,7 +23,7 @@ const OutputTextureChest = ({ material }: Props): JSX.Element => {
       }
       const matl = await Jimp.read(material.src)
 
-      const generator = new ChestGenerator(base, matl)
+      const generator = new ChestTextureGenerator(base, matl)
       const textures = await Object.values(ChestType).reduce<Promise<Partial<Record<ChestType, string>>>>(
         async (acc, type) => {
           const jimp = generator.generate(type)

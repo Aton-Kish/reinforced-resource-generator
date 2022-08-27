@@ -4,6 +4,8 @@ import { ChestType } from '@/lib/common'
 
 import { Material9 } from './material'
 
+import type { TextureGenerator } from './common'
+
 const ShadowColor = {
   Inner: Jimp.rgbaToInt(0, 0, 0, 153),
   KnobMain: Jimp.rgbaToInt(0, 0, 0, 102),
@@ -15,7 +17,7 @@ export interface ChestTexture {
   src: string
 }
 
-export class ChestGenerator {
+export class ChestTextureGenerator implements TextureGenerator {
   #base: Record<ChestType, Jimp>
   #material9: Material9
 

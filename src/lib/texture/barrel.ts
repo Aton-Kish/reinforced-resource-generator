@@ -4,6 +4,8 @@ import { BarrelType } from '@/lib/common'
 
 import { Material9 } from './material'
 
+import type { TextureGenerator } from './common'
+
 const ShadowColor = {
   OuterMain: Jimp.rgbaToInt(0, 0, 0, 65),
   OuterSub: Jimp.rgbaToInt(0, 0, 0, 90),
@@ -18,7 +20,7 @@ export interface BarrelTexture {
   src: string
 }
 
-export class BarrelGenerator {
+export class BarrelTextureGenerator implements TextureGenerator {
   #base: Record<BarrelType, Jimp>
   #material9: Material9
 
