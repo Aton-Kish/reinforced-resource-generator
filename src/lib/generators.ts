@@ -1,26 +1,4 @@
-import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '@/assets/barrel'
-import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '@/assets/chest'
-import {
-  ShulkerBlackTexture,
-  ShulkerBlueTexture,
-  ShulkerBrownTexture,
-  ShulkerCyanTexture,
-  ShulkerDefaultTexture,
-  ShulkerGrayTexture,
-  ShulkerGreenTexture,
-  ShulkerLightBlueTexture,
-  ShulkerLightGrayTexture,
-  ShulkerLimeTexture,
-  ShulkerMagentaTexture,
-  ShulkerOrangeTexture,
-  ShulkerPinkTexture,
-  ShulkerPurpleTexture,
-  ShulkerRedTexture,
-  ShulkerWhiteTexture,
-  ShulkerYellowTexture,
-} from '@/assets/shulker'
 import { BarrelBlockStateGenerator, ChestBlockStateGenerator, ShulkerBlockStateGenerator } from '@/lib/blockState'
-import { BarrelType, ChestType, ShulkerType } from '@/lib/common'
 import { BarrelBlockModelGenerator, ChestBlockModelGenerator, ShulkerBlockModelGenerator } from '@/lib/model/block'
 import { BarrelItemModelGenerator, ChestItemModelGenerator, ShulkerItemModelGenerator } from '@/lib/model/item'
 import { BarrelTextureGenerator, ChestTextureGenerator, ShulkerTextureGenerator } from '@/lib/texture'
@@ -55,63 +33,27 @@ export class Generators {
     const generators = new Generators(project, material)
 
     const textureGenerators = {
-      chest: await ChestTextureGenerator.build(
-        {
-          [ChestType.Single]: ChestSingleTexture,
-          [ChestType.Left]: ChestLeftTexture,
-          [ChestType.Right]: ChestRightTexture,
-        },
-        material,
-      ),
-      shulker: await ShulkerTextureGenerator.build(
-        {
-          [ShulkerType.Default]: ShulkerDefaultTexture,
-          [ShulkerType.White]: ShulkerWhiteTexture,
-          [ShulkerType.Orange]: ShulkerOrangeTexture,
-          [ShulkerType.Magenta]: ShulkerMagentaTexture,
-          [ShulkerType.LightBlue]: ShulkerLightBlueTexture,
-          [ShulkerType.Yellow]: ShulkerYellowTexture,
-          [ShulkerType.Lime]: ShulkerLimeTexture,
-          [ShulkerType.Pink]: ShulkerPinkTexture,
-          [ShulkerType.Gray]: ShulkerGrayTexture,
-          [ShulkerType.LightGray]: ShulkerLightGrayTexture,
-          [ShulkerType.Cyan]: ShulkerCyanTexture,
-          [ShulkerType.Purple]: ShulkerPurpleTexture,
-          [ShulkerType.Blue]: ShulkerBlueTexture,
-          [ShulkerType.Brown]: ShulkerBrownTexture,
-          [ShulkerType.Green]: ShulkerGreenTexture,
-          [ShulkerType.Red]: ShulkerRedTexture,
-          [ShulkerType.Black]: ShulkerBlackTexture,
-        },
-        material,
-      ),
-      barrel: await BarrelTextureGenerator.build(
-        {
-          [BarrelType.Top]: BarrelTopTexture,
-          [BarrelType.TopOpen]: BarrelTopOpenTexture,
-          [BarrelType.Side]: BarrelSideTexture,
-          [BarrelType.Bottom]: BarrelBottomTexture,
-        },
-        material,
-      ),
+      chest: await ChestTextureGenerator.build(project.chest, material),
+      shulker: await ShulkerTextureGenerator.build(project.shulker, material),
+      barrel: await BarrelTextureGenerator.build(project.barrel, material),
     }
 
     const blockModelGenerators = {
       chest: new ChestBlockModelGenerator(project.chest, material),
-      shulker: new ShulkerBlockModelGenerator(project.chest, material),
-      barrel: new BarrelBlockModelGenerator(project.chest, material),
+      shulker: new ShulkerBlockModelGenerator(project.shulker, material),
+      barrel: new BarrelBlockModelGenerator(project.barrel, material),
     }
 
     const itemModelGenerators = {
       chest: new ChestItemModelGenerator(project.chest, material),
-      shulker: new ShulkerItemModelGenerator(project.chest, material),
-      barrel: new BarrelItemModelGenerator(project.chest, material),
+      shulker: new ShulkerItemModelGenerator(project.shulker, material),
+      barrel: new BarrelItemModelGenerator(project.barrel, material),
     }
 
     const blockStateGenerators = {
       chest: new ChestBlockStateGenerator(project.chest, material),
-      shulker: new ShulkerBlockStateGenerator(project.chest, material),
-      barrel: new BarrelBlockStateGenerator(project.chest, material),
+      shulker: new ShulkerBlockStateGenerator(project.shulker, material),
+      barrel: new BarrelBlockStateGenerator(project.barrel, material),
     }
 
     generators.#generators = {

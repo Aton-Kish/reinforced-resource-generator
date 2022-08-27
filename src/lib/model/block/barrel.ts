@@ -1,3 +1,5 @@
+import JSZip from 'jszip'
+
 import { BarrelType } from '@/lib/common'
 
 import type { BlockModel, BlockModelGenerator } from './common'
@@ -22,6 +24,16 @@ export class BarrelBlockModelGenerator implements BlockModelGenerator {
       default:
         throw new Error('invalid barrel type')
     }
+  }
+
+  zip(z: JSZip, type: BarrelType): JSZip {
+    const model = this.generate(type)
+    const data = JSON.stringify(model, null, 2)
+
+    const path = `assets/${this.#project.namespace}/models/block/${this.#material.name}_barrel.json`
+    z.file(path, data)
+
+    return z
   }
 
   #top(): BlockModel {

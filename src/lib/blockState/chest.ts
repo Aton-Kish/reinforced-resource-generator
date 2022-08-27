@@ -1,3 +1,5 @@
+import JSZip from 'jszip'
+
 import type { BlockState, BlockStateGenerator } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
@@ -12,7 +14,7 @@ export class ChestBlockStateGenerator implements BlockStateGenerator {
   }
 
   generate(): BlockState {
-    const states: BlockState = {
+    const state: BlockState = {
       variants: {
         '': {
           model: `${this.#project.namespace}:block/${this.#material.name}_chest`,
@@ -20,6 +22,16 @@ export class ChestBlockStateGenerator implements BlockStateGenerator {
       },
     }
 
-    return states
+    return state
+  }
+
+  zip(z: JSZip): JSZip {
+    const state = this.generate()
+    const data = JSON.stringify(state, null, 2)
+
+    const path = `assets/${this.#project.namespace}/blockstates/${this.#material.name}_chest.json`
+    z.file(path, data)
+
+    return z
   }
 }

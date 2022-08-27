@@ -1,3 +1,5 @@
+import JSZip from 'jszip'
+
 import { ShulkerType } from '@/lib/common'
 
 import type { BlockState, BlockStateGenerator } from './common'
@@ -14,7 +16,7 @@ export class ShulkerBlockStateGenerator implements BlockStateGenerator {
   }
 
   generate(type: ShulkerType): BlockState {
-    const states: BlockState = {
+    const state: BlockState = {
       variants: {
         '': {
           model: `${this.#project.namespace}:block/${type === ShulkerType.Default ? '' : `${type}_`}${
@@ -24,6 +26,18 @@ export class ShulkerBlockStateGenerator implements BlockStateGenerator {
       },
     }
 
-    return states
+    return state
+  }
+
+  zip(z: JSZip, type: ShulkerType): JSZip {
+    const state = this.generate(type)
+    const data = JSON.stringify(state, null, 2)
+
+    const path = `assets/${this.#project.namespace}/blockstates/${type === ShulkerType.Default ? '' : `${type}_`}${
+      this.#material.name
+    }_shulker_box.json`
+    z.file(path, data)
+
+    return z
   }
 }

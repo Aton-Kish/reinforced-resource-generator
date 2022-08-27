@@ -1,11 +1,14 @@
 import Jimp from 'jimp'
+import JSZip from 'jszip'
 
+import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '@/assets/barrel'
 import { BarrelType } from '@/lib/common'
 
 import { Material9 } from './material'
 
 import type { TextureGenerator } from './common'
 import type { MaterialTexture } from './material'
+import type { ProjectConfig } from '@/lib/common'
 
 const ShadowColor = {
   OuterMain: Jimp.rgbaToInt(0, 0, 0, 65),
@@ -22,19 +25,24 @@ export interface BarrelTexture {
 }
 
 export class BarrelTextureGenerator implements TextureGenerator {
+  #project: ProjectConfig
+  #material: MaterialTexture
+
   #base?: Record<BarrelType, Jimp>
   #material9?: Material9
 
-  static async build(
-    base: Record<BarrelType, BarrelTexture>,
-    material: MaterialTexture,
-  ): Promise<BarrelTextureGenerator> {
-    const generator = new BarrelTextureGenerator()
+  constructor(project: ProjectConfig, material: MaterialTexture) {
+    this.#project = project
+    this.#material = material
+  }
+
+  static async build(project: ProjectConfig, material: MaterialTexture): Promise<BarrelTextureGenerator> {
+    const generator = new BarrelTextureGenerator(project, material)
     generator.#base = {
-      [BarrelType.Top]: await Jimp.read(base[BarrelType.Top].src),
-      [BarrelType.TopOpen]: await Jimp.read(base[BarrelType.TopOpen].src),
-      [BarrelType.Side]: await Jimp.read(base[BarrelType.Side].src),
-      [BarrelType.Bottom]: await Jimp.read(base[BarrelType.Bottom].src),
+      [BarrelType.Top]: await Jimp.read(BarrelTopTexture.src),
+      [BarrelType.TopOpen]: await Jimp.read(BarrelTopOpenTexture.src),
+      [BarrelType.Side]: await Jimp.read(BarrelSideTexture.src),
+      [BarrelType.Bottom]: await Jimp.read(BarrelBottomTexture.src),
     }
     generator.#material9 = new Material9(await Jimp.read(material.src))
 
@@ -66,6 +74,18 @@ export class BarrelTextureGenerator implements TextureGenerator {
       case BarrelType.Bottom:
         return this.#bottom()
     }
+  }
+
+  async zip(z: JSZip, type: BarrelType): Promise<JSZip> {
+    const image = this.generate(type)
+    const data = await image
+      .getBase64Async(Jimp.MIME_PNG)
+      .then((data) => data.substring('data:image/png;base64,'.length))
+
+    const path = `assets/${this.#project.namespace}/textures/block/${this.#material.name}_barrel_${type}.png`
+    z.file(path, data, { base64: true })
+
+    return z
   }
 
   #top(): Jimp {

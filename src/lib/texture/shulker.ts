@@ -1,11 +1,32 @@
 import Jimp from 'jimp'
+import JSZip from 'jszip'
 
+import {
+  ShulkerBlackTexture,
+  ShulkerBlueTexture,
+  ShulkerBrownTexture,
+  ShulkerCyanTexture,
+  ShulkerDefaultTexture,
+  ShulkerGrayTexture,
+  ShulkerGreenTexture,
+  ShulkerLightBlueTexture,
+  ShulkerLightGrayTexture,
+  ShulkerLimeTexture,
+  ShulkerMagentaTexture,
+  ShulkerOrangeTexture,
+  ShulkerPinkTexture,
+  ShulkerPurpleTexture,
+  ShulkerRedTexture,
+  ShulkerWhiteTexture,
+  ShulkerYellowTexture,
+} from '@/assets/shulker'
 import { ShulkerType } from '@/lib/common'
 
 import { Material9 } from './material'
 
 import type { TextureGenerator } from './common'
 import type { MaterialTexture } from './material'
+import type { ProjectConfig } from '@/lib/common'
 
 export interface ShulkerTexture {
   type: ShulkerType
@@ -13,32 +34,37 @@ export interface ShulkerTexture {
 }
 
 export class ShulkerTextureGenerator implements TextureGenerator {
+  #project: ProjectConfig
+  #material: MaterialTexture
+
   #base?: Record<ShulkerType, Jimp>
   #material9?: Material9
 
-  static async build(
-    base: Record<ShulkerType, ShulkerTexture>,
-    material: MaterialTexture,
-  ): Promise<ShulkerTextureGenerator> {
-    const generator = new ShulkerTextureGenerator()
+  constructor(project: ProjectConfig, material: MaterialTexture) {
+    this.#project = project
+    this.#material = material
+  }
+
+  static async build(project: ProjectConfig, material: MaterialTexture): Promise<ShulkerTextureGenerator> {
+    const generator = new ShulkerTextureGenerator(project, material)
     generator.#base = {
-      [ShulkerType.Default]: await Jimp.read(base[ShulkerType.Default].src),
-      [ShulkerType.White]: await Jimp.read(base[ShulkerType.White].src),
-      [ShulkerType.Orange]: await Jimp.read(base[ShulkerType.Orange].src),
-      [ShulkerType.Magenta]: await Jimp.read(base[ShulkerType.Magenta].src),
-      [ShulkerType.LightBlue]: await Jimp.read(base[ShulkerType.LightBlue].src),
-      [ShulkerType.Yellow]: await Jimp.read(base[ShulkerType.Yellow].src),
-      [ShulkerType.Lime]: await Jimp.read(base[ShulkerType.Lime].src),
-      [ShulkerType.Pink]: await Jimp.read(base[ShulkerType.Pink].src),
-      [ShulkerType.Gray]: await Jimp.read(base[ShulkerType.Gray].src),
-      [ShulkerType.LightGray]: await Jimp.read(base[ShulkerType.LightGray].src),
-      [ShulkerType.Cyan]: await Jimp.read(base[ShulkerType.Cyan].src),
-      [ShulkerType.Purple]: await Jimp.read(base[ShulkerType.Purple].src),
-      [ShulkerType.Blue]: await Jimp.read(base[ShulkerType.Blue].src),
-      [ShulkerType.Brown]: await Jimp.read(base[ShulkerType.Brown].src),
-      [ShulkerType.Green]: await Jimp.read(base[ShulkerType.Green].src),
-      [ShulkerType.Red]: await Jimp.read(base[ShulkerType.Red].src),
-      [ShulkerType.Black]: await Jimp.read(base[ShulkerType.Black].src),
+      [ShulkerType.Default]: await Jimp.read(ShulkerDefaultTexture.src),
+      [ShulkerType.White]: await Jimp.read(ShulkerWhiteTexture.src),
+      [ShulkerType.Orange]: await Jimp.read(ShulkerOrangeTexture.src),
+      [ShulkerType.Magenta]: await Jimp.read(ShulkerMagentaTexture.src),
+      [ShulkerType.LightBlue]: await Jimp.read(ShulkerLightBlueTexture.src),
+      [ShulkerType.Yellow]: await Jimp.read(ShulkerYellowTexture.src),
+      [ShulkerType.Lime]: await Jimp.read(ShulkerLimeTexture.src),
+      [ShulkerType.Pink]: await Jimp.read(ShulkerPinkTexture.src),
+      [ShulkerType.Gray]: await Jimp.read(ShulkerGrayTexture.src),
+      [ShulkerType.LightGray]: await Jimp.read(ShulkerLightGrayTexture.src),
+      [ShulkerType.Cyan]: await Jimp.read(ShulkerCyanTexture.src),
+      [ShulkerType.Purple]: await Jimp.read(ShulkerPurpleTexture.src),
+      [ShulkerType.Blue]: await Jimp.read(ShulkerBlueTexture.src),
+      [ShulkerType.Brown]: await Jimp.read(ShulkerBrownTexture.src),
+      [ShulkerType.Green]: await Jimp.read(ShulkerGreenTexture.src),
+      [ShulkerType.Red]: await Jimp.read(ShulkerRedTexture.src),
+      [ShulkerType.Black]: await Jimp.read(ShulkerBlackTexture.src),
     }
     generator.#material9 = new Material9(await Jimp.read(material.src))
 
@@ -107,6 +133,20 @@ export class ShulkerTextureGenerator implements TextureGenerator {
     image.composite(bottomOuter, 32, 28)
 
     return image
+  }
+
+  async zip(z: JSZip, type: ShulkerType): Promise<JSZip> {
+    const image = this.generate(type)
+    const data = await image
+      .getBase64Async(Jimp.MIME_PNG)
+      .then((data) => data.substring('data:image/png;base64,'.length))
+
+    const path = `assets/${this.#project.namespace}/textures/entity/reinforced_shulker/${this.#material.name}/shulker${
+      type === ShulkerType.Default ? '' : `_${type}`
+    }.png`
+    z.file(path, data, { base64: true })
+
+    return z
   }
 
   #topInnerMask(): Jimp {

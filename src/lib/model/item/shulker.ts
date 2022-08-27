@@ -1,3 +1,5 @@
+import JSZip from 'jszip'
+
 import { ShulkerType } from '@/lib/common'
 
 import type { ItemModel, ItemModelGenerator } from './common'
@@ -14,13 +16,25 @@ export class ShulkerItemModelGenerator implements ItemModelGenerator {
   }
 
   generate(type: ShulkerType): ItemModel {
-    const states: ItemModel = {
+    const model: ItemModel = {
       parent: 'minecraft:item/template_shulker_box',
       textures: {
         particle: `minecraft:block/${type === ShulkerType.Default ? '' : `${type}_`}shulker_box`,
       },
     }
 
-    return states
+    return model
+  }
+
+  zip(z: JSZip, type: ShulkerType): JSZip {
+    const model = this.generate(type)
+    const data = JSON.stringify(model, null, 2)
+
+    const path = `assets/${this.#project.namespace}/models/item/${type === ShulkerType.Default ? '' : `${type}_`}${
+      this.#material.name
+    }_shulker_box.json`
+    z.file(path, data)
+
+    return z
   }
 }

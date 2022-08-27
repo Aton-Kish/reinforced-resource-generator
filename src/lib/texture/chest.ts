@@ -1,11 +1,14 @@
 import Jimp from 'jimp'
+import JSZip from 'jszip'
 
+import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '@/assets/chest'
 import { ChestType } from '@/lib/common'
 
 import { Material9 } from './material'
 
 import type { TextureGenerator } from './common'
 import type { MaterialTexture } from './material'
+import type { ProjectConfig } from '@/lib/common'
 
 const ShadowColor = {
   Inner: Jimp.rgbaToInt(0, 0, 0, 153),
@@ -19,15 +22,23 @@ export interface ChestTexture {
 }
 
 export class ChestTextureGenerator implements TextureGenerator {
+  #project: ProjectConfig
+  #material: MaterialTexture
+
   #base?: Record<ChestType, Jimp>
   #material9?: Material9
 
-  static async build(base: Record<ChestType, ChestTexture>, material: MaterialTexture): Promise<ChestTextureGenerator> {
-    const generator = new ChestTextureGenerator()
+  constructor(project: ProjectConfig, material: MaterialTexture) {
+    this.#project = project
+    this.#material = material
+  }
+
+  static async build(project: ProjectConfig, material: MaterialTexture): Promise<ChestTextureGenerator> {
+    const generator = new ChestTextureGenerator(project, material)
     generator.#base = {
-      [ChestType.Single]: await Jimp.read(base[ChestType.Single].src),
-      [ChestType.Left]: await Jimp.read(base[ChestType.Left].src),
-      [ChestType.Right]: await Jimp.read(base[ChestType.Right].src),
+      [ChestType.Single]: await Jimp.read(ChestSingleTexture.src),
+      [ChestType.Left]: await Jimp.read(ChestLeftTexture.src),
+      [ChestType.Right]: await Jimp.read(ChestRightTexture.src),
     }
     generator.#material9 = new Material9(await Jimp.read(material.src))
 
@@ -57,6 +68,18 @@ export class ChestTextureGenerator implements TextureGenerator {
       case ChestType.Right:
         return this.#right()
     }
+  }
+
+  async zip(z: JSZip, type: ChestType): Promise<JSZip> {
+    const image = this.generate(type)
+    const data = await image
+      .getBase64Async(Jimp.MIME_PNG)
+      .then((data) => data.substring('data:image/png;base64,'.length))
+
+    const path = `assets/${this.#project.namespace}/textures/entity/reinforced_chest/${this.#material.name}/${type}.png`
+    z.file(path, data, { base64: true })
+
+    return z
   }
 
   #single(): Jimp {

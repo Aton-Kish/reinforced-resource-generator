@@ -1,3 +1,5 @@
+import JSZip from 'jszip'
+
 import type { ItemModel, ItemModelGenerator } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
@@ -12,7 +14,7 @@ export class ChestItemModelGenerator implements ItemModelGenerator {
   }
 
   generate(): ItemModel {
-    const states: ItemModel = {
+    const model: ItemModel = {
       parent: 'minecraft:builtin/entity',
       textures: {
         particle: `${this.#material.namespace}:block/${this.#material.name}_block`,
@@ -51,6 +53,16 @@ export class ChestItemModelGenerator implements ItemModelGenerator {
       },
     }
 
-    return states
+    return model
+  }
+
+  zip(z: JSZip): JSZip {
+    const model = this.generate()
+    const data = JSON.stringify(model, null, 2)
+
+    const path = `assets/${this.#project.namespace}/models/item/${this.#material.name}_chest.json`
+    z.file(path, data)
+
+    return z
   }
 }
