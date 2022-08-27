@@ -26,11 +26,22 @@ export class BarrelBlockModelGenerator implements BlockModelGenerator {
     }
   }
 
+  path(type: BarrelType): string {
+    switch (type) {
+      case BarrelType.Top:
+        return `assets/${this.#project.namespace}/models/block/${this.#material.name}_barrel.json`
+      case BarrelType.TopOpen:
+        return `assets/${this.#project.namespace}/models/block/${this.#material.name}_barrel_open.json`
+      default:
+        throw new Error('invalid barrel type')
+    }
+  }
+
   zipSync(zip: JSZip, type: BarrelType): JSZip {
     const model = this.generate(type)
     const data = JSON.stringify(model, null, 2)
 
-    const path = `assets/${this.#project.namespace}/models/block/${this.#material.name}_barrel.json`
+    const path = this.path(type)
     zip.file(path, data)
 
     return zip

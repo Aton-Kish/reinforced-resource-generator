@@ -70,13 +70,17 @@ export class ChestTextureGenerator implements TextureGenerator {
     }
   }
 
+  path(type: ChestType): string {
+    return `assets/${this.#project.namespace}/textures/entity/reinforced_chest/${this.#material.name}/${type}.png`
+  }
+
   async zipAsync(zip: JSZip, type: ChestType): Promise<JSZip> {
     const image = this.generate(type)
     const data = await image
       .getBase64Async(Jimp.MIME_PNG)
       .then((data) => data.substring('data:image/png;base64,'.length))
 
-    const path = `assets/${this.#project.namespace}/textures/entity/reinforced_chest/${this.#material.name}/${type}.png`
+    const path = this.path(type)
     zip.file(path, data, { base64: true })
 
     return zip

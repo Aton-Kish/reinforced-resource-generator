@@ -21,11 +21,15 @@ export class BarrelItemModelGenerator implements ItemModelGenerator {
     return model
   }
 
+  path(): string {
+    return `assets/${this.#project.namespace}/models/item/${this.#material.name}_barrel.json`
+  }
+
   zipSync(zip: JSZip): JSZip {
     const model = this.generate()
     const data = JSON.stringify(model, null, 2)
 
-    const path = `assets/${this.#project.namespace}/models/item/${this.#material.name}_barrel.json`
+    const path = this.path()
     zip.file(path, data)
 
     return zip

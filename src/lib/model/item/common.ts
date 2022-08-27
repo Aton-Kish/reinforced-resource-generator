@@ -3,6 +3,7 @@ import type JSZip from 'jszip'
 
 export interface ItemModelGenerator {
   generate(type?: ShulkerType): ItemModel
+  path(type?: ShulkerType): string
   zipSync(zip: JSZip, type?: ShulkerType): JSZip
 }
 

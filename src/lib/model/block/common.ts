@@ -3,6 +3,7 @@ import type JSZip from 'jszip'
 
 export interface BlockModelGenerator {
   generate(type?: ShulkerType | BarrelType): BlockModel
+  path(type?: ShulkerType | BarrelType): string
   zipSync(zip: JSZip, type?: ShulkerType | BarrelType): JSZip
 }
 

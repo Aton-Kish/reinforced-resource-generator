@@ -135,15 +135,19 @@ export class ShulkerTextureGenerator implements TextureGenerator {
     return image
   }
 
+  path(type: ShulkerType): string {
+    return `assets/${this.#project.namespace}/textures/entity/reinforced_shulker/${this.#material.name}/shulker${
+      type === ShulkerType.Default ? '' : `_${type}`
+    }.png`
+  }
+
   async zipAsync(zip: JSZip, type: ShulkerType): Promise<JSZip> {
     const image = this.generate(type)
     const data = await image
       .getBase64Async(Jimp.MIME_PNG)
       .then((data) => data.substring('data:image/png;base64,'.length))
 
-    const path = `assets/${this.#project.namespace}/textures/entity/reinforced_shulker/${this.#material.name}/shulker${
-      type === ShulkerType.Default ? '' : `_${type}`
-    }.png`
+    const path = this.path(type)
     zip.file(path, data, { base64: true })
 
     return zip

@@ -23,11 +23,15 @@ export class ChestBlockModelGenerator implements BlockModelGenerator {
     return model
   }
 
+  path(): string {
+    return `assets/${this.#project.namespace}/models/block/${this.#material.name}_chest.json`
+  }
+
   zipSync(zip: JSZip): JSZip {
     const model = this.generate()
     const data = JSON.stringify(model, null, 2)
 
-    const path = `assets/${this.#project.namespace}/models/block/${this.#material.name}_chest.json`
+    const path = this.path()
     zip.file(path, data)
 
     return zip
