@@ -1,14 +1,16 @@
 import { BarrelType } from '@/lib/common'
 
 import type { BlockModel, BlockModelGenerator } from './common'
+import type { ProjectConfig } from '@/lib/common'
+import type { MaterialTexture } from '@/lib/texture'
 
 export class BarrelBlockModelGenerator implements BlockModelGenerator {
-  #namespace: string
-  #material: string
+  #project: ProjectConfig
+  #material: MaterialTexture
 
-  constructor(projectNamespace: string, materialName: string) {
-    this.#namespace = projectNamespace
-    this.#material = materialName
+  constructor(project: ProjectConfig, material: MaterialTexture) {
+    this.#project = project
+    this.#material = material
   }
 
   generate(type: BarrelType): BlockModel {
@@ -26,9 +28,9 @@ export class BarrelBlockModelGenerator implements BlockModelGenerator {
     const model: BlockModel = {
       parent: 'minecraft:block/cube_bottom_top',
       textures: {
-        top: `${this.#namespace}:block/${this.#material}_barrel_top`,
-        bottom: `${this.#namespace}:block/${this.#material}_barrel_bottom`,
-        side: `${this.#namespace}:block/${this.#material}_barrel_side`,
+        top: `${this.#project.namespace}:block/${this.#material.name}_barrel_top`,
+        bottom: `${this.#project.namespace}:block/${this.#material.name}_barrel_bottom`,
+        side: `${this.#project.namespace}:block/${this.#material.name}_barrel_side`,
       },
     }
 
@@ -39,9 +41,9 @@ export class BarrelBlockModelGenerator implements BlockModelGenerator {
     const model: BlockModel = {
       parent: 'minecraft:block/cube_bottom_top',
       textures: {
-        top: `${this.#namespace}:block/${this.#material}_barrel_top_open`,
-        bottom: `${this.#namespace}:block/${this.#material}_barrel_bottom`,
-        side: `${this.#namespace}:block/${this.#material}_barrel_side`,
+        top: `${this.#project.namespace}:block/${this.#material.name}_barrel_top_open`,
+        bottom: `${this.#project.namespace}:block/${this.#material.name}_barrel_bottom`,
+        side: `${this.#project.namespace}:block/${this.#material.name}_barrel_side`,
       },
     }
 

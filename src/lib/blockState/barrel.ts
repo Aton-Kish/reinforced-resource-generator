@@ -1,12 +1,14 @@
 import type { BlockState, BlockStateGenerator } from './common'
+import type { ProjectConfig } from '@/lib/common'
+import type { MaterialTexture } from '@/lib/texture'
 
 export class BarrelBlockStateGenerator implements BlockStateGenerator {
-  #namespace: string
-  #material: string
+  #project: ProjectConfig
+  #material: MaterialTexture
 
-  constructor(projectNamespace: string, materialName: string) {
-    this.#namespace = projectNamespace
-    this.#material = materialName
+  constructor(project: ProjectConfig, material: MaterialTexture) {
+    this.#project = project
+    this.#material = material
   }
 
   generate(): BlockState {
@@ -14,55 +16,55 @@ export class BarrelBlockStateGenerator implements BlockStateGenerator {
       variants: {
         'facing=down,open=false': {
           x: 180,
-          model: `${this.#namespace}:block/${this.#material}_barrel`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel`,
         },
         'facing=down,open=true': {
           x: 180,
-          model: `${this.#namespace}:block/${this.#material}_barrel_open`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel_open`,
         },
         'facing=east,open=false': {
           x: 90,
           y: 90,
-          model: `${this.#namespace}:block/${this.#material}_barrel`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel`,
         },
         'facing=east,open=true': {
           x: 90,
           y: 90,
-          model: `${this.#namespace}:block/${this.#material}_barrel_open`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel_open`,
         },
         'facing=north,open=false': {
           x: 90,
-          model: `${this.#namespace}:block/${this.#material}_barrel`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel`,
         },
         'facing=north,open=true': {
           x: 90,
-          model: `${this.#namespace}:block/${this.#material}_barrel_open`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel_open`,
         },
         'facing=south,open=false': {
           x: 90,
           y: 180,
-          model: `${this.#namespace}:block/${this.#material}_barrel`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel`,
         },
         'facing=south,open=true': {
           x: 90,
           y: 180,
-          model: `${this.#namespace}:block/${this.#material}_barrel_open`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel_open`,
         },
         'facing=up,open=false': {
-          model: `${this.#namespace}:block/${this.#material}_barrel`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel`,
         },
         'facing=up,open=true': {
-          model: `${this.#namespace}:block/${this.#material}_barrel_open`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel_open`,
         },
         'facing=west,open=false': {
           x: 90,
           y: 270,
-          model: `${this.#namespace}:block/${this.#material}_barrel`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel`,
         },
         'facing=west,open=true': {
           x: 90,
           y: 270,
-          model: `${this.#namespace}:block/${this.#material}_barrel_open`,
+          model: `${this.#project.namespace}:block/${this.#material.name}_barrel_open`,
         },
       },
     }

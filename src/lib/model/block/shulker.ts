@@ -1,9 +1,17 @@
 import { ShulkerType } from '@/lib/common'
 
 import type { BlockModel, BlockModelGenerator } from './common'
+import type { ProjectConfig } from '@/lib/common'
+import type { MaterialTexture } from '@/lib/texture'
 
 export class ShulkerBlockModelGenerator implements BlockModelGenerator {
-  constructor() {}
+  #project: ProjectConfig
+  #material: MaterialTexture
+
+  constructor(project: ProjectConfig, material: MaterialTexture) {
+    this.#project = project
+    this.#material = material
+  }
 
   generate(type: ShulkerType): BlockModel {
     const states: BlockModel = {

@@ -1,18 +1,20 @@
 import type { BlockModel, BlockModelGenerator } from './common'
+import type { ProjectConfig } from '@/lib/common'
+import type { MaterialTexture } from '@/lib/texture'
 
 export class ChestBlockModelGenerator implements BlockModelGenerator {
-  #namespace: string
-  #material: string
+  #project: ProjectConfig
+  #material: MaterialTexture
 
-  constructor(materialNamespace: string, materialName: string) {
-    this.#namespace = materialNamespace
-    this.#material = materialName
+  constructor(project: ProjectConfig, material: MaterialTexture) {
+    this.#project = project
+    this.#material = material
   }
 
   generate(): BlockModel {
     const states: BlockModel = {
       textures: {
-        particle: `${this.#namespace}:block/${this.#material}_block`,
+        particle: `${this.#material.namespace}:block/${this.#material.name}_block`,
       },
     }
 
