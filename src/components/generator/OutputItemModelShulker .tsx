@@ -1,33 +1,27 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { ProjectContext } from '@/contexts'
+import { GeneratorsContext } from '@/contexts'
 import { ShulkerType } from '@/lib/common'
 
 import Code from './Code'
 
-import type { MaterialTextureOption } from '@/contexts'
-import type { ItemModelGenerator } from '@/lib/model/item'
 import type { ItemModel } from '@/lib/model/item'
 
-interface Props {
-  generator?: ItemModelGenerator
-  material: MaterialTextureOption
-}
-
-const OutputItemModelShulker = ({ generator, material }: Props): JSX.Element => {
-  const { project } = useContext(ProjectContext)
+const OutputItemModelShulker = (): JSX.Element => {
+  const { generators } = useContext(GeneratorsContext)
   const [models, setModels] = useState<Partial<Record<ShulkerType, ItemModel>>>({})
 
   useEffect(() => {
-    if (generator == null) {
+    if (generators.itemModel?.shulker == null) {
       return
     }
 
+    const generator = generators.itemModel?.shulker
     const models = Object.values(ShulkerType).reduce<Partial<Record<ShulkerType, ItemModel>>>((acc, type) => {
       return { ...acc, [type]: generator.generate(type) }
     }, {})
     setModels(models)
-  }, [generator])
+  }, [generators.itemModel?.shulker])
 
   return (
     <div className='flex flex-col gap-1'>
@@ -37,9 +31,7 @@ const OutputItemModelShulker = ({ generator, material }: Props): JSX.Element => 
           return (
             <Code
               key={type}
-              lang={`${project.shulker.namespace}/assets/models/block/${
-                type === ShulkerType.Default ? '' : `${type}_`
-              }${material.name}_shulker_box.json`}
+              lang={generators.itemModel?.shulker?.path(type as ShulkerType)}
               data={JSON.stringify(model, null, 2)}
             />
           )

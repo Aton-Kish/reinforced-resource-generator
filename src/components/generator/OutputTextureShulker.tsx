@@ -1,23 +1,19 @@
 import Jimp from 'jimp'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
+import { GeneratorsContext } from '@/contexts'
 import { ShulkerType } from '@/lib/common'
 
-import type { MaterialTextureOption } from '@/contexts'
-import type { TextureGenerator } from '@/lib/texture'
-
-interface Props {
-  generator?: TextureGenerator
-  material: MaterialTextureOption
-}
-
-const OutputTextureShulker = ({ generator, material }: Props): JSX.Element => {
+const OutputTextureShulker = (): JSX.Element => {
+  const { generators } = useContext(GeneratorsContext)
   const [textures, setTextures] = useState<Partial<Record<ShulkerType, string>>>({})
 
   useEffect(() => {
-    if (generator == null) {
+    if (generators.texture?.shulker == null) {
       return
     }
+
+    const generator = generators.texture?.shulker
 
     const load = async () => {
       const textures = await Object.values(ShulkerType).reduce<Promise<Partial<Record<ShulkerType, string>>>>(
@@ -32,18 +28,22 @@ const OutputTextureShulker = ({ generator, material }: Props): JSX.Element => {
     }
 
     load()
-  }, [generator])
+  }, [generators.texture?.shulker])
 
   return (
     <div className='flex flex-col gap-1'>
       <h4 className='text'>Shulker</h4>
       <div className='flex flex-wrap gap-2'>
         {Object.entries(textures).map(([type, src]) => {
-          const id = `entity/reinforced_shulker/${material.name}/shulker${
-            type === ShulkerType.Default ? '' : `_${type}`
-          }`
-
-          return <img key={`${type}-shulker-${material.id}`} className='w-32' src={src} alt={id} title={id} />
+          return (
+            <img
+              key={type}
+              className='w-32'
+              src={src}
+              alt={generators.texture?.shulker?.path(type as ShulkerType)}
+              title={generators.texture?.shulker?.path(type as ShulkerType)}
+            />
+          )
         })}
       </div>
     </div>

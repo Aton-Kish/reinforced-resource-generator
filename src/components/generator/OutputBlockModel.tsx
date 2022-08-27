@@ -4,16 +4,7 @@ import OutputBlockModelBarrel from './OutputBlockModelBarrel'
 import OutputBlockModelChest from './OutputBlockModelChest'
 import OutputBlockModelShulker from './OutputBlockModelShulker '
 
-import type { MaterialTextureOption } from '@/contexts'
-import type { ProjectType } from '@/lib/common'
-import type { BlockModelGenerator } from '@/lib/model/block'
-
-interface Props {
-  generators?: Record<ProjectType, BlockModelGenerator>
-  material: MaterialTextureOption
-}
-
-const OutputBlockModel = ({ generators, material }: Props): JSX.Element => {
+const OutputBlockModel = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -22,9 +13,9 @@ const OutputBlockModel = ({ generators, material }: Props): JSX.Element => {
         Block Model
       </h3>
       <div className={`flex flex-col gap-1 ${isOpen ? 'h-full' : 'h-0'}`}>
-        <OutputBlockModelChest generator={generators?.chest} material={material} />
-        <OutputBlockModelShulker generator={generators?.shulker} material={material} />
-        <OutputBlockModelBarrel generator={generators?.barrel} material={material} />
+        <OutputBlockModelChest />
+        <OutputBlockModelShulker />
+        <OutputBlockModelBarrel />
       </div>
     </div>
   )
