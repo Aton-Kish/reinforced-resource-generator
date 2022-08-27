@@ -1,8 +1,8 @@
 import { ShulkerType } from '@/lib/common'
 
-import type { BlockState } from './common'
+import type { BlockState, BlockStateGenerator } from './common'
 
-export class ShulkerGenerator {
+export class ShulkerBlockStateGenerator implements BlockStateGenerator {
   #namespace: string
   #material: string
 

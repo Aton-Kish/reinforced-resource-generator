@@ -1,6 +1,6 @@
-import type { BlockState } from './common'
+import type { BlockState, BlockStateGenerator } from './common'
 
-export class BarrelGenerator {
+export class BarrelBlockStateGenerator implements BlockStateGenerator {
   #namespace: string
   #material: string
 

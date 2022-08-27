@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { ProjectContext } from '@/contexts'
-import { BarrelGenerator } from '@/lib/blockState'
+import { BarrelBlockStateGenerator } from '@/lib/blockState'
 
 import Code from './Code'
 
@@ -17,7 +17,7 @@ const OutputBlockStateBarrel = ({ material }: Props): JSX.Element => {
   const [blockState, setBlockState] = useState<BlockState>({ variants: {} })
 
   useEffect(() => {
-    const generator = new BarrelGenerator(project.barrel.namespace, material.name)
+    const generator = new BarrelBlockStateGenerator(project.barrel.namespace, material.name)
     setBlockState(generator.generate())
   }, [project.barrel.namespace, material.name])
 
