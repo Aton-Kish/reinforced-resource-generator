@@ -1,0 +1,71 @@
+{
+  "name": "reinforced-resource-generator",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "/reinforced-resource-generator",
+  "scripts": {
+    "prepare": "husky install",
+    "start": "craco start",
+    "prebuild": "run-s lint",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
+    "lint": "run-p lint:*",
+    "lint:typecheck": "tsc",
+    "lint:eslint": "eslint . --ignore-path .gitignore",
+    "lint:prettier": "prettier . '!(*.md)' --check --ignore-path .gitignore",
+    "fix": "run-s fix:eslint fix:prettier",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "yarn lint:prettier --write"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --check --write"
+    ],
+    "**/*.{html,css,json,yaml}": [
+      "prettier --check --write"
+    ]
+  },
+  "dependencies": {
+    "@craco/craco": "^6.4.5",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "capitalize": "^2.0.4",
+    "jimp": "^0.16.1",
+    "jszip": "^3.10.1",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.2",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.4.2",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.0"
+  },
+  "devDependencies": {
+    "@tsconfig/create-react-app": "^1.0.2",
+    "@types/capitalize": "^2.0.0",
+    "@types/craco__craco": "^6.4.0",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "windicss-webpack-plugin": "^1.7.5"
+  }
+}
