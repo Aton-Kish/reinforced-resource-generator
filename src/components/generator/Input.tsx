@@ -1,4 +1,5 @@
 import InputMaterial from './InputMaterial'
+import InputProject from './InputProject'
 
 import type { MaterialTextureOption } from '@/contexts'
 
@@ -11,6 +12,7 @@ const Input = ({ material }: Props): JSX.Element => {
     <div className='flex flex-col gap-2'>
       <h2 className='text-2xl'>Input</h2>
       <InputMaterial material={material} />
+      <InputProject material={material} />
     </div>
   )
 }
