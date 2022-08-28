@@ -8,11 +8,10 @@ import {
   MaterialIronTexture,
   MaterialNetheriteTexture,
 } from '@/assets/material'
-import Generator from '@/components/generator/Generator'
+import Generator from '@/components/Generator'
+import Materials from '@/components/Materials'
 import { MaterialContext, ProjectContext } from '@/contexts'
 import { ProjectType } from '@/lib/common'
-
-import Materials from './components/materials/Materials'
 
 import type { MaterialTextureOption } from '@/contexts'
 import type { ProjectConfig } from '@/lib/common'
