@@ -9,9 +9,12 @@ import {
   MaterialNetheriteTexture,
 } from '@/assets/material'
 import Generator from '@/components/Generator'
+import Header from '@/components/Header'
 import Materials from '@/components/Materials'
 import { MaterialContext, ProjectContext } from '@/contexts'
 import { ProjectType } from '@/lib/common'
+
+import Footer from './components/Footer'
 
 import type { MaterialTextureOption } from '@/contexts'
 import type { ProjectConfig } from '@/lib/common'
@@ -38,15 +41,19 @@ const App = (): JSX.Element => {
   })
 
   return (
-    <div className='container mx-auto p-4'>
-      <ProjectContext.Provider value={{ project, setProject }}>
-        <MaterialContext.Provider value={{ materials, setMaterials }}>
-          <div className='flex flex-col gap-4'>
-            <Materials />
-            <Generator />
-          </div>
-        </MaterialContext.Provider>
-      </ProjectContext.Provider>
+    <div className='flex min-h-screen flex-col'>
+      <Header />
+      <div className='container mx-auto p-4'>
+        <ProjectContext.Provider value={{ project, setProject }}>
+          <MaterialContext.Provider value={{ materials, setMaterials }}>
+            <div className='flex flex-col gap-4'>
+              <Materials />
+              <Generator />
+            </div>
+          </MaterialContext.Provider>
+        </ProjectContext.Provider>
+      </div>
+      <Footer />
     </div>
   )
 }
