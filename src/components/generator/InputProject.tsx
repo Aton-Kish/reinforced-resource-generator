@@ -40,7 +40,7 @@ const InputProject = ({ material }: Props): JSX.Element => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <h3 className='text-lg'>Project</h3>
+      <h3 className='text-lg'>Mod ID</h3>
       <div className='grid grid-cols-1 gap-1 md:grid-cols-[80px_1fr]'>
         <label htmlFor={`project-chest-namespace-${material.id}`} className='md:(h-8 leading-8) text-sm'>
           Chest
