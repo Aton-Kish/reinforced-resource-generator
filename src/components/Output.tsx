@@ -1,16 +1,22 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { Generators, GeneratorsContext, ProjectContext } from '@/contexts'
+import { BarrelAdvancementGenerator, ChestAdvancementGenerator, ShulkerAdvancementGenerator } from '@/lib/advancement'
 import { BarrelBlockStateGenerator, ChestBlockStateGenerator, ShulkerBlockStateGenerator } from '@/lib/blockState'
 import { BarrelLanguageGenerator, ChestLanguageGenerator, ShulkerLanguageGenerator } from '@/lib/language'
+import { BarrelLootTableGenerator, ChestLootTableGenerator, ShulkerLootTableGenerator } from '@/lib/lootTable'
 import { BarrelBlockModelGenerator, ChestBlockModelGenerator, ShulkerBlockModelGenerator } from '@/lib/model/block'
 import { BarrelItemModelGenerator, ChestItemModelGenerator, ShulkerItemModelGenerator } from '@/lib/model/item'
+import { BarrelRecipeGenerator, ChestRecipeGenerator, ShulkerRecipeGenerator } from '@/lib/recipe'
 import { BarrelTextureGenerator, ChestTextureGenerator, ShulkerTextureGenerator } from '@/lib/texture'
 
+import OutputAdvancement from './OutputAdvancement'
 import OutputBlockModel from './OutputBlockModel'
 import OutputBlockState from './OutputBlockState'
 import OutputItemModel from './OutputItemModel'
 import OutputLanguage from './OutputLanguage'
+import OutputLootTable from './OutputLootTable'
+import OutputRecipe from './OutputRecipe'
 import OutputTexture from './OutputTexture'
 
 import type { MaterialTextureOption } from '@/contexts'
@@ -51,6 +57,21 @@ const Output = ({ material }: Props): JSX.Element => {
           shulker: new ShulkerBlockStateGenerator(project.shulker, material),
           barrel: new BarrelBlockStateGenerator(project.barrel, material),
         },
+        lootTable: {
+          chest: new ChestLootTableGenerator(project.chest, material),
+          shulker: new ShulkerLootTableGenerator(project.shulker, material),
+          barrel: new BarrelLootTableGenerator(project.barrel, material),
+        },
+        recipe: {
+          chest: new ChestRecipeGenerator(project.chest, material),
+          shulker: new ShulkerRecipeGenerator(project.shulker, project.chest, material),
+          barrel: new BarrelRecipeGenerator(project.barrel, material),
+        },
+        advancement: {
+          chest: new ChestAdvancementGenerator(project.chest, material),
+          shulker: new ShulkerAdvancementGenerator(project.shulker, project.chest, material),
+          barrel: new BarrelAdvancementGenerator(project.barrel, material),
+        },
       }
       setGenerators(generators)
     }
@@ -67,6 +88,9 @@ const Output = ({ material }: Props): JSX.Element => {
         <OutputBlockModel />
         <OutputItemModel />
         <OutputBlockState />
+        <OutputLootTable />
+        <OutputRecipe />
+        <OutputAdvancement />
       </div>
     </GeneratorsContext.Provider>
   )

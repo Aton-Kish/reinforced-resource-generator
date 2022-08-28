@@ -19,3 +19,10 @@ export const ShulkerType = {
 } as const
 
 export type ShulkerType = typeof ShulkerType[keyof typeof ShulkerType]
+
+export const ShulkerUpgradeFrom = {
+  Chest: 'chest',
+  Shulker: 'shulker',
+} as const
+
+export type ShulkerUpgradeFrom = typeof ShulkerUpgradeFrom[keyof typeof ShulkerUpgradeFrom]
