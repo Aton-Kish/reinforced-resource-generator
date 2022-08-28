@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { Generators, GeneratorsContext, ProjectContext } from '@/contexts'
 import { BarrelBlockStateGenerator, ChestBlockStateGenerator, ShulkerBlockStateGenerator } from '@/lib/blockState'
+import { BarrelLanguageGenerator, ChestLanguageGenerator, ShulkerLanguageGenerator } from '@/lib/language'
 import { BarrelBlockModelGenerator, ChestBlockModelGenerator, ShulkerBlockModelGenerator } from '@/lib/model/block'
 import { BarrelItemModelGenerator, ChestItemModelGenerator, ShulkerItemModelGenerator } from '@/lib/model/item'
 import { BarrelTextureGenerator, ChestTextureGenerator, ShulkerTextureGenerator } from '@/lib/texture'
@@ -9,6 +10,7 @@ import { BarrelTextureGenerator, ChestTextureGenerator, ShulkerTextureGenerator 
 import OutputBlockModel from './OutputBlockModel'
 import OutputBlockState from './OutputBlockState'
 import OutputItemModel from './OutputItemModel'
+import OutputLanguage from './OutputLanguage'
 import OutputTexture from './OutputTexture'
 
 import type { MaterialTextureOption } from '@/contexts'
@@ -28,6 +30,11 @@ const Output = ({ material }: Props): JSX.Element => {
           chest: await ChestTextureGenerator.build(project.chest, material),
           shulker: await ShulkerTextureGenerator.build(project.shulker, material),
           barrel: await BarrelTextureGenerator.build(project.barrel, material),
+        },
+        language: {
+          chest: new ChestLanguageGenerator(project.chest, material),
+          shulker: new ShulkerLanguageGenerator(project.shulker, material),
+          barrel: new BarrelLanguageGenerator(project.barrel, material),
         },
         blockModel: {
           chest: new ChestBlockModelGenerator(project.chest, material),
@@ -56,6 +63,7 @@ const Output = ({ material }: Props): JSX.Element => {
       <div className='flex flex-col gap-2 overflow-hidden'>
         <h2 className='text-2xl'>Output</h2>
         <OutputTexture />
+        <OutputLanguage />
         <OutputBlockModel />
         <OutputItemModel />
         <OutputBlockState />

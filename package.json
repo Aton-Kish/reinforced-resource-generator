@@ -35,6 +35,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "capitalize": "^2.0.4",
     "jimp": "^0.16.1",
     "jszip": "^3.10.1",
     "node-polyfill-webpack-plugin": "^2.0.1",
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@tsconfig/create-react-app": "^1.0.2",
+    "@types/capitalize": "^2.0.0",
     "@types/craco__craco": "^6.4.0",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
