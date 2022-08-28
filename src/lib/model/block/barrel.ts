@@ -1,10 +1,9 @@
-import JSZip from 'jszip'
-
 import { BarrelType } from '@/lib/common'
 
 import type { BlockModel, BlockModelGenerator } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
+import type JSZip from 'jszip'
 
 export class BarrelBlockModelGenerator implements BlockModelGenerator {
   #project: ProjectConfig
@@ -38,10 +37,14 @@ export class BarrelBlockModelGenerator implements BlockModelGenerator {
   }
 
   zipSync(zip: JSZip, type: BarrelType): JSZip {
+    const path = this.path(type)
+    if (path in zip.files) {
+      throw new Error(`file already exists: ${path}`)
+    }
+
     const model = this.generate(type)
     const data = JSON.stringify(model, null, 2)
 
-    const path = this.path(type)
     zip.file(path, data)
 
     return zip

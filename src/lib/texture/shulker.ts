@@ -1,5 +1,4 @@
 import Jimp from 'jimp'
-import JSZip from 'jszip'
 
 import {
   ShulkerBlackTexture,
@@ -27,6 +26,7 @@ import { Material9 } from './material'
 import type { TextureGenerator } from './common'
 import type { MaterialTexture } from './material'
 import type { ProjectConfig } from '@/lib/common'
+import type JSZip from 'jszip'
 
 export interface ShulkerTexture {
   type: ShulkerType
@@ -142,12 +142,16 @@ export class ShulkerTextureGenerator implements TextureGenerator {
   }
 
   async zipAsync(zip: JSZip, type: ShulkerType): Promise<JSZip> {
+    const path = this.path(type)
+    if (path in zip.files) {
+      throw new Error(`file already exists: ${path}`)
+    }
+
     const image = this.generate(type)
     const data = await image
       .getBase64Async(Jimp.MIME_PNG)
       .then((data) => data.substring('data:image/png;base64,'.length))
 
-    const path = this.path(type)
     zip.file(path, data, { base64: true })
 
     return zip

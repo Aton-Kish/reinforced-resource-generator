@@ -1,8 +1,7 @@
-import JSZip from 'jszip'
-
 import type { BlockModel, BlockModelGenerator } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
+import type JSZip from 'jszip'
 
 export class ChestBlockModelGenerator implements BlockModelGenerator {
   #project: ProjectConfig
@@ -28,10 +27,14 @@ export class ChestBlockModelGenerator implements BlockModelGenerator {
   }
 
   zipSync(zip: JSZip): JSZip {
+    const path = this.path()
+    if (path in zip.files) {
+      throw new Error(`file already exists: ${path}`)
+    }
+
     const model = this.generate()
     const data = JSON.stringify(model, null, 2)
 
-    const path = this.path()
     zip.file(path, data)
 
     return zip

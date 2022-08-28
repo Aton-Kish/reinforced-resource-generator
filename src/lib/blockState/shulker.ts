@@ -1,10 +1,9 @@
-import JSZip from 'jszip'
-
 import { ShulkerType } from '@/lib/common'
 
 import type { BlockState, BlockStateGenerator } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
+import type JSZip from 'jszip'
 
 export class ShulkerBlockStateGenerator implements BlockStateGenerator {
   #project: ProjectConfig
@@ -36,10 +35,14 @@ export class ShulkerBlockStateGenerator implements BlockStateGenerator {
   }
 
   zipSync(zip: JSZip, type: ShulkerType): JSZip {
+    const path = this.path(type)
+    if (path in zip.files) {
+      throw new Error(`file already exists: ${path}`)
+    }
+
     const state = this.generate(type)
     const data = JSON.stringify(state, null, 2)
 
-    const path = this.path(type)
     zip.file(path, data)
 
     return zip
