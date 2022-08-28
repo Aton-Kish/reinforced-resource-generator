@@ -53,7 +53,7 @@ const Output = ({ material }: Props): JSX.Element => {
 
   return (
     <GeneratorsContext.Provider value={{ generators, setGenerators }}>
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2 overflow-hidden'>
         <h2 className='text-2xl'>Output</h2>
         <OutputTexture />
         <OutputBlockModel />

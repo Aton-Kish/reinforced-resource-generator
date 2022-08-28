@@ -8,10 +8,10 @@ const Code = ({ lang, data }: Props): JSX.Element => {
     <div className='flex flex-col bg-gray-50'>
       {lang && (
         <div className='inline-flex'>
-          <span className='bg-gray-200 p-1 text-xs'>{lang}</span>
+          <span className='truncate bg-gray-200 p-1 text-xs'>{lang}</span>
         </div>
       )}
-      <div className='p-4'>
+      <div className='flex overflow-x-auto p-4'>
         <pre>{data}</pre>
       </div>
     </div>
