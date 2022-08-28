@@ -8,10 +8,11 @@ import {
   MaterialIronTexture,
   MaterialNetheriteTexture,
 } from '@/assets/material'
-import Configuration from '@/components/configuration/Configuration'
 import Generator from '@/components/generator/Generator'
 import { MaterialContext, ProjectContext } from '@/contexts'
 import { ProjectType } from '@/lib/common'
+
+import Materials from './components/materials/Materials'
 
 import type { MaterialTextureOption } from '@/contexts'
 import type { ProjectConfig } from '@/lib/common'
@@ -42,7 +43,7 @@ const App = (): JSX.Element => {
       <ProjectContext.Provider value={{ project, setProject }}>
         <MaterialContext.Provider value={{ materials, setMaterials }}>
           <div className='flex flex-col gap-4'>
-            <Configuration />
+            <Materials />
             <Generator />
           </div>
         </MaterialContext.Provider>
