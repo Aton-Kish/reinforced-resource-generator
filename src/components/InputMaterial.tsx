@@ -1,6 +1,9 @@
 import { useContext } from 'react'
 
 import { MaterialContext } from '@/contexts'
+import { RecipeType } from '@/lib/common'
+
+import InputMaterialLower from './InputMaterialLower'
 
 import type { MaterialTextureOption } from '@/contexts'
 
@@ -44,6 +47,44 @@ const InputMaterial = ({ material }: Props): JSX.Element => {
           }}
         />
       </div>
+      <div className='flex items-center gap-1'>
+        <input
+          id={`material-has-ingot-${material.id}`}
+          className='h-4 w-4'
+          type='checkbox'
+          onChange={(event) => {
+            setMaterials({
+              ...materials,
+              [material.id]: { ...material, hasIngot: event.target.checked },
+            })
+          }}
+          checked={material.hasIngot}
+        />
+        <label htmlFor={`material-has-ingot-${material.id}`} className='md:(h-8 leading-8) text-sm'>
+          material has ingot type item
+        </label>
+      </div>
+      <div className='flex items-center gap-1'>
+        <input
+          id={`material-has-ingot-${material.id}`}
+          className='h-4 w-4'
+          type='checkbox'
+          onChange={(event) => {
+            setMaterials({
+              ...materials,
+              [material.id]: {
+                ...material,
+                recipeType: event.target.checked ? RecipeType.Smithing : RecipeType.Crafting,
+              },
+            })
+          }}
+          checked={material.recipeType === RecipeType.Smithing}
+        />
+        <label htmlFor={`material-has-ingot-${material.id}`} className='md:(h-8 leading-8) text-sm'>
+          recipe using smithing table
+        </label>
+      </div>
+      <InputMaterialLower material={material} />
     </div>
   )
 }

@@ -1,3 +1,4 @@
+export * from './minecraft'
 export * from './project'
 export * from './material'
 export * from './chest'

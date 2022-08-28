@@ -6,6 +6,7 @@ import { FileRejection, useDropzone } from 'react-dropzone'
 import { v4 as uuid } from 'uuid'
 
 import { MaterialContext } from '@/contexts'
+import { RecipeType } from '@/lib/common'
 
 import type { MaterialTextureOption } from '@/contexts'
 
@@ -41,7 +42,20 @@ const MaterialsUploader = (): JSX.Element => {
           continue
         }
 
-        const material: MaterialTextureOption = { id, namespace: 'minecraft', name, src, selected: true }
+        const material: MaterialTextureOption = {
+          id,
+          namespace: 'minecraft',
+          name,
+          hasIngot: false,
+          lower: {
+            chest: { namespace: 'minecraft', name: 'chest' },
+            shulker: { namespace: 'minecraft', name: 'shulker_box' },
+            barrel: { namespace: 'minecraft', name: 'barrel' },
+          },
+          recipeType: RecipeType.Crafting,
+          src,
+          selected: true,
+        }
         acceptedMaterials[id] = material
       }
 
