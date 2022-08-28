@@ -19,7 +19,7 @@ const GeneratorCard = ({ material }: Props): JSX.Element => {
         <h2 className='text-2xl'>{`${material.namespace}:${material.name}`}</h2>
       </div>
       <div className={isOpen ? 'h-full' : 'h-0'}>
-        <div className='grid grid-cols-1 gap-4 p-4 md:grid-cols-[256px_1fr]'>
+        <div className='grid grid-cols-1 gap-4 p-4 lg:grid-cols-[360px_1fr]'>
           <Input material={material} />
           <Output material={material} />
         </div>
