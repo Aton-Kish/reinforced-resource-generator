@@ -2,6 +2,7 @@
   "name": "reinforced-resource-generator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/reinforced-resource-generator",
   "scripts": {
     "prepare": "husky install",
     "start": "craco start",
