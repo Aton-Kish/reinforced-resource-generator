@@ -2,8 +2,10 @@
   "extends": "@tsconfig/create-react-app/tsconfig.json",
   "compilerOptions": {
     "target": "esnext",
+    "isolatedModules": false,
     "paths": {
       "@/*": ["./src/*"]
     }
   }
+  // "include": ["./src"]
 }
