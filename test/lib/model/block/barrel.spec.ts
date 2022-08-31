@@ -2,12 +2,9 @@ import { MaterialCopperTexture, MaterialDiamondTexture } from '@/assets/material
 import { BarrelType } from '@/lib/common'
 import { BarrelBlockModelGenerator } from '@/lib/model/block'
 
+import type { Constructable } from '#/types'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-
-interface Constructable<T = any> {
-  new (...args: any[]): T
-}
 
 describe('BarrelBlockModelGenerator', () => {
   describe('path()', () => {
