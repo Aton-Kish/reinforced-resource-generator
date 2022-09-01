@@ -43,9 +43,9 @@ export class ShulkerRecipeGenerator implements RecipeGenerator {
           throw new Error('type argument is required')
         }
 
-        return `data/recipes/${this.#project.namespace}:${type === ShulkerType.Default ? '' : `${type}_`}${
-          this.#material.name
-        }_shulker_box${this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''}.json`
+        return `data/recipes/${type === ShulkerType.Default ? '' : `${type}_`}${this.#material.name}_shulker_box${
+          this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
+        }.json`
     }
   }
 
@@ -89,7 +89,11 @@ export class ShulkerRecipeGenerator implements RecipeGenerator {
         },
         M: { item: `${this.#material.namespace}:${this.#material.name}${this.#material.hasIngot ? '_ingot' : ''}` },
       },
-      result: { item: `${this.#project.namespace}:${this.#material.name}_shulker_box` },
+      result: {
+        item: `${this.#project.namespace}:${type === ShulkerType.Default ? '' : `${type}_`}${
+          this.#material.name
+        }_shulker_box`,
+      },
     }
 
     return recipe
