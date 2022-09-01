@@ -36,7 +36,7 @@ export class BarrelLootTableGenerator implements LootTableGenerator {
   }
 
   path(): string {
-    return `data/loot_tables/blocks/${this.#material.name}_barrel.json`
+    return `data/${this.#project.namespace}/loot_tables/blocks/${this.#material.name}_barrel.json`
   }
 
   zipSync(zip: JSZip): JSZip {

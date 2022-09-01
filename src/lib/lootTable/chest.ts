@@ -36,7 +36,7 @@ export class ChestLootTableGenerator implements LootTableGenerator {
   }
 
   path(): string {
-    return `data/loot_tables/blocks/${this.#material.name}_chest.json`
+    return `data/${this.#project.namespace}/loot_tables/blocks/${this.#material.name}_chest.json`
   }
 
   zipSync(zip: JSZip): JSZip {

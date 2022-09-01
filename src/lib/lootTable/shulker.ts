@@ -66,7 +66,7 @@ export class ShulkerLootTableGenerator implements LootTableGenerator {
   }
 
   path(type: ShulkerType): string {
-    return `data/loot_tables/blocks/${type === ShulkerType.Default ? '' : `${type}_`}${
+    return `data/${this.#project.namespace}/loot_tables/blocks/${type === ShulkerType.Default ? '' : `${type}_`}${
       this.#material.name
     }_shulker_box.json`
   }
