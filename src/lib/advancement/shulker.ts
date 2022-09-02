@@ -28,11 +28,11 @@ export class ShulkerAdvancementGenerator implements AdvancementGenerator {
   path(from: ShulkerUpgradeFrom): string {
     switch (from) {
       case ShulkerUpgradeFrom.Chest:
-        return `data/advancements/recipes/decorations/${this.#material.name}_shulker_box_from_${
+        return `data/${this.#project.namespace}/advancements/recipes/decorations/${
           this.#material.name
-        }_chest.json`
+        }_shulker_box_from_${this.#material.name}_chest.json`
       case ShulkerUpgradeFrom.Shulker:
-        return `data/advancements/recipes/decorations/${this.#material.name}_shulker_box${
+        return `data/${this.#project.namespace}/advancements/recipes/decorations/${this.#material.name}_shulker_box${
           this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
         }.json`
     }
@@ -122,7 +122,7 @@ export class ShulkerAdvancementGenerator implements AdvancementGenerator {
         has_the_recipe: {
           trigger: 'minecraft:recipe_unlocked',
           conditions: {
-            recipe: `${this.#project.namespace}:${this.#material.name}_chest${
+            recipe: `${this.#project.namespace}:${this.#material.name}_shulker_box${
               this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
             }`,
           },
@@ -130,7 +130,7 @@ export class ShulkerAdvancementGenerator implements AdvancementGenerator {
       },
       requirements: [
         [
-          `has_${this.#material.lower.chest.name}`,
+          `has_${this.#material.lower.shulker.name}`,
           `has_${this.#material.name}${this.#material.hasIngot ? '_ingot' : ''}`,
           'has_the_recipe',
         ],
