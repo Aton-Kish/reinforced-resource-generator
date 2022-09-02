@@ -1,8 +1,7 @@
 {
   "extends": "@tsconfig/create-react-app/tsconfig.json",
   "ts-node": {
-    "transpileOnly": true,
-    "files": true
+    "swc": true
   },
   "compilerOptions": {
     "target": "esnext",
