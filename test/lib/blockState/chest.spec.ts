@@ -17,13 +17,13 @@ describe('ChestBlockStateGenerator', () => {
       expected: BlockState
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: CopperChestBlockState,
       },
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:diamond_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialDiamondTexture,
         expected: DiamondChestBlockState,
@@ -46,13 +46,13 @@ describe('ChestBlockStateGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: 'assets/reinfchest/blockstates/copper_chest.json',
       },
       {
-        name: 'positive case: reinfstorage',
+        name: 'positive case: reinfstorage:diamond_chest',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'assets/reinfstorage/blockstates/diamond_chest.json',

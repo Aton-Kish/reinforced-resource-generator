@@ -13,13 +13,13 @@ describe('ShulkerLanguageGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfshulker',
+        name: 'positive case: reinfshulker:copper_shulker_box',
         project: { namespace: 'reinfshulker' },
         material: MaterialCopperTexture,
         expected: 'assets/reinfshulker/lang/en_us.json',
       },
       {
-        name: 'positive case: reinfstorage',
+        name: 'positive case: reinfstorage:diamond_shulker_box',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'assets/reinfstorage/lang/en_us.json',

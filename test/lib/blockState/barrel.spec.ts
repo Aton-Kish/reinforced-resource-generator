@@ -17,13 +17,13 @@ describe('BarrelBlockStateGenerator', () => {
       expected: BlockState
     }[] = [
       {
-        name: 'positive case: reinfbarrel:copper_barrel top',
+        name: 'positive case: reinfbarrel:copper_barrel',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
         expected: CopperBarrelBlockState,
       },
       {
-        name: 'positive case: reinfbarrel:diamond_barrel top open',
+        name: 'positive case: reinfbarrel:diamond_barrel',
         project: { namespace: 'reinfbarrel' },
         material: MaterialDiamondTexture,
         expected: DiamondBarrelBlockState,
@@ -46,13 +46,13 @@ describe('BarrelBlockStateGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfbarrel:copper_barrel top',
+        name: 'positive case: reinfbarrel:copper_barrel',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
         expected: 'assets/reinfbarrel/blockstates/copper_barrel.json',
       },
       {
-        name: 'positive case: reinfstorage:diamond_barrel top open',
+        name: 'positive case: reinfstorage:diamond_barrel',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'assets/reinfstorage/blockstates/diamond_barrel.json',

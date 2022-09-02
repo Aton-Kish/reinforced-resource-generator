@@ -13,13 +13,13 @@ describe('BarrelLanguageGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfbarrel',
+        name: 'positive case: reinfbarrel:copper_barrel',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
         expected: 'assets/reinfbarrel/lang/en_us.json',
       },
       {
-        name: 'positive case: reinfstorage',
+        name: 'positive case: reinfstorage:diamond_barrel',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'assets/reinfstorage/lang/en_us.json',

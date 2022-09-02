@@ -13,13 +13,13 @@ describe('ChestLanguageGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: 'assets/reinfchest/lang/en_us.json',
       },
       {
-        name: 'positive case: reinfstorage',
+        name: 'positive case: reinfstorage:diamond_chest',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'assets/reinfstorage/lang/en_us.json',

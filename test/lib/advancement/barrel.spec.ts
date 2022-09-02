@@ -1,8 +1,9 @@
 import { MaterialCopperTexture, MaterialDiamondTexture, MaterialNetheriteTexture } from '@/assets/material'
 import { BarrelAdvancementGenerator } from '@/lib/advancement'
 
-import CopperBarrelAdvancement from './data/reinfbarrel/copper_barrel.json'
-import DiamondBarrelAdvancement from './data/reinfbarrel/diamond_barrel.json'
+import CopperBarrelCraftingAdvancement from './data/reinfbarrel/copper_barrel.json'
+import DiamondBarrelCraftingAdvancement from './data/reinfbarrel/diamond_barrel.json'
+import NetheriteBarrelSmithingAdvancement from './data/reinfbarrel/netherite_barrel_smithing.json'
 
 import type { Advancement } from '@/lib/advancement'
 import type { ProjectConfig } from '@/lib/common'
@@ -17,16 +18,22 @@ describe('BarrelAdvancementGenerator', () => {
       expected: Advancement
     }[] = [
       {
-        name: 'positive case: reinfbarrel:copper_barrel top',
+        name: 'positive case: reinfbarrel:copper_barrel crafting',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
-        expected: CopperBarrelAdvancement,
+        expected: CopperBarrelCraftingAdvancement,
       },
       {
-        name: 'positive case: reinfbarrel:diamond_barrel top open',
+        name: 'positive case: reinfbarrel:diamond_barrel crafting',
         project: { namespace: 'reinfbarrel' },
         material: MaterialDiamondTexture,
-        expected: DiamondBarrelAdvancement,
+        expected: DiamondBarrelCraftingAdvancement,
+      },
+      {
+        name: 'positive case: reinfbarrel:netherite_barrel smithing',
+        project: { namespace: 'reinfbarrel' },
+        material: MaterialNetheriteTexture,
+        expected: NetheriteBarrelSmithingAdvancement,
       },
     ]
 
@@ -46,19 +53,19 @@ describe('BarrelAdvancementGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfbarrel:copper_barrel top',
+        name: 'positive case: reinfbarrel:copper_barrel crafting',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
         expected: 'data/reinfbarrel/advancements/recipes/decorations/copper_barrel.json',
       },
       {
-        name: 'positive case: reinfstorage:diamond_barrel top open',
+        name: 'positive case: reinfstorage:diamond_barrel crafting',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'data/reinfstorage/advancements/recipes/decorations/diamond_barrel.json',
       },
       {
-        name: 'positive case: exstorage',
+        name: 'positive case: exstorage:netherite_barrel smithing',
         project: { namespace: 'exstorage' },
         material: MaterialNetheriteTexture,
         expected: 'data/exstorage/advancements/recipes/decorations/netherite_barrel_smithing.json',

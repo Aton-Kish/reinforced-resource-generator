@@ -1,8 +1,9 @@
 import { MaterialCopperTexture, MaterialDiamondTexture, MaterialNetheriteTexture } from '@/assets/material'
 import { ChestRecipeGenerator } from '@/lib/recipe'
 
-import CopperChestRecipe from './data/reinfchest/copper_chest.json'
-import DiamondChestRecipe from './data/reinfchest/diamond_chest.json'
+import CopperChestCraftingRecipe from './data/reinfchest/copper_chest.json'
+import DiamondChestCraftingRecipe from './data/reinfchest/diamond_chest.json'
+import NetheriteChestSmithingRecipe from './data/reinfchest/netherite_chest_smithing.json'
 
 import type { ProjectConfig } from '@/lib/common'
 import type { Recipe } from '@/lib/recipe'
@@ -17,16 +18,22 @@ describe('ChestRecipeGenerator', () => {
       expected: Recipe
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest crafting',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
-        expected: CopperChestRecipe,
+        expected: CopperChestCraftingRecipe,
       },
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:diamond_chest crafting',
         project: { namespace: 'reinfchest' },
         material: MaterialDiamondTexture,
-        expected: DiamondChestRecipe,
+        expected: DiamondChestCraftingRecipe,
+      },
+      {
+        name: 'positive case: reinfchest:netherite_chest smithing',
+        project: { namespace: 'reinfchest' },
+        material: MaterialNetheriteTexture,
+        expected: NetheriteChestSmithingRecipe,
       },
     ]
 
@@ -46,19 +53,19 @@ describe('ChestRecipeGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest crafting',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: 'data/recipes/copper_chest.json',
       },
       {
-        name: 'positive case: reinfstorage',
+        name: 'positive case: reinfstorage:diamond_chest crafting',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'data/recipes/diamond_chest.json',
       },
       {
-        name: 'positive case: exstorage',
+        name: 'positive case: exstorage:netherite_chest smithing',
         project: { namespace: 'exstorage' },
         material: MaterialNetheriteTexture,
         expected: 'data/recipes/netherite_chest_smithing.json',

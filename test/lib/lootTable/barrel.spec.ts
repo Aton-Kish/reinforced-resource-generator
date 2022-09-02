@@ -17,13 +17,13 @@ describe('BarrelLootTableGenerator', () => {
       expected: LootTable
     }[] = [
       {
-        name: 'positive case: reinfbarrel:copper_barrel top',
+        name: 'positive case: reinfbarrel:copper_barrel',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
         expected: CopperBarrelLootTable,
       },
       {
-        name: 'positive case: reinfbarrel:diamond_barrel top open',
+        name: 'positive case: reinfbarrel:diamond_barrel',
         project: { namespace: 'reinfbarrel' },
         material: MaterialDiamondTexture,
         expected: DiamondBarrelLootTable,
@@ -46,13 +46,13 @@ describe('BarrelLootTableGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfbarrel:copper_barrel top',
+        name: 'positive case: reinfbarrel:copper_barrel',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
         expected: 'data/reinfbarrel/loot_tables/blocks/copper_barrel.json',
       },
       {
-        name: 'positive case: reinfstorage:diamond_barrel top open',
+        name: 'positive case: reinfstorage:diamond_barrel',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'data/reinfstorage/loot_tables/blocks/diamond_barrel.json',

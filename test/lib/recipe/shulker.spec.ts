@@ -25,7 +25,7 @@ describe('ShulkerRecipeGenerator', () => {
       expected: Recipe
     }[] = [
       {
-        name: 'positive case: reinfshulker:copper_shulker_box',
+        name: 'positive case: reinfshulker:copper_shulker_box crafting',
         project: { namespace: 'reinfshulker' },
         chestProject: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
@@ -34,7 +34,7 @@ describe('ShulkerRecipeGenerator', () => {
         expected: CopperShulkerBoxCraftingRecipe,
       },
       {
-        name: 'positive case: reinfshulker:gray_diamond_shulker_box',
+        name: 'positive case: reinfshulker:gray_diamond_shulker_box crafting',
         project: { namespace: 'reinfshulker' },
         chestProject: { namespace: 'reinfchest' },
         material: MaterialDiamondTexture,
@@ -43,7 +43,7 @@ describe('ShulkerRecipeGenerator', () => {
         expected: GrayDiamondShulkerBoxCraftingRecipe,
       },
       {
-        name: 'positive case: reinfshulker:light_gray_netherite_shulker_box',
+        name: 'positive case: reinfshulker:light_gray_netherite_shulker_box smithing',
         project: { namespace: 'reinfshulker' },
         chestProject: { namespace: 'reinfchest' },
         material: MaterialNetheriteTexture,
@@ -96,7 +96,7 @@ describe('ShulkerRecipeGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfshulker:copper_shulker_box',
+        name: 'positive case: reinfshulker:copper_shulker_box crafting',
         project: { namespace: 'reinfshulker' },
         chestProject: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
@@ -105,7 +105,7 @@ describe('ShulkerRecipeGenerator', () => {
         expected: 'data/recipes/copper_shulker_box.json',
       },
       {
-        name: 'positive case: reinfstorage:gray_diamond_shulker_box',
+        name: 'positive case: reinfstorage:gray_diamond_shulker_box crafting',
         project: { namespace: 'reinfstorage' },
         chestProject: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
@@ -114,7 +114,7 @@ describe('ShulkerRecipeGenerator', () => {
         expected: 'data/recipes/gray_diamond_shulker_box.json',
       },
       {
-        name: 'positive case: exstorage:light_gray_netherite_shulker_box',
+        name: 'positive case: exstorage:light_gray_netherite_shulker_box smithing',
         project: { namespace: 'exstorage' },
         chestProject: { namespace: 'exstorage' },
         material: MaterialNetheriteTexture,

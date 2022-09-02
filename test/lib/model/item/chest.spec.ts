@@ -17,13 +17,13 @@ describe('ChestItemModelGenerator', () => {
       expected: ItemModel
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: CopperChestItemModel,
       },
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:diamond_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialDiamondTexture,
         expected: DiamondChestItemModel,
@@ -46,13 +46,13 @@ describe('ChestItemModelGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: 'assets/reinfchest/models/item/copper_chest.json',
       },
       {
-        name: 'positive case: reinfstorage',
+        name: 'positive case: reinfstorage:diamond_chest',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'assets/reinfstorage/models/item/diamond_chest.json',

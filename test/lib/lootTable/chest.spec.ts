@@ -17,13 +17,13 @@ describe('ChestLootTableGenerator', () => {
       expected: LootTable
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: CopperChestLootTable,
       },
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:diamond_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialDiamondTexture,
         expected: DiamondChestLootTable,
@@ -46,13 +46,13 @@ describe('ChestLootTableGenerator', () => {
       expected: string
     }[] = [
       {
-        name: 'positive case: reinfchest',
+        name: 'positive case: reinfchest:copper_chest',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: 'data/reinfchest/loot_tables/blocks/copper_chest.json',
       },
       {
-        name: 'positive case: reinfstorage',
+        name: 'positive case: reinfstorage:diamond_chest',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         expected: 'data/reinfstorage/loot_tables/blocks/diamond_chest.json',
