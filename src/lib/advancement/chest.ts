@@ -66,7 +66,7 @@ export class ChestAdvancementGenerator implements AdvancementGenerator {
   }
 
   path(): string {
-    return `data/advancements/recipes/decorations/${this.#material.name}_chest${
+    return `data/${this.#project.namespace}/advancements/recipes/decorations/${this.#material.name}_chest${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
   }

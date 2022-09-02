@@ -66,7 +66,7 @@ export class BarrelAdvancementGenerator implements AdvancementGenerator {
   }
 
   path(): string {
-    return `data/advancements/recipes/decorations/${this.#material.name}_barrel${
+    return `data/${this.#project.namespace}/advancements/recipes/decorations/${this.#material.name}_barrel${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
   }
