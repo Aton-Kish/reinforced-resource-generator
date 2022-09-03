@@ -1,0 +1,22 @@
+{
+  "container.reinfshulker.copperShulkerBox": "Copper Shulker Box",
+  "block.reinfshulker.copper_shulker_box": "Copper Shulker Box",
+  "block.reinfshulker.white_copper_shulker_box": "White Copper Shulker Box",
+  "block.reinfshulker.orange_copper_shulker_box": "Orange Copper Shulker Box",
+  "block.reinfshulker.magenta_copper_shulker_box": "Magenta Copper Shulker Box",
+  "block.reinfshulker.light_blue_copper_shulker_box": "Light Blue Copper Shulker Box",
+  "block.reinfshulker.yellow_copper_shulker_box": "Yellow Copper Shulker Box",
+  "block.reinfshulker.lime_copper_shulker_box": "Lime Copper Shulker Box",
+  "block.reinfshulker.pink_copper_shulker_box": "Pink Copper Shulker Box",
+  "block.reinfshulker.gray_copper_shulker_box": "Gray Copper Shulker Box",
+  "block.reinfshulker.light_gray_copper_shulker_box": "Light Gray Copper Shulker Box",
+  "block.reinfshulker.cyan_copper_shulker_box": "Cyan Copper Shulker Box",
+  "block.reinfshulker.purple_copper_shulker_box": "Purple Copper Shulker Box",
+  "block.reinfshulker.blue_copper_shulker_box": "Blue Copper Shulker Box",
+  "block.reinfshulker.brown_copper_shulker_box": "Brown Copper Shulker Box",
+  "block.reinfshulker.green_copper_shulker_box": "Green Copper Shulker Box",
+  "block.reinfshulker.red_copper_shulker_box": "Red Copper Shulker Box",
+  "block.reinfshulker.black_copper_shulker_box": "Black Copper Shulker Box",
+  "stat.reinfshulker.clean_copper_shulker_box": "Copper Shulker Boxes Cleaned",
+  "stat.reinfshulker.open_copper_shulker_box": "Copper Shulker Boxes Opened"
+}
