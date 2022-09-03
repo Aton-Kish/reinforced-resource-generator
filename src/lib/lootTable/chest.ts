@@ -1,14 +1,17 @@
 import { ProjectConfig } from '@/lib/common'
 
-import type { LootTable, LootTableGenerator } from './common'
-import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
+import { LootTableGenerator } from './common'
 
-export class ChestLootTableGenerator implements LootTableGenerator {
+import type { LootTable } from './common'
+import type { MaterialTexture } from '@/lib/texture'
+
+export class ChestLootTableGenerator extends LootTableGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -37,19 +40,5 @@ export class ChestLootTableGenerator implements LootTableGenerator {
 
   path(): string {
     return `data/${this.#project.namespace}/loot_tables/blocks/${this.#material.name}_chest.json`
-  }
-
-  zipSync(zip: JSZip): JSZip {
-    const path = this.path()
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const table = this.generate()
-    const data = JSON.stringify(table, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 }

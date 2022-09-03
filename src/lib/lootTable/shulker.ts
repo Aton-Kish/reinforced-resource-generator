@@ -1,15 +1,17 @@
 import { ProjectConfig, ShulkerType } from '@/lib/common'
 
-import { LootTable, LootTableGenerator } from './common'
+import { LootTableGenerator } from './common'
+import { LootTable } from './common'
 
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerLootTableGenerator implements LootTableGenerator {
+export class ShulkerLootTableGenerator extends LootTableGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -69,19 +71,5 @@ export class ShulkerLootTableGenerator implements LootTableGenerator {
     return `data/${this.#project.namespace}/loot_tables/blocks/${type === ShulkerType.Default ? '' : `${type}_`}${
       this.#material.name
     }_shulker_box.json`
-  }
-
-  zipSync(zip: JSZip, type: ShulkerType): JSZip {
-    const path = this.path(type)
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const table = this.generate(type)
-    const data = JSON.stringify(table, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 }
