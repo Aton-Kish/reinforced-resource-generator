@@ -21,19 +21,18 @@ import {
 } from '@/assets/shulker'
 import { ShulkerType } from '@/lib/common'
 
+import { TextureGenerator } from './common'
 import { Material9 } from './material'
 
-import type { TextureGenerator } from './common'
 import type { MaterialTexture } from './material'
 import type { ProjectConfig } from '@/lib/common'
-import type JSZip from 'jszip'
 
 export interface ShulkerTexture {
   type: ShulkerType
   src: string
 }
 
-export class ShulkerTextureGenerator implements TextureGenerator {
+export class ShulkerTextureGenerator extends TextureGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -41,6 +40,8 @@ export class ShulkerTextureGenerator implements TextureGenerator {
   #material9?: Material9
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -139,22 +140,6 @@ export class ShulkerTextureGenerator implements TextureGenerator {
     return `assets/${this.#project.namespace}/textures/entity/reinforced_shulker/${this.#material.name}/shulker${
       type === ShulkerType.Default ? '' : `_${type}`
     }.png`
-  }
-
-  async zipAsync(zip: JSZip, type: ShulkerType): Promise<JSZip> {
-    const path = this.path(type)
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const image = this.generate(type)
-    const data = await image
-      .getBase64Async(Jimp.MIME_PNG)
-      .then((data) => data.substring('data:image/png;base64,'.length))
-
-    zip.file(path, data, { base64: true })
-
-    return zip
   }
 
   #topInnerMask(): Jimp {

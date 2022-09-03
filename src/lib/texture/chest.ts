@@ -3,12 +3,11 @@ import Jimp from 'jimp'
 import { ChestLeftTexture, ChestRightTexture, ChestSingleTexture } from '@/assets/chest'
 import { ChestType } from '@/lib/common'
 
+import { TextureGenerator } from './common'
 import { Material9 } from './material'
 
-import type { TextureGenerator } from './common'
 import type { MaterialTexture } from './material'
 import type { ProjectConfig } from '@/lib/common'
-import type JSZip from 'jszip'
 
 const ShadowColor = {
   Inner: Jimp.rgbaToInt(0, 0, 0, 153),
@@ -21,7 +20,7 @@ export interface ChestTexture {
   src: string
 }
 
-export class ChestTextureGenerator implements TextureGenerator {
+export class ChestTextureGenerator extends TextureGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -29,6 +28,8 @@ export class ChestTextureGenerator implements TextureGenerator {
   #material9?: Material9
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -72,22 +73,6 @@ export class ChestTextureGenerator implements TextureGenerator {
 
   path(type: ChestType): string {
     return `assets/${this.#project.namespace}/textures/entity/reinforced_chest/${this.#material.name}/${type}.png`
-  }
-
-  async zipAsync(zip: JSZip, type: ChestType): Promise<JSZip> {
-    const path = this.path(type)
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const image = this.generate(type)
-    const data = await image
-      .getBase64Async(Jimp.MIME_PNG)
-      .then((data) => data.substring('data:image/png;base64,'.length))
-
-    zip.file(path, data, { base64: true })
-
-    return zip
   }
 
   #single(): Jimp {
