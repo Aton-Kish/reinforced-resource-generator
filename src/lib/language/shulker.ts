@@ -2,15 +2,18 @@ import capitalize from 'capitalize'
 
 import { ProjectConfig, ShulkerType } from '@/lib/common'
 
-import type { Language, LanguageGenerator } from './common'
-import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
+import { LanguageGenerator } from './common'
 
-export class ShulkerLanguageGenerator implements LanguageGenerator {
+import type { Language } from './common'
+import type { MaterialTexture } from '@/lib/texture'
+
+export class ShulkerLanguageGenerator extends LanguageGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -49,19 +52,5 @@ export class ShulkerLanguageGenerator implements LanguageGenerator {
 
   path(): string {
     return `assets/${this.#project.namespace}/lang/en_us.json`
-  }
-
-  zipSync(zip: JSZip): JSZip {
-    const path = this.path()
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const lang = this.generate()
-    const data = JSON.stringify(lang, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 }
