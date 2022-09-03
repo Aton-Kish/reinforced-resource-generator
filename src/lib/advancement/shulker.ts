@@ -1,16 +1,18 @@
 import { ProjectConfig, RecipeType, ShulkerType, ShulkerUpgradeFrom } from '@/lib/common'
 
-import { Advancement, AdvancementGenerator } from './common'
+import { AdvancementGenerator } from './common'
 
+import type { Advancement } from './common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerAdvancementGenerator implements AdvancementGenerator {
+export class ShulkerAdvancementGenerator extends AdvancementGenerator {
   #project: ProjectConfig
   #chestProject: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, chestProject: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#chestProject = chestProject
     this.#material = material
@@ -36,20 +38,6 @@ export class ShulkerAdvancementGenerator implements AdvancementGenerator {
           this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
         }.json`
     }
-  }
-
-  zipSync(zip: JSZip, from: ShulkerUpgradeFrom): JSZip {
-    const path = this.path(from)
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const advancement = this.generate(from)
-    const data = JSON.stringify(advancement, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 
   #fromChest(): Advancement {

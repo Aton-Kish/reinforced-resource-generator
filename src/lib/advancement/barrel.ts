@@ -1,14 +1,17 @@
 import { ProjectConfig, RecipeType } from '@/lib/common'
 
-import type { Advancement, AdvancementGenerator } from './common'
-import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
+import { AdvancementGenerator } from './common'
 
-export class BarrelAdvancementGenerator implements AdvancementGenerator {
+import type { Advancement } from './common'
+import type { MaterialTexture } from '@/lib/texture'
+
+export class BarrelAdvancementGenerator extends AdvancementGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -69,19 +72,5 @@ export class BarrelAdvancementGenerator implements AdvancementGenerator {
     return `data/${this.#project.namespace}/advancements/recipes/decorations/${this.#material.name}_barrel${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
-  }
-
-  zipSync(zip: JSZip): JSZip {
-    const path = this.path()
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const advancement = this.generate()
-    const data = JSON.stringify(advancement, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 }
