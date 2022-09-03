@@ -1,16 +1,18 @@
 import { ProjectConfig, RecipeType, ShulkerType, ShulkerUpgradeFrom } from '@/lib/common'
 
-import { Recipe, RecipeGenerator } from './common'
+import { RecipeGenerator } from './common'
 
+import type { Recipe } from './common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerRecipeGenerator implements RecipeGenerator {
+export class ShulkerRecipeGenerator extends RecipeGenerator {
   #project: ProjectConfig
   #chestProject: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, chestProject: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#chestProject = chestProject
     this.#material = material
@@ -47,20 +49,6 @@ export class ShulkerRecipeGenerator implements RecipeGenerator {
           this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
         }.json`
     }
-  }
-
-  zipSync(zip: JSZip, from: ShulkerUpgradeFrom, type?: ShulkerType): JSZip {
-    const path = this.path(from, type)
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const recipe = this.generate(from, type)
-    const data = JSON.stringify(recipe, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 
   #craftingFromChest(): Recipe {

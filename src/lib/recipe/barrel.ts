@@ -1,14 +1,17 @@
 import { ProjectConfig, RecipeType } from '@/lib/common'
 
-import type { Recipe, RecipeGenerator } from './common'
-import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
+import { RecipeGenerator } from './common'
 
-export class BarrelRecipeGenerator implements RecipeGenerator {
+import type { Recipe } from './common'
+import type { MaterialTexture } from '@/lib/texture'
+
+export class BarrelRecipeGenerator extends RecipeGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -26,20 +29,6 @@ export class BarrelRecipeGenerator implements RecipeGenerator {
     return `data/recipes/${this.#material.name}_barrel${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
-  }
-
-  zipSync(zip: JSZip): JSZip {
-    const path = this.path()
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const recipe = this.generate()
-    const data = JSON.stringify(recipe, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 
   #crafting(): Recipe {
