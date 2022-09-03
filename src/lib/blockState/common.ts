@@ -22,19 +22,19 @@ export abstract class BlockStateGenerator {
     }
     options = options ?? arg2
 
-    let advancement: BlockState
+    let blockState: BlockState
     const path = this.path(type)
     if (path in zip.files) {
       if (!(options?.extend ?? false)) {
         throw new Error(`file already exists: ${path}`)
       }
 
-      advancement = merge(JSON.parse(await zip.file(path)!.async('string')) as BlockState, this.generate(type))
+      blockState = merge(JSON.parse(await zip.file(path)!.async('string')) as BlockState, this.generate(type))
     } else {
-      advancement = this.generate(type)
+      blockState = this.generate(type)
     }
 
-    const data = JSON.stringify(advancement, null, 2)
+    const data = JSON.stringify(blockState, null, 2)
     zip.file(path, data)
 
     return zip
