@@ -1,13 +1,16 @@
-import type { BlockState, BlockStateGenerator } from './common'
+import { BlockStateGenerator } from './common'
+
+import type { BlockState } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class BarrelBlockStateGenerator implements BlockStateGenerator {
+export class BarrelBlockStateGenerator extends BlockStateGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -75,19 +78,5 @@ export class BarrelBlockStateGenerator implements BlockStateGenerator {
 
   path(): string {
     return `assets/${this.#project.namespace}/blockstates/${this.#material.name}_barrel.json`
-  }
-
-  zipSync(zip: JSZip): JSZip {
-    const path = this.path()
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const state = this.generate()
-    const data = JSON.stringify(state, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 }

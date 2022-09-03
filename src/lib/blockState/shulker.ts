@@ -1,15 +1,18 @@
 import { ShulkerType } from '@/lib/common'
 
-import type { BlockState, BlockStateGenerator } from './common'
+import { BlockStateGenerator } from './common'
+
+import type { BlockState } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerBlockStateGenerator implements BlockStateGenerator {
+export class ShulkerBlockStateGenerator extends BlockStateGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -32,19 +35,5 @@ export class ShulkerBlockStateGenerator implements BlockStateGenerator {
     return `assets/${this.#project.namespace}/blockstates/${type === ShulkerType.Default ? '' : `${type}_`}${
       this.#material.name
     }_shulker_box.json`
-  }
-
-  zipSync(zip: JSZip, type: ShulkerType): JSZip {
-    const path = this.path(type)
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const state = this.generate(type)
-    const data = JSON.stringify(state, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 }
