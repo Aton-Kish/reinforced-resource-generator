@@ -59,19 +59,19 @@ describe('BarrelRecipeGenerator', () => {
         name: 'positive case: reinfbarrel:copper_barrel crafting',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
-        expected: 'data/recipes/copper_barrel.json',
+        expected: 'data/reinfbarrel/recipes/copper_barrel.json',
       },
       {
         name: 'positive case: reinfstorage:diamond_barrel crafting',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
-        expected: 'data/recipes/diamond_barrel.json',
+        expected: 'data/reinfstorage/recipes/diamond_barrel.json',
       },
       {
         name: 'positive case: exstorage:netherite_barrel smithing',
         project: { namespace: 'exstorage' },
         material: MaterialNetheriteTexture,
-        expected: 'data/recipes/netherite_barrel_smithing.json',
+        expected: 'data/exstorage/recipes/netherite_barrel_smithing.json',
       },
     ]
 
@@ -98,7 +98,7 @@ describe('BarrelRecipeGenerator', () => {
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
         expected: {
-          path: 'data/recipes/copper_barrel.json',
+          path: 'data/reinfbarrel/recipes/copper_barrel.json',
           data: CopperBarrelCraftingRecipe,
         },
       },
@@ -107,7 +107,7 @@ describe('BarrelRecipeGenerator', () => {
         project: { namespace: 'reinfbarrel' },
         material: MaterialDiamondTexture,
         expected: {
-          path: 'data/recipes/diamond_barrel.json',
+          path: 'data/reinfbarrel/recipes/diamond_barrel.json',
           data: DiamondBarrelCraftingRecipe,
         },
       },
@@ -116,7 +116,7 @@ describe('BarrelRecipeGenerator', () => {
         project: { namespace: 'reinfbarrel' },
         material: MaterialNetheriteTexture,
         expected: {
-          path: 'data/recipes/netherite_barrel_smithing.json',
+          path: 'data/reinfbarrel/recipes/netherite_barrel_smithing.json',
           data: NetheriteBarrelSmithingRecipe,
         },
       },

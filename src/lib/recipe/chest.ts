@@ -26,7 +26,7 @@ export class ChestRecipeGenerator extends RecipeGenerator {
   }
 
   path(): string {
-    return `data/recipes/${this.#material.name}_chest${
+    return `data/${this.#project.namespace}/recipes/${this.#material.name}_chest${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
   }

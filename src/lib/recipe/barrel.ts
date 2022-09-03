@@ -26,7 +26,7 @@ export class BarrelRecipeGenerator extends RecipeGenerator {
   }
 
   path(): string {
-    return `data/recipes/${this.#material.name}_barrel${
+    return `data/${this.#project.namespace}/recipes/${this.#material.name}_barrel${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
   }

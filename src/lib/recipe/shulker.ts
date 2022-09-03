@@ -39,15 +39,17 @@ export class ShulkerRecipeGenerator extends RecipeGenerator {
   path(from: ShulkerUpgradeFrom, type?: ShulkerType): string {
     switch (from) {
       case ShulkerUpgradeFrom.Chest:
-        return `data/recipes/${this.#material.name}_shulker_box_from_${this.#material.name}_chest.json`
+        return `data/${this.#project.namespace}/recipes/${this.#material.name}_shulker_box_from_${
+          this.#material.name
+        }_chest.json`
       case ShulkerUpgradeFrom.Shulker:
         if (type == null) {
           throw new Error('type argument is required')
         }
 
-        return `data/recipes/${type === ShulkerType.Default ? '' : `${type}_`}${this.#material.name}_shulker_box${
-          this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
-        }.json`
+        return `data/${this.#project.namespace}/recipes/${type === ShulkerType.Default ? '' : `${type}_`}${
+          this.#material.name
+        }_shulker_box${this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''}.json`
     }
   }
 

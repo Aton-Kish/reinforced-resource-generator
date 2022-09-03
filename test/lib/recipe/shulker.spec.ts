@@ -105,7 +105,7 @@ describe('ShulkerRecipeGenerator', () => {
         material: MaterialCopperTexture,
         from: ShulkerUpgradeFrom.Shulker,
         type: ShulkerType.Default,
-        expected: 'data/recipes/copper_shulker_box.json',
+        expected: 'data/reinfshulker/recipes/copper_shulker_box.json',
       },
       {
         name: 'positive case: reinfstorage:gray_diamond_shulker_box crafting',
@@ -114,7 +114,7 @@ describe('ShulkerRecipeGenerator', () => {
         material: MaterialDiamondTexture,
         from: ShulkerUpgradeFrom.Shulker,
         type: ShulkerType.Gray,
-        expected: 'data/recipes/gray_diamond_shulker_box.json',
+        expected: 'data/reinfstorage/recipes/gray_diamond_shulker_box.json',
       },
       {
         name: 'positive case: exstorage:light_gray_netherite_shulker_box smithing',
@@ -123,7 +123,7 @@ describe('ShulkerRecipeGenerator', () => {
         material: MaterialNetheriteTexture,
         from: ShulkerUpgradeFrom.Shulker,
         type: ShulkerType.LightGray,
-        expected: 'data/recipes/light_gray_netherite_shulker_box_smithing.json',
+        expected: 'data/exstorage/recipes/light_gray_netherite_shulker_box_smithing.json',
       },
       {
         name: 'positive case: reinfshulker:copper_shulker_box from reinfchest:copper_chest',
@@ -131,7 +131,7 @@ describe('ShulkerRecipeGenerator', () => {
         chestProject: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         from: ShulkerUpgradeFrom.Chest,
-        expected: 'data/recipes/copper_shulker_box_from_copper_chest.json',
+        expected: 'data/reinfshulker/recipes/copper_shulker_box_from_copper_chest.json',
       },
       {
         name: 'positive case: reinfstorage:diamond_shulker_box from reinfstorage:diamond_chest',
@@ -139,7 +139,7 @@ describe('ShulkerRecipeGenerator', () => {
         chestProject: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
         from: ShulkerUpgradeFrom.Chest,
-        expected: 'data/recipes/diamond_shulker_box_from_diamond_chest.json',
+        expected: 'data/reinfstorage/recipes/diamond_shulker_box_from_diamond_chest.json',
       },
       {
         name: 'positive case: exstorage:netherite_shulker_box from exstorage:netherite_chest',
@@ -147,7 +147,7 @@ describe('ShulkerRecipeGenerator', () => {
         chestProject: { namespace: 'exstorage' },
         material: MaterialNetheriteTexture,
         from: ShulkerUpgradeFrom.Chest,
-        expected: 'data/recipes/netherite_shulker_box_from_netherite_chest.json',
+        expected: 'data/exstorage/recipes/netherite_shulker_box_from_netherite_chest.json',
       },
     ]
 
@@ -180,7 +180,7 @@ describe('ShulkerRecipeGenerator', () => {
         from: ShulkerUpgradeFrom.Shulker,
         type: ShulkerType.Default,
         expected: {
-          path: 'data/recipes/copper_shulker_box.json',
+          path: 'data/reinfshulker/recipes/copper_shulker_box.json',
           data: CopperShulkerBoxCraftingRecipe,
         },
       },
@@ -192,7 +192,7 @@ describe('ShulkerRecipeGenerator', () => {
         from: ShulkerUpgradeFrom.Shulker,
         type: ShulkerType.Gray,
         expected: {
-          path: 'data/recipes/gray_diamond_shulker_box.json',
+          path: 'data/reinfshulker/recipes/gray_diamond_shulker_box.json',
           data: GrayDiamondShulkerBoxCraftingRecipe,
         },
       },
@@ -204,7 +204,7 @@ describe('ShulkerRecipeGenerator', () => {
         from: ShulkerUpgradeFrom.Shulker,
         type: ShulkerType.LightGray,
         expected: {
-          path: 'data/recipes/light_gray_netherite_shulker_box_smithing.json',
+          path: 'data/reinfshulker/recipes/light_gray_netherite_shulker_box_smithing.json',
           data: LightGrayNetheriteShulkerBoxSmithingRecipe,
         },
       },
@@ -215,7 +215,7 @@ describe('ShulkerRecipeGenerator', () => {
         material: MaterialCopperTexture,
         from: ShulkerUpgradeFrom.Chest,
         expected: {
-          path: 'data/recipes/copper_shulker_box_from_copper_chest.json',
+          path: 'data/reinfshulker/recipes/copper_shulker_box_from_copper_chest.json',
           data: CopperShulkerBoxFromChestRecipe,
         },
       },
@@ -226,7 +226,7 @@ describe('ShulkerRecipeGenerator', () => {
         material: MaterialDiamondTexture,
         from: ShulkerUpgradeFrom.Chest,
         expected: {
-          path: 'data/recipes/diamond_shulker_box_from_diamond_chest.json',
+          path: 'data/reinfshulker/recipes/diamond_shulker_box_from_diamond_chest.json',
           data: DiamondShulkerBoxFromChestRecipe,
         },
       },
@@ -237,7 +237,7 @@ describe('ShulkerRecipeGenerator', () => {
         material: MaterialNetheriteTexture,
         from: ShulkerUpgradeFrom.Chest,
         expected: {
-          path: 'data/recipes/netherite_shulker_box_from_netherite_chest.json',
+          path: 'data/reinfshulker/recipes/netherite_shulker_box_from_netherite_chest.json',
           data: NetheriteShulkerBoxFromChestRecipe,
         },
       },

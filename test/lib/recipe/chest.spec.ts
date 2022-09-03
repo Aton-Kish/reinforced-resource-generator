@@ -59,19 +59,19 @@ describe('ChestRecipeGenerator', () => {
         name: 'positive case: reinfchest:copper_chest crafting',
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
-        expected: 'data/recipes/copper_chest.json',
+        expected: 'data/reinfchest/recipes/copper_chest.json',
       },
       {
         name: 'positive case: reinfstorage:diamond_chest crafting',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
-        expected: 'data/recipes/diamond_chest.json',
+        expected: 'data/reinfstorage/recipes/diamond_chest.json',
       },
       {
         name: 'positive case: exstorage:netherite_chest smithing',
         project: { namespace: 'exstorage' },
         material: MaterialNetheriteTexture,
-        expected: 'data/recipes/netherite_chest_smithing.json',
+        expected: 'data/exstorage/recipes/netherite_chest_smithing.json',
       },
     ]
 
@@ -98,7 +98,7 @@ describe('ChestRecipeGenerator', () => {
         project: { namespace: 'reinfchest' },
         material: MaterialCopperTexture,
         expected: {
-          path: 'data/recipes/copper_chest.json',
+          path: 'data/reinfchest/recipes/copper_chest.json',
           data: CopperChestCraftingRecipe,
         },
       },
@@ -107,7 +107,7 @@ describe('ChestRecipeGenerator', () => {
         project: { namespace: 'reinfchest' },
         material: MaterialDiamondTexture,
         expected: {
-          path: 'data/recipes/diamond_chest.json',
+          path: 'data/reinfchest/recipes/diamond_chest.json',
           data: DiamondChestCraftingRecipe,
         },
       },
@@ -116,7 +116,7 @@ describe('ChestRecipeGenerator', () => {
         project: { namespace: 'reinfchest' },
         material: MaterialNetheriteTexture,
         expected: {
-          path: 'data/recipes/netherite_chest_smithing.json',
+          path: 'data/reinfchest/recipes/netherite_chest_smithing.json',
           data: NetheriteChestSmithingRecipe,
         },
       },
