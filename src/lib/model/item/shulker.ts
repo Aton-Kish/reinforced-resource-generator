@@ -1,15 +1,18 @@
 import { ShulkerType } from '@/lib/common'
 
-import type { ItemModel, ItemModelGenerator } from './common'
+import { ItemModelGenerator } from './common'
+
+import type { ItemModel } from './common'
 import type { ProjectConfig } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerItemModelGenerator implements ItemModelGenerator {
+export class ShulkerItemModelGenerator extends ItemModelGenerator {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
+    super()
+
     this.#project = project
     this.#material = material
   }
@@ -29,19 +32,5 @@ export class ShulkerItemModelGenerator implements ItemModelGenerator {
     return `assets/${this.#project.namespace}/models/item/${type === ShulkerType.Default ? '' : `${type}_`}${
       this.#material.name
     }_shulker_box.json`
-  }
-
-  zipSync(zip: JSZip, type: ShulkerType): JSZip {
-    const path = this.path(type)
-    if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
-    }
-
-    const model = this.generate(type)
-    const data = JSON.stringify(model, null, 2)
-
-    zip.file(path, data)
-
-    return zip
   }
 }
