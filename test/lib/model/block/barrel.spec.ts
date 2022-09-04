@@ -1,8 +1,7 @@
 import JSZip from 'jszip'
 
 import { MaterialCopperTexture, MaterialDiamondTexture } from '@/assets/material'
-import { BarrelType } from '@/lib/common'
-import { BarrelBlockModelGenerator } from '@/lib/model/block'
+import { BarrelBlockModelGenerator, BlockModelBarrelType } from '@/lib/model/block'
 
 import CopperBarrelBlockModel from './data/reinfbarrel/copper_barrel.json'
 import DiamondBarrelOpenBlockModel from './data/reinfbarrel/diamond_barrel_open.json'
@@ -18,21 +17,21 @@ describe('BarrelBlockModelGenerator', () => {
       name: string
       project: ProjectConfig
       material: MaterialTexture
-      type: BarrelType
+      type: BlockModelBarrelType
       expected: BlockModel
     }[] = [
       {
         name: 'positive case: reinfbarrel:copper_barrel top',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
-        type: BarrelType.Top,
+        type: BlockModelBarrelType.Top,
         expected: CopperBarrelBlockModel,
       },
       {
         name: 'positive case: reinfbarrel:diamond_barrel top open',
         project: { namespace: 'reinfbarrel' },
         material: MaterialDiamondTexture,
-        type: BarrelType.TopOpen,
+        type: BlockModelBarrelType.TopOpen,
         expected: DiamondBarrelOpenBlockModel,
       },
     ]
@@ -43,36 +42,6 @@ describe('BarrelBlockModelGenerator', () => {
       const actual = generator.generate(type)
       expect(actual).toStrictEqual(expected)
     })
-
-    const negativeCases: {
-      name: string
-      project: ProjectConfig
-      material: MaterialTexture
-      type: BarrelType
-      expected: Error
-    }[] = [
-      {
-        name: 'negative case: reinfbarrel:copper_barrel side',
-        project: { namespace: 'reinfbarrel' },
-        material: MaterialCopperTexture,
-        type: BarrelType.Side,
-        expected: new Error('invalid barrel type'),
-      },
-      {
-        name: 'negative case: reinfstorage:diamond_barrel bottom',
-        project: { namespace: 'reinfstorage' },
-        material: MaterialDiamondTexture,
-        type: BarrelType.Bottom,
-        expected: new Error('invalid barrel type'),
-      },
-    ]
-
-    it.each(negativeCases)('$name', ({ project, material, type, expected }) => {
-      const generator = new BarrelBlockModelGenerator(project, material)
-
-      expect(() => generator.generate(type)).toThrow(expected.constructor as Constructable<Error>)
-      expect(() => generator.generate(type)).toThrow(expected)
-    })
   })
 
   describe('path()', () => {
@@ -80,21 +49,21 @@ describe('BarrelBlockModelGenerator', () => {
       name: string
       project: ProjectConfig
       material: MaterialTexture
-      type: BarrelType
+      type: BlockModelBarrelType
       expected: string
     }[] = [
       {
         name: 'positive case: reinfbarrel:copper_barrel top',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
-        type: BarrelType.Top,
+        type: BlockModelBarrelType.Top,
         expected: 'assets/reinfbarrel/models/block/copper_barrel.json',
       },
       {
         name: 'positive case: reinfstorage:diamond_barrel top open',
         project: { namespace: 'reinfstorage' },
         material: MaterialDiamondTexture,
-        type: BarrelType.TopOpen,
+        type: BlockModelBarrelType.TopOpen,
         expected: 'assets/reinfstorage/models/block/diamond_barrel_open.json',
       },
     ]
@@ -105,36 +74,6 @@ describe('BarrelBlockModelGenerator', () => {
       const actual = generator.path(type)
       expect(actual).toBe(expected)
     })
-
-    const negativeCases: {
-      name: string
-      project: ProjectConfig
-      material: MaterialTexture
-      type: BarrelType
-      expected: Error
-    }[] = [
-      {
-        name: 'negative case: reinfbarrel:copper_barrel side',
-        project: { namespace: 'reinfbarrel' },
-        material: MaterialCopperTexture,
-        type: BarrelType.Side,
-        expected: new Error('invalid barrel type'),
-      },
-      {
-        name: 'negative case: reinfstorage:diamond_barrel bottom',
-        project: { namespace: 'reinfstorage' },
-        material: MaterialDiamondTexture,
-        type: BarrelType.Bottom,
-        expected: new Error('invalid barrel type'),
-      },
-    ]
-
-    it.each(negativeCases)('$name', ({ project, material, type, expected }) => {
-      const generator = new BarrelBlockModelGenerator(project, material)
-
-      expect(() => generator.path(type)).toThrow(expected.constructor as Constructable<Error>)
-      expect(() => generator.path(type)).toThrow(expected)
-    })
   })
 
   describe('async zip()', () => {
@@ -142,7 +81,7 @@ describe('BarrelBlockModelGenerator', () => {
       name: string
       project: ProjectConfig
       material: MaterialTexture
-      type: BarrelType
+      type: BlockModelBarrelType
       expected: {
         path: string
         data: BlockModel
@@ -152,7 +91,7 @@ describe('BarrelBlockModelGenerator', () => {
         name: 'positive case: reinfbarrel:copper_barrel top',
         project: { namespace: 'reinfbarrel' },
         material: MaterialCopperTexture,
-        type: BarrelType.Top,
+        type: BlockModelBarrelType.Top,
         expected: {
           path: 'assets/reinfbarrel/models/block/copper_barrel.json',
           data: CopperBarrelBlockModel,
@@ -162,7 +101,7 @@ describe('BarrelBlockModelGenerator', () => {
         name: 'positive case: reinfbarrel:diamond_barrel top open',
         project: { namespace: 'reinfbarrel' },
         material: MaterialDiamondTexture,
-        type: BarrelType.TopOpen,
+        type: BlockModelBarrelType.TopOpen,
         expected: {
           path: 'assets/reinfbarrel/models/block/diamond_barrel_open.json',
           data: DiamondBarrelOpenBlockModel,
@@ -180,41 +119,10 @@ describe('BarrelBlockModelGenerator', () => {
       expect(JSON.parse(await actual.file(expected.path)!.async('string'))).toStrictEqual(expected.data)
     })
 
-    const negativeCases: {
-      name: string
-      project: ProjectConfig
-      material: MaterialTexture
-      type: BarrelType
-      expected: Error
-    }[] = [
-      {
-        name: 'negative case: reinfbarrel:copper_barrel side',
-        project: { namespace: 'reinfbarrel' },
-        material: MaterialCopperTexture,
-        type: BarrelType.Side,
-        expected: new Error('invalid barrel type'),
-      },
-      {
-        name: 'negative case: reinfbarrel:diamond_barrel bottom',
-        project: { namespace: 'reinfbarrel' },
-        material: MaterialDiamondTexture,
-        type: BarrelType.Bottom,
-        expected: new Error('invalid barrel type'),
-      },
-    ]
-
-    it.each(negativeCases)('$name', async ({ project, material, type, expected }) => {
-      const generator = new BarrelBlockModelGenerator(project, material)
-
-      const zip = new JSZip()
-      expect(async () => await generator.zip(zip, type)).rejects.toThrow(expected.constructor as Constructable<Error>)
-      expect(async () => await generator.zip(zip, type)).rejects.toThrow(expected)
-    })
-
     it('negative case', async () => {
       const project: ProjectConfig = { namespace: 'reinfchest' }
       const material = MaterialCopperTexture
-      const type = BarrelType.Top
+      const type = BlockModelBarrelType.Top
       const generator = new BarrelBlockModelGenerator(project, material)
 
       const zip = await generator.zip(new JSZip(), type)
