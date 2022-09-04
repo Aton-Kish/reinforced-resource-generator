@@ -1,11 +1,11 @@
-import type { BarrelType, ShulkerType } from '@/lib/common'
-import type JSZip from 'jszip'
+import { BarrelType } from '@/lib/common'
 
-export interface BlockModelGenerator {
-  generate(type?: ShulkerType | BarrelType): BlockModel
-  path(type?: ShulkerType | BarrelType): string
-  zipSync(zip: JSZip, type?: ShulkerType | BarrelType): JSZip
-}
+export const BlockModelBarrelType = {
+  Top: BarrelType.Top,
+  TopOpen: BarrelType.TopOpen,
+} as const
+
+export type BlockModelBarrelType = typeof BlockModelBarrelType[keyof typeof BlockModelBarrelType]
 
 export interface BlockModel {
   parent?: string

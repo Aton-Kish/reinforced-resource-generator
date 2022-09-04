@@ -1,9 +1,12 @@
+import JSZip from 'jszip'
+
 import { MaterialCopperTexture, MaterialDiamondTexture } from '@/assets/material'
 import { ChestLootTableGenerator } from '@/lib/lootTable'
 
 import CopperChestLootTable from './data/reinfchest/copper_chest.json'
 import DiamondChestLootTable from './data/reinfchest/diamond_chest.json'
 
+import type { Constructable } from '#/types'
 import type { ProjectConfig } from '@/lib/common'
 import type { LootTable } from '@/lib/lootTable'
 import type { MaterialTexture } from '@/lib/texture'
@@ -64,6 +67,58 @@ describe('ChestLootTableGenerator', () => {
 
       const actual = generator.path()
       expect(actual).toBe(expected)
+    })
+  })
+
+  describe('async zip()', () => {
+    const positiveCases: {
+      name: string
+      project: ProjectConfig
+      material: MaterialTexture
+      expected: {
+        path: string
+        data: LootTable
+      }
+    }[] = [
+      {
+        name: 'positive case: reinfchest:copper_chest',
+        project: { namespace: 'reinfchest' },
+        material: MaterialCopperTexture,
+        expected: {
+          path: 'data/reinfchest/loot_tables/blocks/copper_chest.json',
+          data: CopperChestLootTable,
+        },
+      },
+      {
+        name: 'positive case: reinfchest:diamond_chest',
+        project: { namespace: 'reinfchest' },
+        material: MaterialDiamondTexture,
+        expected: {
+          path: 'data/reinfchest/loot_tables/blocks/diamond_chest.json',
+          data: DiamondChestLootTable,
+        },
+      },
+    ]
+
+    it.each(positiveCases)('$name', async ({ project, material, expected }) => {
+      const generator = new ChestLootTableGenerator(project, material)
+
+      const zip = new JSZip()
+
+      const actual = await generator.zip(zip)
+      expect(Object.keys(actual.files)).toContain(expected.path)
+      expect(JSON.parse(await actual.file(expected.path)!.async('string'))).toStrictEqual(expected.data)
+    })
+
+    it('negative case: already exists', async () => {
+      const project: ProjectConfig = { namespace: 'reinfchest' }
+      const material = MaterialCopperTexture
+      const generator = new ChestLootTableGenerator(project, material)
+
+      const zip = await generator.zip(new JSZip())
+      const expected = new Error(`file already exists: ${generator.path()}`)
+      expect(async () => await generator.zip(zip)).rejects.toThrow(expected.constructor as Constructable<Error>)
+      expect(async () => await generator.zip(zip)).rejects.toThrow(expected)
     })
   })
 })

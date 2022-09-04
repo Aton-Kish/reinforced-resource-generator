@@ -1,14 +1,13 @@
 import Jimp from 'jimp'
+import JSZip from 'jszip'
 
 import { BarrelBottomTexture, BarrelSideTexture, BarrelTopOpenTexture, BarrelTopTexture } from '@/assets/barrel'
 import { BarrelType } from '@/lib/common'
 
 import { Material9 } from './material'
 
-import type { TextureGenerator } from './common'
 import type { MaterialTexture } from './material'
-import type { ProjectConfig } from '@/lib/common'
-import type JSZip from 'jszip'
+import type { Generator, ProjectConfig } from '@/lib/common'
 
 const ShadowColor = {
   OuterMain: Jimp.rgbaToInt(0, 0, 0, 65),
@@ -24,7 +23,7 @@ export interface BarrelTexture {
   src: string
 }
 
-export class BarrelTextureGenerator implements TextureGenerator {
+export class BarrelTextureGenerator implements Generator<Jimp> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -80,14 +79,14 @@ export class BarrelTextureGenerator implements TextureGenerator {
     return `assets/${this.#project.namespace}/textures/block/${this.#material.name}_barrel_${type}.png`
   }
 
-  async zipAsync(zip: JSZip, type: BarrelType): Promise<JSZip> {
+  async zip(zip: JSZip, type: BarrelType): Promise<JSZip> {
     const path = this.path(type)
     if (path in zip.files) {
       throw new Error(`file already exists: ${path}`)
     }
 
-    const image = this.generate(type)
-    const data = await image
+    const jimp = this.generate(type)
+    const data = await jimp
       .getBase64Async(Jimp.MIME_PNG)
       .then((data) => data.substring('data:image/png;base64,'.length))
 

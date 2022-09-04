@@ -1,11 +1,13 @@
-import { ProjectConfig, ShulkerType } from '@/lib/common'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-import { LootTable, LootTableGenerator } from './common'
+import { ShulkerType } from '@/lib/common'
 
+import type { LootTable } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerLootTableGenerator implements LootTableGenerator {
+export class ShulkerLootTableGenerator implements Generator<LootTable> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -71,15 +73,20 @@ export class ShulkerLootTableGenerator implements LootTableGenerator {
     }_shulker_box.json`
   }
 
-  zipSync(zip: JSZip, type: ShulkerType): JSZip {
+  async zip(zip: JSZip, type: ShulkerType, options?: ZipOptions): Promise<JSZip> {
+    let lootTable: LootTable
     const path = this.path(type)
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      lootTable = merge(JSON.parse(await zip.file(path)!.async('string')) as LootTable, this.generate(type))
+    } else {
+      lootTable = this.generate(type)
     }
 
-    const table = this.generate(type)
-    const data = JSON.stringify(table, null, 2)
-
+    const data = JSON.stringify(lootTable, null, 2)
     zip.file(path, data)
 
     return zip

@@ -1,13 +1,3 @@
-import { ShulkerUpgradeFrom } from '../common'
-
-import type JSZip from 'jszip'
-
-export interface AdvancementGenerator {
-  generate(from?: ShulkerUpgradeFrom): Advancement
-  path(from?: ShulkerUpgradeFrom): string
-  zipSync(zip: JSZip, from?: ShulkerUpgradeFrom): JSZip
-}
-
 export interface Advancement {
   parent: string
   rewards: {

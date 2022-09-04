@@ -1,9 +1,11 @@
-import type { BlockState, BlockStateGenerator } from './common'
-import type { ProjectConfig } from '@/lib/common'
-import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-export class BarrelBlockStateGenerator implements BlockStateGenerator {
+import type { BlockState } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
+import type { MaterialTexture } from '@/lib/texture'
+
+export class BarrelBlockStateGenerator implements Generator<BlockState> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -77,15 +79,20 @@ export class BarrelBlockStateGenerator implements BlockStateGenerator {
     return `assets/${this.#project.namespace}/blockstates/${this.#material.name}_barrel.json`
   }
 
-  zipSync(zip: JSZip): JSZip {
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let blockState: BlockState
     const path = this.path()
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      blockState = merge(JSON.parse(await zip.file(path)!.async('string')) as BlockState, this.generate())
+    } else {
+      blockState = this.generate()
     }
 
-    const state = this.generate()
-    const data = JSON.stringify(state, null, 2)
-
+    const data = JSON.stringify(blockState, null, 2)
     zip.file(path, data)
 
     return zip

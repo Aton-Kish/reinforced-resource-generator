@@ -1,10 +1,13 @@
-import { ProjectConfig, RecipeType } from '@/lib/common'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-import type { Recipe, RecipeGenerator } from './common'
+import { RecipeType } from '@/lib/common'
+
+import type { Recipe } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class BarrelRecipeGenerator implements RecipeGenerator {
+export class BarrelRecipeGenerator implements Generator<Recipe> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -23,20 +26,25 @@ export class BarrelRecipeGenerator implements RecipeGenerator {
   }
 
   path(): string {
-    return `data/recipes/${this.#material.name}_barrel${
+    return `data/${this.#project.namespace}/recipes/${this.#material.name}_barrel${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
   }
 
-  zipSync(zip: JSZip): JSZip {
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let recipe: Recipe
     const path = this.path()
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      recipe = merge(JSON.parse(await zip.file(path)!.async('string')) as Recipe, this.generate())
+    } else {
+      recipe = this.generate()
     }
 
-    const recipe = this.generate()
     const data = JSON.stringify(recipe, null, 2)
-
     zip.file(path, data)
 
     return zip

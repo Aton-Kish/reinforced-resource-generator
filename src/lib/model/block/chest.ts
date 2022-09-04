@@ -1,9 +1,11 @@
-import type { BlockModel, BlockModelGenerator } from './common'
-import type { ProjectConfig } from '@/lib/common'
-import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-export class ChestBlockModelGenerator implements BlockModelGenerator {
+import type { BlockModel } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
+import type { MaterialTexture } from '@/lib/texture'
+
+export class ChestBlockModelGenerator implements Generator<BlockModel> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -26,15 +28,20 @@ export class ChestBlockModelGenerator implements BlockModelGenerator {
     return `assets/${this.#project.namespace}/models/block/${this.#material.name}_chest.json`
   }
 
-  zipSync(zip: JSZip): JSZip {
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let blockModel: BlockModel
     const path = this.path()
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      blockModel = merge(JSON.parse(await zip.file(path)!.async('string')) as BlockModel, this.generate())
+    } else {
+      blockModel = this.generate()
     }
 
-    const model = this.generate()
-    const data = JSON.stringify(model, null, 2)
-
+    const data = JSON.stringify(blockModel, null, 2)
     zip.file(path, data)
 
     return zip

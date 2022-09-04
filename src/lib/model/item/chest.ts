@@ -1,9 +1,11 @@
-import type { ItemModel, ItemModelGenerator } from './common'
-import type { ProjectConfig } from '@/lib/common'
-import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-export class ChestItemModelGenerator implements ItemModelGenerator {
+import type { ItemModel } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
+import type { MaterialTexture } from '@/lib/texture'
+
+export class ChestItemModelGenerator implements Generator<ItemModel> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -59,15 +61,20 @@ export class ChestItemModelGenerator implements ItemModelGenerator {
     return `assets/${this.#project.namespace}/models/item/${this.#material.name}_chest.json`
   }
 
-  zipSync(zip: JSZip): JSZip {
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let itemModel: ItemModel
     const path = this.path()
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      itemModel = merge(JSON.parse(await zip.file(path)!.async('string')) as ItemModel, this.generate())
+    } else {
+      itemModel = this.generate()
     }
 
-    const model = this.generate()
-    const data = JSON.stringify(model, null, 2)
-
+    const data = JSON.stringify(itemModel, null, 2)
     zip.file(path, data)
 
     return zip

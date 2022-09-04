@@ -1,11 +1,13 @@
-import { ProjectConfig, RecipeType, ShulkerType, ShulkerUpgradeFrom } from '@/lib/common'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-import { Advancement, AdvancementGenerator } from './common'
+import { RecipeType, ShulkerType, ShulkerUpgradeFrom } from '@/lib/common'
 
+import type { Advancement } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerAdvancementGenerator implements AdvancementGenerator {
+export class ShulkerAdvancementGenerator implements Generator<Advancement> {
   #project: ProjectConfig
   #chestProject: ProjectConfig
   #material: MaterialTexture
@@ -38,15 +40,20 @@ export class ShulkerAdvancementGenerator implements AdvancementGenerator {
     }
   }
 
-  zipSync(zip: JSZip, from: ShulkerUpgradeFrom): JSZip {
+  async zip(zip: JSZip, from: ShulkerUpgradeFrom, options?: ZipOptions): Promise<JSZip> {
+    let advancement: Advancement
     const path = this.path(from)
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      advancement = merge(JSON.parse(await zip.file(path)!.async('string')) as Advancement, this.generate(from))
+    } else {
+      advancement = this.generate(from)
     }
 
-    const advancement = this.generate(from)
     const data = JSON.stringify(advancement, null, 2)
-
     zip.file(path, data)
 
     return zip

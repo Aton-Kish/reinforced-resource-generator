@@ -1,13 +1,3 @@
-import { ShulkerType } from '../common'
-
-import type JSZip from 'jszip'
-
-export interface LootTableGenerator {
-  generate(type?: ShulkerType): LootTable
-  path(type?: ShulkerType): string
-  zipSync(zip: JSZip, type?: ShulkerType): JSZip
-}
-
 export interface LootTable {
   type: string
   pools: LootTablePool[]

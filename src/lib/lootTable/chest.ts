@@ -1,10 +1,11 @@
-import { ProjectConfig } from '@/lib/common'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-import type { LootTable, LootTableGenerator } from './common'
+import type { LootTable } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ChestLootTableGenerator implements LootTableGenerator {
+export class ChestLootTableGenerator implements Generator<LootTable> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -39,15 +40,20 @@ export class ChestLootTableGenerator implements LootTableGenerator {
     return `data/${this.#project.namespace}/loot_tables/blocks/${this.#material.name}_chest.json`
   }
 
-  zipSync(zip: JSZip): JSZip {
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let lootTable: LootTable
     const path = this.path()
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      lootTable = merge(JSON.parse(await zip.file(path)!.async('string')) as LootTable, this.generate())
+    } else {
+      lootTable = this.generate()
     }
 
-    const table = this.generate()
-    const data = JSON.stringify(table, null, 2)
-
+    const data = JSON.stringify(lootTable, null, 2)
     zip.file(path, data)
 
     return zip

@@ -1,11 +1,13 @@
+import JSZip from 'jszip'
+import { merge } from 'lodash'
+
 import { ShulkerType } from '@/lib/common'
 
-import type { ItemModel, ItemModelGenerator } from './common'
-import type { ProjectConfig } from '@/lib/common'
+import type { ItemModel } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerItemModelGenerator implements ItemModelGenerator {
+export class ShulkerItemModelGenerator implements Generator<ItemModel> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -31,15 +33,20 @@ export class ShulkerItemModelGenerator implements ItemModelGenerator {
     }_shulker_box.json`
   }
 
-  zipSync(zip: JSZip, type: ShulkerType): JSZip {
+  async zip(zip: JSZip, type: ShulkerType, options?: ZipOptions): Promise<JSZip> {
+    let itemModel: ItemModel
     const path = this.path(type)
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      itemModel = merge(JSON.parse(await zip.file(path)!.async('string')) as ItemModel, this.generate(type))
+    } else {
+      itemModel = this.generate(type)
     }
 
-    const model = this.generate(type)
-    const data = JSON.stringify(model, null, 2)
-
+    const data = JSON.stringify(itemModel, null, 2)
     zip.file(path, data)
 
     return zip

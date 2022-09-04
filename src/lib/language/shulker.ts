@@ -1,12 +1,14 @@
 import capitalize from 'capitalize'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-import { ProjectConfig, ShulkerType } from '@/lib/common'
+import { ShulkerType } from '@/lib/common'
 
-import type { Language, LanguageGenerator } from './common'
+import type { Language } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class ShulkerLanguageGenerator implements LanguageGenerator {
+export class ShulkerLanguageGenerator implements Generator<Language> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -51,15 +53,20 @@ export class ShulkerLanguageGenerator implements LanguageGenerator {
     return `assets/${this.#project.namespace}/lang/en_us.json`
   }
 
-  zipSync(zip: JSZip): JSZip {
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let lang: Language
     const path = this.path()
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? true)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      lang = merge(JSON.parse(await zip.file(path)!.async('string')) as Language, this.generate())
+    } else {
+      lang = this.generate()
     }
 
-    const lang = this.generate()
     const data = JSON.stringify(lang, null, 2)
-
     zip.file(path, data)
 
     return zip

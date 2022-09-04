@@ -1,11 +1,13 @@
-import { BarrelType } from '@/lib/common'
+import JSZip from 'jszip'
+import { merge } from 'lodash'
 
-import type { BlockModel, BlockModelGenerator } from './common'
-import type { ProjectConfig } from '@/lib/common'
+import { BlockModelBarrelType } from './common'
+
+import type { BlockModel } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
-import type JSZip from 'jszip'
 
-export class BarrelBlockModelGenerator implements BlockModelGenerator {
+export class BarrelBlockModelGenerator implements Generator<BlockModel> {
   #project: ProjectConfig
   #material: MaterialTexture
 
@@ -14,37 +16,38 @@ export class BarrelBlockModelGenerator implements BlockModelGenerator {
     this.#material = material
   }
 
-  generate(type: BarrelType): BlockModel {
+  generate(type: BlockModelBarrelType): BlockModel {
     switch (type) {
-      case BarrelType.Top:
+      case BlockModelBarrelType.Top:
         return this.#top()
-      case BarrelType.TopOpen:
+      case BlockModelBarrelType.TopOpen:
         return this.#topOpen()
-      default:
-        throw new Error('invalid barrel type')
     }
   }
 
-  path(type: BarrelType): string {
+  path(type: BlockModelBarrelType): string {
     switch (type) {
-      case BarrelType.Top:
+      case BlockModelBarrelType.Top:
         return `assets/${this.#project.namespace}/models/block/${this.#material.name}_barrel.json`
-      case BarrelType.TopOpen:
+      case BlockModelBarrelType.TopOpen:
         return `assets/${this.#project.namespace}/models/block/${this.#material.name}_barrel_open.json`
-      default:
-        throw new Error('invalid barrel type')
     }
   }
 
-  zipSync(zip: JSZip, type: BarrelType): JSZip {
+  async zip(zip: JSZip, type: BlockModelBarrelType, options?: ZipOptions): Promise<JSZip> {
+    let blockModel: BlockModel
     const path = this.path(type)
     if (path in zip.files) {
-      throw new Error(`file already exists: ${path}`)
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      blockModel = merge(JSON.parse(await zip.file(path)!.async('string')) as BlockModel, this.generate(type))
+    } else {
+      blockModel = this.generate(type)
     }
 
-    const model = this.generate(type)
-    const data = JSON.stringify(model, null, 2)
-
+    const data = JSON.stringify(blockModel, null, 2)
     zip.file(path, data)
 
     return zip

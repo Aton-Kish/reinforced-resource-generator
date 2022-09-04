@@ -1,0 +1,22 @@
+{
+  "container.reinfshulker.diamondShulkerBox": "Diamond Shulker Box",
+  "block.reinfshulker.diamond_shulker_box": "Diamond Shulker Box",
+  "block.reinfshulker.white_diamond_shulker_box": "White Diamond Shulker Box",
+  "block.reinfshulker.orange_diamond_shulker_box": "Orange Diamond Shulker Box",
+  "block.reinfshulker.magenta_diamond_shulker_box": "Magenta Diamond Shulker Box",
+  "block.reinfshulker.light_blue_diamond_shulker_box": "Light Blue Diamond Shulker Box",
+  "block.reinfshulker.yellow_diamond_shulker_box": "Yellow Diamond Shulker Box",
+  "block.reinfshulker.lime_diamond_shulker_box": "Lime Diamond Shulker Box",
+  "block.reinfshulker.pink_diamond_shulker_box": "Pink Diamond Shulker Box",
+  "block.reinfshulker.gray_diamond_shulker_box": "Gray Diamond Shulker Box",
+  "block.reinfshulker.light_gray_diamond_shulker_box": "Light Gray Diamond Shulker Box",
+  "block.reinfshulker.cyan_diamond_shulker_box": "Cyan Diamond Shulker Box",
+  "block.reinfshulker.purple_diamond_shulker_box": "Purple Diamond Shulker Box",
+  "block.reinfshulker.blue_diamond_shulker_box": "Blue Diamond Shulker Box",
+  "block.reinfshulker.brown_diamond_shulker_box": "Brown Diamond Shulker Box",
+  "block.reinfshulker.green_diamond_shulker_box": "Green Diamond Shulker Box",
+  "block.reinfshulker.red_diamond_shulker_box": "Red Diamond Shulker Box",
+  "block.reinfshulker.black_diamond_shulker_box": "Black Diamond Shulker Box",
+  "stat.reinfshulker.clean_diamond_shulker_box": "Diamond Shulker Boxes Cleaned",
+  "stat.reinfshulker.open_diamond_shulker_box": "Diamond Shulker Boxes Opened"
+}
