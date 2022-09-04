@@ -163,7 +163,7 @@ describe('ShulkerLanguageGenerator', () => {
       expect(JSON.parse(await actual.file(expected.path)!.async('string'))).toStrictEqual(expected.data)
     })
 
-    it('negative case', async () => {
+    it('negative case: already exists', async () => {
       const project: ProjectConfig = { namespace: 'reinfshulker' }
       const material: MaterialTexture = MaterialCopperTexture
       const generator = new ShulkerLanguageGenerator(project, material)

@@ -163,7 +163,7 @@ describe('ChestLanguageGenerator', () => {
       expect(JSON.parse(await actual.file(expected.path)!.async('string'))).toStrictEqual(expected.data)
     })
 
-    it('negative case', async () => {
+    it('negative case: already exists', async () => {
       const project: ProjectConfig = { namespace: 'reinfchest' }
       const material: MaterialTexture = MaterialCopperTexture
       const generator = new ChestLanguageGenerator(project, material)

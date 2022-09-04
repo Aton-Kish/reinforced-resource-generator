@@ -110,7 +110,7 @@ describe('BarrelItemModelGenerator', () => {
       expect(JSON.parse(await actual.file(expected.path)!.async('string'))).toStrictEqual(expected.data)
     })
 
-    it('negative case', async () => {
+    it('negative case: already exists', async () => {
       const project: ProjectConfig = { namespace: 'reinfchest' }
       const material = MaterialCopperTexture
       const generator = new BarrelItemModelGenerator(project, material)
