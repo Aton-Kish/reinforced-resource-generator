@@ -1,16 +1,15 @@
-import { ItemModelGenerator } from './common'
+import JSZip from 'jszip'
+import merge from 'ts-deepmerge'
 
 import type { ItemModel } from './common'
-import type { ProjectConfig } from '@/lib/common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
 
-export class ChestItemModelGenerator extends ItemModelGenerator {
+export class ChestItemModelGenerator implements Generator<ItemModel> {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
-    super()
-
     this.#project = project
     this.#material = material
   }
@@ -60,5 +59,24 @@ export class ChestItemModelGenerator extends ItemModelGenerator {
 
   path(): string {
     return `assets/${this.#project.namespace}/models/item/${this.#material.name}_chest.json`
+  }
+
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let itemModel: ItemModel
+    const path = this.path()
+    if (path in zip.files) {
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      itemModel = merge(JSON.parse(await zip.file(path)!.async('string')) as ItemModel, this.generate())
+    } else {
+      itemModel = this.generate()
+    }
+
+    const data = JSON.stringify(itemModel, null, 2)
+    zip.file(path, data)
+
+    return zip
   }
 }

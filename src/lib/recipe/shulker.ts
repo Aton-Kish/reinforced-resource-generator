@@ -1,18 +1,18 @@
-import { ProjectConfig, RecipeType, ShulkerType, ShulkerUpgradeFrom } from '@/lib/common'
+import JSZip from 'jszip'
+import merge from 'ts-deepmerge'
 
-import { RecipeGenerator } from './common'
+import { RecipeType, ShulkerType, ShulkerUpgradeFrom } from '@/lib/common'
 
 import type { Recipe } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
 
-export class ShulkerRecipeGenerator extends RecipeGenerator {
+export class ShulkerRecipeGenerator implements Generator<Recipe> {
   #project: ProjectConfig
   #chestProject: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, chestProject: ProjectConfig, material: MaterialTexture) {
-    super()
-
     this.#project = project
     this.#chestProject = chestProject
     this.#material = material
@@ -51,6 +51,38 @@ export class ShulkerRecipeGenerator extends RecipeGenerator {
           this.#material.name
         }_shulker_box${this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''}.json`
     }
+  }
+
+  async zip(zip: JSZip, from: ShulkerUpgradeFrom, options?: ZipOptions): Promise<JSZip>
+  async zip(zip: JSZip, from: ShulkerUpgradeFrom, type: ShulkerType, options?: ZipOptions): Promise<JSZip>
+  async zip(zip: JSZip, from: ShulkerUpgradeFrom, arg1?: ShulkerType | ZipOptions, arg2?: ZipOptions): Promise<JSZip> {
+    const isShulker = (arg?: ShulkerType | ZipOptions): arg is ShulkerType => typeof arg === 'string'
+
+    let type: ShulkerType | undefined
+    let options: ZipOptions | undefined
+    if (isShulker(arg1)) {
+      type = arg1
+    } else {
+      options = arg1
+    }
+    options = options ?? arg2
+
+    let recipe: Recipe
+    const path = this.path(from, type)
+    if (path in zip.files) {
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      recipe = merge(JSON.parse(await zip.file(path)!.async('string')) as Recipe, this.generate(from, type))
+    } else {
+      recipe = this.generate(from, type)
+    }
+
+    const data = JSON.stringify(recipe, null, 2)
+    zip.file(path, data)
+
+    return zip
   }
 
   #craftingFromChest(): Recipe {

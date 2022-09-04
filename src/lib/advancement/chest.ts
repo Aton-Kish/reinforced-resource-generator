@@ -1,17 +1,17 @@
-import { ProjectConfig, RecipeType } from '@/lib/common'
+import JSZip from 'jszip'
+import merge from 'ts-deepmerge'
 
-import { AdvancementGenerator } from './common'
+import { RecipeType } from '@/lib/common'
 
 import type { Advancement } from './common'
+import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'
 import type { MaterialTexture } from '@/lib/texture'
 
-export class ChestAdvancementGenerator extends AdvancementGenerator {
+export class ChestAdvancementGenerator implements Generator<Advancement> {
   #project: ProjectConfig
   #material: MaterialTexture
 
   constructor(project: ProjectConfig, material: MaterialTexture) {
-    super()
-
     this.#project = project
     this.#material = material
   }
@@ -72,5 +72,24 @@ export class ChestAdvancementGenerator extends AdvancementGenerator {
     return `data/${this.#project.namespace}/advancements/recipes/decorations/${this.#material.name}_chest${
       this.#material.recipeType === RecipeType.Smithing ? '_smithing' : ''
     }.json`
+  }
+
+  async zip(zip: JSZip, options?: ZipOptions): Promise<JSZip> {
+    let advancement: Advancement
+    const path = this.path()
+    if (path in zip.files) {
+      if (!(options?.extend ?? false)) {
+        throw new Error(`file already exists: ${path}`)
+      }
+
+      advancement = merge(JSON.parse(await zip.file(path)!.async('string')) as Advancement, this.generate())
+    } else {
+      advancement = this.generate()
+    }
+
+    const data = JSON.stringify(advancement, null, 2)
+    zip.file(path, data)
+
+    return zip
   }
 }
