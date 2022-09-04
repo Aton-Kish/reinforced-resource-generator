@@ -1,5 +1,5 @@
 import JSZip from 'jszip'
-import merge from 'ts-deepmerge'
+import { merge } from 'lodash'
 
 import { RecipeType } from '@/lib/common'
 

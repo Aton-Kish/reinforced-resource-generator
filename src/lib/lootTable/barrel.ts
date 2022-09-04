@@ -1,5 +1,5 @@
 import JSZip from 'jszip'
-import merge from 'ts-deepmerge'
+import { merge } from 'lodash'
 
 import type { LootTable } from './common'
 import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'

@@ -1,6 +1,6 @@
 import capitalize from 'capitalize'
 import JSZip from 'jszip'
-import merge from 'ts-deepmerge'
+import { merge } from 'lodash'
 
 import type { Language } from './common'
 import type { Generator, ProjectConfig, ZipOptions } from '@/lib/common'

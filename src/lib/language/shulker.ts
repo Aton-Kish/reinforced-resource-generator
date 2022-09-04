@@ -1,6 +1,6 @@
 import capitalize from 'capitalize'
 import JSZip from 'jszip'
-import merge from 'ts-deepmerge'
+import { merge } from 'lodash'
 
 import { ShulkerType } from '@/lib/common'
 
