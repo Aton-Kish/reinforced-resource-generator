@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/reinforced-resource-generator/static/css/main.7bcf7181.css",
-    "main.js": "/reinforced-resource-generator/static/js/main.550123d9.js",
+    "main.css": "/reinforced-resource-generator/static/css/main.f6996eea.css",
+    "main.js": "/reinforced-resource-generator/static/js/main.dac4c1ef.js",
     "static/js/787.6afd5a6d.chunk.js": "/reinforced-resource-generator/static/js/787.6afd5a6d.chunk.js",
     "static/media/image-q.cjs": "/reinforced-resource-generator/static/media/image-q.b0256d32a181944cff59.cjs",
     "index.html": "/reinforced-resource-generator/index.html",
-    "main.7bcf7181.css.map": "/reinforced-resource-generator/static/css/main.7bcf7181.css.map",
-    "main.550123d9.js.map": "/reinforced-resource-generator/static/js/main.550123d9.js.map",
+    "main.f6996eea.css.map": "/reinforced-resource-generator/static/css/main.f6996eea.css.map",
+    "main.dac4c1ef.js.map": "/reinforced-resource-generator/static/js/main.dac4c1ef.js.map",
     "787.6afd5a6d.chunk.js.map": "/reinforced-resource-generator/static/js/787.6afd5a6d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7bcf7181.css",
-    "static/js/main.550123d9.js"
+    "static/css/main.f6996eea.css",
+    "static/js/main.dac4c1ef.js"
   ]
 }
